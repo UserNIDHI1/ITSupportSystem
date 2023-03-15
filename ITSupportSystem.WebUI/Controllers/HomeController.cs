@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ITSupportSystem.Core1.Contracts;
+using ITSupportSystem.Core1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace ITSupportSystem.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
