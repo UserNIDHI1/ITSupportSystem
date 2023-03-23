@@ -38,7 +38,7 @@ namespace ITSupportSystem.Services
 
         public RoleViewModel GetRole(Guid Id)
         {
-            var role = roleRepository.Find(Id);
+            Role role = roleRepository.Find(Id);
             RoleViewModel roleViewModel = new RoleViewModel();
             roleViewModel.Id = role.Id;
             roleViewModel.Name = role.Name;
@@ -53,7 +53,7 @@ namespace ITSupportSystem.Services
 
         public void RemoveRole(RoleViewModel model)
         {
-            var role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            Role role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             role.IsDeleted = true;
             roleRepository.Update(role);
             roleRepository.commit();
@@ -61,7 +61,7 @@ namespace ITSupportSystem.Services
 
         public void UpdateRole(RoleViewModel model)
         {
-            var role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            Role role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             role.Name = model.Name;
             role.Code = model.Code;
             role.UpdatedOn = DateTime.Now;

@@ -1,0 +1,78 @@
+﻿@model ITSupportSystem.Core1.ViewModel.CommonLookUpViewModel
+
+<div class="modal fade" id="editmodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CommonLookUpModalLabel">CommonLookUp</h5>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="modal-body">
+                    <form id="commonlookupform" name="editform">
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br /><br /><br />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br /><br />
+                    </form>
+                </div>
+
+                <div class="modal-footer" style="text-align:center">
+                    <button type="button" id="saveButton" class="btn btn-primary" onclick="editpost()">Save Changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@Styles.Render("~/Content/demo.css")
+<script>
+   function editpost() {
+       var modal = $('#editmodal');
+       var form = $('form[name="editform"]');
+
+       var model = form.serialize();
+       $.post("/CommonLookUp/Edit", model, function (res) {
+            if (res) {
+                location.reload();
+            }
+        })
+   }
+</script>

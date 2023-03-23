@@ -61,6 +61,10 @@
     <Compile Include="Migrations\202303141014435_change.designer.cs">
       <DependentUpon>202303141014435_change.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303170853093_common.cs" />
+    <Compile Include="Migrations\202303170853093_common.designer.cs">
+      <DependentUpon>202303170853093_common.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
@@ -80,9 +84,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202303130923040_User.resx">
       <DependentUpon>202303130923040_User.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303141014435_change.resx">
       <DependentUpon>202303141014435_change.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303170853093_common.resx">
+      <DependentUpon>202303170853093_common.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,7 +16,6 @@ namespace ITSupportSystem.Core1.Contracts
         T Find(Guid Id);
         void Insert(T t);
         void Update(T t);
-        //void commit();
         
     }
 }

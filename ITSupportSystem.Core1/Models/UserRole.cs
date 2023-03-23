@@ -12,11 +12,5 @@ namespace ITSupportSystem.Core1.Models
     {
         public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
-
-
-        //[ForeignKey("UserId")]
-        //public Users User { get; set; }
-        //[ForeignKey("RoleId")]
-        //public Role Role { get; set; }
     }
 }

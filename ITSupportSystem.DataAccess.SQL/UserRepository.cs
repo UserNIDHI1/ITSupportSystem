@@ -1,5 +1,6 @@
 ﻿using ITSupportSystem.Core1.Contracts;
 using ITSupportSystem.Core1.Models;
+using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.DataAccess.SQL.Migrations;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace ITSupportSystem.DataAccess.SQL
     {
         internal DataContext contex;
         internal DbSet<Users> dbSet;
+        internal DbSet<UserRole> userroledbSet;
 
         public UserRepository()
         {
             contex = new DataContext();
             this.dbSet = contex.Set<Users>();
+            this.userroledbSet = contex.Set<UserRole>();
         }
 
         public IQueryable<Users> Collection()
@@ -43,6 +46,42 @@ namespace ITSupportSystem.DataAccess.SQL
         public Users Find(Guid Id)
         {
             return dbSet.Find(Id);
+        }
+
+        public UserViewModel Getuser(Guid Id)
+        {
+            var list = (from u in contex.User
+                        join ur in contex.UserRole on u.Id equals ur.UserId
+                        where !u.IsDeleted && !ur.IsDeleted && u.Id==Id
+                        select new UserViewModel()
+                        {
+                            Id = u.Id,
+                            Name = u.Name,
+                            Email = u.Email,
+                            RoleId = ur.RoleId,
+                     
+                            
+                        }
+                        ).FirstOrDefault();
+            return list;
+        }
+
+        public List<UserViewModel> GetUserList()
+        {
+            var result = (from u in contex.User
+                          join ur in contex.UserRole on u.Id equals ur.UserId
+                          join r in contex.Role on ur.RoleId equals r.Id
+                          where !u.IsDeleted && !ur.IsDeleted && !r.IsDeleted
+                          select new UserViewModel()
+                          {
+                              Id=u.Id,
+                              Name = u.Name,
+                              Email = u.Email,
+                              RoleId=ur.RoleId,
+                              RoleName = r.Name
+                          }
+                        ).ToList();
+            return result;
         }
 
         public void Insert(Users user)

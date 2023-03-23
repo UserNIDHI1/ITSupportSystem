@@ -24,6 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Modules", "Index", "Account")</li>
+                    <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>
 
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -42,3 +43,5 @@
 </body>
 </html>
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

@@ -40,9 +40,6 @@ namespace ITSupportSystem.WebUI.Controllers
             _roleServices.CreateRole(model);
             return RedirectToAction("Index");
         }
-
-
-
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleServices.GetRole(Id);
@@ -50,7 +47,6 @@ namespace ITSupportSystem.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-
             return View(role);
         }
 
@@ -60,7 +56,6 @@ namespace ITSupportSystem.WebUI.Controllers
             _roleServices.UpdateRole(model);
             return RedirectToAction("Index");
         }
-
 
         public ActionResult Delete(Guid Id)
         {

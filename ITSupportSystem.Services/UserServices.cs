@@ -11,20 +11,23 @@ using System.Threading.Tasks;
 namespace ITSupportSystem.Services
 {
     public interface IUserServices
-    {
+    { 
         void CreateUser(UserViewModel user);
-        List<Users> GetUserList();
+        List<UserViewModel> GetUserList();
         UserViewModel GetUser(Guid Id);
         void UpdateUser(UserViewModel model);
-        void RemoveUser(UserViewModel model);
+        void RemoveUser(Guid Id);
+
     }
     public class UserServices : IUserServices
     {
         IUserRepository userRepository;
+        IRepository<UserRole> _userrolerepository;
 
-        public UserServices(IUserRepository userRepository)
+        public UserServices(IUserRepository userRepository, IRepository<UserRole> userrolerepository)
         {
             this.userRepository = userRepository;
+            this._userrolerepository = userrolerepository;
         }
 
         public void CreateUser(UserViewModel user)
@@ -37,6 +40,24 @@ namespace ITSupportSystem.Services
             userRepository.commit();
         }
 
+        public void UpdateUser(UserViewModel model)
+        {
+            Users user = userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.UpdatedOn = DateTime.Now;
+            userRepository.Update(user);
+            userRepository.commit();
+
+            UserRole userrole = _userrolerepository.Collection().Where(x => x.UserId == model.Id).FirstOrDefault();
+            userrole.RoleId = model.RoleId;
+            userrole.UpdatedOn = DateTime.Now;
+            _userrolerepository.Update(userrole);
+            _userrolerepository.Commit();
+        }
+
+
+
         public UserViewModel GetUser(Guid Id)
         {
             Users user = userRepository.Find(Id);
@@ -48,33 +69,23 @@ namespace ITSupportSystem.Services
             return userViewModel;
         }
 
-        public List<Users> GetUserList()
+        public List<UserViewModel> GetUserList()
         {
-            //var query = from Users in userRepository.Collection()
-            //            select Users;
-            //var content = query.ToList<Users>();
-            //return content;
-            return userRepository.Collection().Where(x => !x.IsDeleted).ToList();
+            return userRepository.GetUserList();
         }
 
-        public void RemoveUser(UserViewModel model)
+        public void RemoveUser(Guid Id)
         {
-            Users user = userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            Users user = userRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
             user.IsDeleted = true;
             userRepository.Update(user);
             userRepository.commit();
-        }
-        
 
-        public void UpdateUser(UserViewModel model)
-        {
-            Users user = userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
-            user.Name = model.Name;
-            user.Email = model.Email;
-            user.Password = model.Password;
-            user.UpdatedOn = DateTime.Now;
-            userRepository.Update(user);
-            userRepository.commit();
+            UserRole userRole = _userrolerepository.Collection().Where(x => x.UserId == Id).FirstOrDefault();
+            userRole.IsDeleted = true;
+            _userrolerepository.Update(userRole);
+            _userrolerepository.Commit();
+
         }
     }
 }

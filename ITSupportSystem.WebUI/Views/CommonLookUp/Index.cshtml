@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ITSupportSystem.Core1.Models.CommonLookUp>
+
+<h2 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h2>
+
+<p>
+    <button type="button" class="btn btn-success" onclick="createcommonlookup()">Add New</button>
+</p>
+
+<div class="modal fade" id="deletemodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" style="text-align:center;color:green">ConfirmBox</h2>
+            </div>
+
+            <div class="modal-body">
+                <h3 style="text-align:center">Are you sure you want to delete?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <input type="hidden" id="hdnDeleteLookup" />
+                    <a id="btnsaveDelete" onclick="DeleteForm_Submit()" class="btn btn-primary mr-2">Delete</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btndeletecancle" class="btn btn-danger" data-dismiss="modal">Cancle</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            ConfigName
+        </th>
+        <th>
+            ConfigKey
+        </th>
+        <th>
+            ConfigValue
+        </th>
+        <th>
+            DisplayOrder
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Action
+        </th>
+        <th> </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ConfigName
+            </td>
+            <td>
+                @item.ConfigKey
+            </td>
+            <td>
+                @item.ConfigValue
+            </td>
+            <td>
+                @item.DisplayOrder
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
+                <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="modal">
+    <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")' />
+    <div class="modal" id="editmodal" data-url='@Url.Action("Edit","CommonLookUp")' />
+</div>
+
+
+@Styles.Render("~/Content/demo.css")
+<script>
+    function createcommonlookup() {
+        $.get({
+            url: '@Url.Action("Create","CommonLookUp")',
+            success: function (data) {
+                $("#modal").html(data);
+                $("#addmodal").modal('show');
+            }
+        });
+    }
+
+        function editcommonlookup(data) {
+            var obj = $(data).attr('id')
+        $.get({
+            url: '@Url.Action("Edit","CommonLookUp")',
+            data: {'id': obj},
+            success: function (data) {
+                $("#modal").html(data);
+                $("#editmodal").modal('show');
+            }
+        });
+    }
+
+    var mydelete = function (id) {
+        $("#deletemodal").modal('show');
+        $("#hdnDeleteLookup").val(id);
+    }
+
+
+    function DeleteForm_Submit() {
+        debugger
+        var id = $("#hdnDeleteLookup").val();
+        $.post({
+            url: '/CommonLookUp/Delete/' + id,
+            success: function () {
+                location.reload();
+            }
+        });
+    }
+</script>

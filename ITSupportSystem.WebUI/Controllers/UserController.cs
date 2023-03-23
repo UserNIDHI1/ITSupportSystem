@@ -14,19 +14,19 @@ namespace ITSupportSystem.WebUI.Controllers
     public class UserController : Controller
     {
 
-       UserServices _userServices;
-       RoleServices _roleServices;
+        UserServices _userServices;
+        RoleServices _roleServices;
 
         public UserController(UserServices userService, RoleServices roleServices)
-       {
+        {
             this._userServices = userService;
-            this._roleServices=roleServices;
+            this._roleServices = roleServices;
         }
 
-            // GET: User
+        // GET: User
         public ActionResult Index()
         {
-            List<Users> user = _userServices.GetUserList().ToList();
+            List<UserViewModel> user = _userServices.GetUserList().ToList();
             return View(user);
         }
 
@@ -38,6 +38,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 Id = x.Id,
                 Name = x.Name
             }).ToList();
+
             return View(user);
         }
 
@@ -52,13 +53,15 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             UserViewModel user = _userServices.GetUser(Id);
-            if (user == null)
+            user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
             {
-                return HttpNotFound();
-            }
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
 
             return View(user);
         }
+
 
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
@@ -80,9 +83,9 @@ namespace ITSupportSystem.WebUI.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelete(UserViewModel model)
+        public ActionResult ConfirmDelete(Guid Id)
         {
-            _userServices.RemoveUser(model);
+            _userServices.RemoveUser(Id);
             return RedirectToAction("Index");
         }
     }
