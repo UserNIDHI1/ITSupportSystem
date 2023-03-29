@@ -12,11 +12,12 @@ namespace ITSupportSystem.Services
 {
     public interface IRoleServices
     { 
-        void CreateRole(RoleViewModel role);
+        string CreateRole(RoleViewModel role);
         List<Role> GetRoleList();
         RoleViewModel GetRole(Guid Id);
-        void UpdateRole(RoleViewModel model);
+        string UpdateRole(RoleViewModel model);
         void RemoveRole(RoleViewModel model);
+
     }
     public class RoleServices : IRoleServices
     {
@@ -27,13 +28,23 @@ namespace ITSupportSystem.Services
             this.roleRepository = roleRepository;
         }
 
-        public void CreateRole(RoleViewModel role)
+        public string CreateRole(RoleViewModel role)
         {
+            if (roleRepository.Collection().Where(u => u.Name == role.Name).Any())
+            {
+                return "Name is already exist";
+            }
+            if (roleRepository.Collection().Where(u => u.Code == role.Code).Any())
+            {
+                return "Code is already exist";
+            }
             Role roleData = new Role();
             roleData.Name = role.Name;
-            roleData.Code = role.Code;
+            roleData.Code = role.Code.ToUpper();
             roleRepository.Insert(roleData);
             roleRepository.commit();
+
+            return null;
         }
 
         public RoleViewModel GetRole(Guid Id)
@@ -48,7 +59,7 @@ namespace ITSupportSystem.Services
 
         public List<Role> GetRoleList()
         {
-            return roleRepository.Collection().Where(x => !x.IsDeleted).ToList();
+            return roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
         }
 
         public void RemoveRole(RoleViewModel model)
@@ -59,14 +70,26 @@ namespace ITSupportSystem.Services
             roleRepository.commit();
         }
 
-        public void UpdateRole(RoleViewModel model)
+        public string UpdateRole(RoleViewModel model)
         {
+            if(roleRepository.Collection().Where(r=> r.Id != model.Id && r.Name==model.Name).Any())
+            {
+                return "Name is already exist";
+            }
+            if(roleRepository.Collection().Where(r=> r.Id != model.Id && r.Code==model.Code).Any())
+            {
+                return "Code is already exist";
+            }
+
+
             Role role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             role.Name = model.Name;
-            role.Code = model.Code;
+            role.Code = model.Code.ToUpper();
             role.UpdatedOn = DateTime.Now;
             roleRepository.Update(role);
             roleRepository.commit();
+
+            return null;
         }
     }
 }

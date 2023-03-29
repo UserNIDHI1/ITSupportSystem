@@ -65,6 +65,14 @@
     <Compile Include="Migrations\202303170853093_common.designer.cs">
       <DependentUpon>202303170853093_common.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303270452555_userchange.cs" />
+    <Compile Include="Migrations\202303270452555_userchange.designer.cs">
+      <DependentUpon>202303270452555_userchange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303281019465_addpasswordsalt.cs" />
+    <Compile Include="Migrations\202303281019465_addpasswordsalt.designer.cs">
+      <DependentUpon>202303281019465_addpasswordsalt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
@@ -94,6 +102,20 @@
       <DependentUpon>202303170853093_common.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303270452555_userchange.resx">
+      <DependentUpon>202303270452555_userchange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303281019465_addpasswordsalt.resx">
+      <DependentUpon>202303281019465_addpasswordsalt.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.6.3-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.3.js" />
+    <Content Include="Scripts\jquery-1.6.3.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="content\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSupportSystem.DataAccess.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSupportSystem.WebUI", "ITSupportSystem.WebUI\ITSupportSystem.WebUI.csproj", "{43404729-A720-44C8-9DC2-66410A617409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSupportSystem.DataAccess.InMemory", "ITSupportSystem.DataAccess.InMemory\ITSupportSystem.DataAccess.InMemory.csproj", "{3F82D46E-C420-4862-8E12-CFF12CEC47A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITSupportSystem.DataAccess.InMemory", "ITSupportSystem.DataAccess.InMemory\ITSupportSystem.DataAccess.InMemory.csproj", "{3F82D46E-C420-4862-8E12-CFF12CEC47A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

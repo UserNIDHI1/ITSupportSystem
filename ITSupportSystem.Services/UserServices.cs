@@ -5,24 +5,26 @@ using ITSupportSystem.DataAccess.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ITSupportSystem.Services
 {
     public interface IUserServices
-    { 
-        void CreateUser(UserViewModel user);
+    {
+        string CreateUser(UserViewModel user);
         List<UserViewModel> GetUserList();
         UserViewModel GetUser(Guid Id);
-        void UpdateUser(UserViewModel model);
+        string UpdateUser(UserViewModel model);
         void RemoveUser(Guid Id);
-
+        Guid GetRoleIdByUserId(Guid Id);
     }
     public class UserServices : IUserServices
     {
         IUserRepository userRepository;
         IRepository<UserRole> _userrolerepository;
+
 
         public UserServices(IUserRepository userRepository, IRepository<UserRole> userrolerepository)
         {
@@ -30,21 +32,59 @@ namespace ITSupportSystem.Services
             this._userrolerepository = userrolerepository;
         }
 
-        public void CreateUser(UserViewModel user)
+        public string CreateUser(UserViewModel user)
         {
+            if(userRepository.Collection().Where(u => u.UserName==user.UserName).Any())
+            {
+                return "UserName is already exist";
+            }
+            if (userRepository.Collection().Where(u => u.Email == user.Email).Any())
+            {
+                return "Email is already exist";
+            }
+
+
             Users userData = new Users();
+            string salt = "";
+            string password = HashPasword(user.Password, out salt);
+
+            userData.Id = user.Id;
             userData.Name = user.Name;
             userData.Email = user.Email;
-            userData.Password=user.Password;
+            userData.Password = password;
+            userData.PasswordSalt = salt;
+            userData.UserName = user.UserName;
+            userData.Gender = user.Gender;
+            userData.MobileNo = user.MobileNo;
+           
+            UserRole userRole = new UserRole();
+            userRole.RoleId = user.RoleId;
+            userRole.UserId = user.Id;
             userRepository.Insert(userData);
+            _userrolerepository.Insert(userRole);
             userRepository.commit();
+
+            return null;
         }
 
-        public void UpdateUser(UserViewModel model)
+        public string UpdateUser(UserViewModel model)
         {
+            if (userRepository.Collection().Where(u => u.Id != model.Id && u.UserName == model.UserName).Any())
+            {
+                return "UserName is already exist";
+            }
+            if (userRepository.Collection().Where(u => u.Id != model.Id && u.Email == model.Email).Any())
+            {
+                return "Email is already exist";
+            }
+
             Users user = userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             user.Name = model.Name;
             user.Email = model.Email;
+            user.Password = model.Password;
+            user.UserName = model.UserName;
+            user.Gender = model.Gender;
+            user.MobileNo = model.MobileNo;
             user.UpdatedOn = DateTime.Now;
             userRepository.Update(user);
             userRepository.commit();
@@ -54,9 +94,15 @@ namespace ITSupportSystem.Services
             userrole.UpdatedOn = DateTime.Now;
             _userrolerepository.Update(userrole);
             _userrolerepository.Commit();
+
+            return null;
         }
 
-
+        public Guid GetRoleIdByUserId(Guid Id)
+        {
+            Guid roleId = _userrolerepository.Collection().Where(x => x.UserId == Id).Select(x => x.RoleId).FirstOrDefault();
+            return roleId;
+        }
 
         public UserViewModel GetUser(Guid Id)
         {
@@ -66,6 +112,9 @@ namespace ITSupportSystem.Services
             userViewModel.Name = user.Name;
             userViewModel.Email = user.Email;
             userViewModel.Password = user.Password;
+            userViewModel.UserName = user.UserName;
+            userViewModel.Gender = user.Gender;
+            userViewModel.MobileNo = user.MobileNo;
             return userViewModel;
         }
 
@@ -87,7 +136,25 @@ namespace ITSupportSystem.Services
             _userrolerepository.Commit();
 
         }
+
+        private static string CreateSalt(int size)
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
+        }
+
+        private string HashPasword(string Password, out string salt)
+        {
+            salt = CreateSalt(64);
+            string stringDataToHash = Password + "" + salt;
+            HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
+            byte[] bytValue = System.Text.Encoding.UTF8.GetBytes(stringDataToHash);
+            byte[] bytHash = hashAlg.ComputeHash(bytValue);
+            string base64 = Convert.ToBase64String(bytHash);
+            return base64;
+        }
+
     }
 }
-
-

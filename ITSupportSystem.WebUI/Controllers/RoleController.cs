@@ -37,9 +37,16 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
-            _roleServices.CreateRole(model);
+            var role = _roleServices.CreateRole(model);
+            if (role != null)
+            {
+                ViewBag.Message = role;
+                return View(model);
+            }
+
             return RedirectToAction("Index");
         }
+
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleServices.GetRole(Id);
@@ -53,7 +60,13 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(RoleViewModel model)
         {
-            _roleServices.UpdateRole(model);
+
+            var role = _roleServices.UpdateRole(model);
+            if(role!=null)
+            {
+                ViewBag.Message = role;
+                return View(model);
+            }
             return RedirectToAction("Index");
         }
 

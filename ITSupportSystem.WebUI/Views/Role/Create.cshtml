@@ -6,41 +6,38 @@
 
 
 
-<h1 style="text-align:center;color:green"><b>Create</b></h1>
+<h1 style="text-align:center;color:green"><b>Create Role</b></h1>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal" style="padding-left:20px; margin-top:10px; margin-left:280px;">
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @ViewBag.Message
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
+
+    <div style="padding-left:0px; margin-top:10px; margin-left:550px;">
+        <button type="submit" class="btn btn-primary">Create</button>
         </div>
+        }
 
-        @*<div class="form-group">*@
-            <div class="btn btn-primary"  style="padding-left:0px; margin-top:10px; margin-left:480px;">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-    }
-
-    @*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@

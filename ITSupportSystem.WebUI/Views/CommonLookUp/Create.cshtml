@@ -4,14 +4,15 @@
     ViewBag.Title = "Create";
 }
 
+
 <h2 style="text-align:center;color:green"><b>Create</b></h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal" style="padding-left:20px; margin-top:10px; margin-left:280px;">
-        
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -54,11 +55,13 @@
             </div>
         </div>
 
-        @*<div class="form-group">*@
-            <div class="btn btn-primary" style="padding-left:0px; margin-top:10px; margin-left:200px;">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div class="btn btn-primary" style="padding-left:0px; margin-top:10px; margin-left:200px;">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-    }
+    </div>
+}
+
+
+

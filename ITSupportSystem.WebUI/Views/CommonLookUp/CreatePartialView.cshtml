@@ -4,7 +4,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h2 class="modal-title" id="CommonLookUpModalLabel" style="text-align:center;">CREATE</h2>
 
                 <div class="modal-body">
@@ -15,9 +17,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control", @id = "configname" ,onkeyup= "createvalidate()" } })
+                                @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control", @id = "configname", onkeyup = "createvalidate()" } })
                                 <span id="confignameerror" style="color:darkred"></span>
-                                @*@Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })*@
                             </div>
                         </div>
                         <br /><br /><br />
@@ -25,8 +26,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control",@id="configkey" ,onkeyup = "createvalidate()" } })
-                                @*@Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })*@
+                                @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control", @id = "configkey", onkeyup = "createvalidate()" } })
                                 <span id="configkeyerror" style="color:darkred"></span>
                             </div>
                         </div>
@@ -34,9 +34,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" ,@id="configvalue", onkeyup = "createvalidate()" } })
+                                @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control", @id = "configvalue", onkeyup = "createvalidate()" } })
                                 <span id="configvalueerror" style="color:darkred"></span>
-                                @*@Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })*@
                             </div>
                         </div>
                         <br /><br />
@@ -58,7 +57,7 @@
                         <br /><br />
                     </form>
                     <div class="modal-footer" style="text-align:center">
-                        <button type="button" id="saveButton" class="btn btn-primary" onclick="createpost()" >Save</button>
+                        <button type="button" id="saveButton" class="btn btn-primary" onclick="createpost()">Save</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -68,19 +67,26 @@
 </div>
 
 
+
 @Styles.Render("~/Content/demo.css")
 <script>
+    var IsCheck = false;
     function createpost() {
-        var modal = $('#addmodal');
+        IsCheck = true;
+       /* var modal = $('#addmodal');*/
         var form = $('form[name="CreateForm"]');
         var configname = $('#configname').val();
         var configkey = $('#configkey').val();
         var configvalue = $('#configvalue').val();
-        var model = form.serialize();
+        var data = form.serialize();
 
         if (configname != '' && configkey != '' && configvalue != '') {
-            $.post("/CommonLookUp/Create", model, function (res) {
-                if (res) {
+            $.post("/CommonLookUp/Create", data, function (data) {
+                if (data == 'False') {
+                    alert('CommonLookup is already exist');
+                }
+                else {
+                    $('#addmodal').modal('hide');
                     location.reload();
                 }
             })
@@ -89,7 +95,8 @@
             createvalidate();
         }
     }
-        function createvalidate() {
+    function createvalidate() {
+        if (IsCheck) {
             var configname = $('#configname').val();
             var configkey = $('#configkey').val();
             var configvalue = $('#configvalue').val();
@@ -111,6 +118,7 @@
             else {
                 $('#configvalueerror').text("");
             }
-        }  
+        }
+    }
 </script>
 

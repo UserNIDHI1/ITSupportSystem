@@ -21,9 +21,8 @@ namespace ITSupportSystem.DataAccess.SQL
         }
         public Users Login(LoginViewModel model)
         {
-            var user = context.User.Where(Users => Users.Email == model.Email && Users.Password == model.Password).FirstOrDefault();
+            var user = context.User.Where(x => x.Email == model.Email && !x.IsDeleted).FirstOrDefault();
             return user;
         }
-
     }
 }

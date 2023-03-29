@@ -23,20 +23,27 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             List<CommonLookUp> commonlook = _commonLookServices.GetCommonLookUpList().ToList();
             return View(commonlook);
-
         }
 
         public ActionResult Create()
         {
             CommonLookUpViewModel commonLookUp = new CommonLookUpViewModel();
             return PartialView("CreatePartialView", commonLookUp);
+
         }
 
         [HttpPost]
-        public ActionResult Create(CommonLookUpViewModel model)
+        public ActionResult Create(CommonLookUp model)
         {
-            _commonLookServices.CreateCommonLookUp(model);
-            return RedirectToAction("Index");
+            CommonLookUp commonLookUp= _commonLookServices.CreateCommonLookUp(model);
+            if(commonLookUp != null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
         }
 
 
@@ -51,10 +58,17 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(CommonLookUpViewModel model)
+        public ActionResult Edit(CommonLookUp model)
         {
-            _commonLookServices.UpdateCommonLookUp(model);
-            return RedirectToAction("Index");
+           CommonLookUp commonLookUp= _commonLookServices.UpdateCommonLookUp(model);
+           if (commonLookUp != null)
+           {
+               return Content("True");
+           }
+           else
+           {
+               return Content("False");
+           }
         }
 
         //public ActionResult Delete(Guid Id)

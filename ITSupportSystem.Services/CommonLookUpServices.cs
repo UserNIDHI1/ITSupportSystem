@@ -12,10 +12,10 @@ namespace ITSupportSystem.Services
 
     public interface ICommonLookUpServices
     {
-        void CreateCommonLookUp(CommonLookUpViewModel commonLookUp);
+        CommonLookUp CreateCommonLookUp(CommonLookUp model);
         List<CommonLookUp> GetCommonLookUpList();
         CommonLookUpViewModel GetCommonLookUp(Guid Id);
-        void UpdateCommonLookUp(CommonLookUpViewModel model);
+        CommonLookUp UpdateCommonLookUp(CommonLookUp model);
         void RemoveCommonLookUp(Guid Id);
     }
 
@@ -28,17 +28,25 @@ namespace ITSupportSystem.Services
             _commonlookupRepository = commonlookupRepository;
         }
 
-        public void CreateCommonLookUp(CommonLookUpViewModel commonLookUp)
+        public CommonLookUp CreateCommonLookUp(CommonLookUp model)
         {
-
-            CommonLookUp commonlook = new CommonLookUp();
-            commonlook.ConfigName = commonLookUp.ConfigName;
-            commonlook.ConfigKey = commonLookUp.ConfigKey;
-            commonlook.ConfigValue = commonLookUp.ConfigValue;
-            commonlook.DisplayOrder = commonLookUp.DisplayOrder;
-            commonlook.Description = commonLookUp.Description;
-            _commonlookupRepository.Insert(commonlook);
-            _commonlookupRepository.Commit();
+            CommonLookUp commonLookUp = _commonlookupRepository.Collection().Where(a => a.ConfigName == model.ConfigName && a.ConfigKey == model.ConfigKey && !a.IsDeleted).FirstOrDefault();
+            if (commonLookUp == null)
+            {
+                CommonLookUp commonlook = new CommonLookUp();
+                commonlook.ConfigName = model.ConfigName;
+                commonlook.ConfigKey = model.ConfigKey;
+                commonlook.ConfigValue = model.ConfigValue;
+                commonlook.DisplayOrder = model.DisplayOrder;
+                commonlook.Description = model.Description;
+                _commonlookupRepository.Insert(commonlook);
+                _commonlookupRepository.Commit();
+                return commonlook;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public CommonLookUpViewModel GetCommonLookUp(Guid Id)
@@ -66,18 +74,27 @@ namespace ITSupportSystem.Services
             _commonlookupRepository.Commit();
         }
 
-        public void UpdateCommonLookUp(CommonLookUpViewModel model)
+        public CommonLookUp UpdateCommonLookUp(CommonLookUp model)
         {
-            CommonLookUp commonlook = _commonlookupRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
-            commonlook.ConfigName = model.ConfigName;
-            commonlook.ConfigKey = model.ConfigKey;
-            commonlook.ConfigValue = model.ConfigValue;
-            commonlook.DisplayOrder = model.DisplayOrder;
-            commonlook.Description = model.Description;
-            commonlook.UpdatedOn = DateTime.Now;
-            _commonlookupRepository.Update(commonlook);
-            _commonlookupRepository.Commit();
+            CommonLookUp commonLookUp = _commonlookupRepository.Collection().Where(a => a.ConfigName == model.ConfigName && a.ConfigKey == model.ConfigKey && a.Id != model.Id && !a.IsDeleted).FirstOrDefault();
+            if (commonLookUp == null)
+            {
+                CommonLookUp commonlook = _commonlookupRepository.Collection().Where(a => a.Id == model.Id).FirstOrDefault();
 
+                commonlook.ConfigName = model.ConfigName;
+                commonlook.ConfigKey = model.ConfigKey;
+                commonlook.ConfigValue = model.ConfigValue;
+                commonlook.DisplayOrder = model.DisplayOrder;
+                commonlook.Description = model.Description;
+                commonlook.UpdatedOn = DateTime.Now;
+                _commonlookupRepository.Update(commonlook);
+                _commonlookupRepository.Commit();
+                return commonlook;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

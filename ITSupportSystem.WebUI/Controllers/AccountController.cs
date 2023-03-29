@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -37,7 +39,6 @@ namespace ITSupportSystem.WebUI.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string retutnUrl)
         {
             if (!ModelState.IsValid)
@@ -50,31 +51,16 @@ namespace ITSupportSystem.WebUI.Controllers
                 Users user = _loginRepository.Login(model);
                 if (user != null)
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    if(!ModelState.IsValid)
-                    {
-                        return RedirectToAction("Index","Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("","Invalid Email and Password");
-                        return View();
-                    }
-                 
+                    ModelState.AddModelError("", "Invalid Email and Password");
+                    return View();
                 }
             }
         }
-
         public ActionResult Register()
-        {
-            return View();
-        }
-
-
-        public ActionResult Dashboard()
         {
             return View();
         }

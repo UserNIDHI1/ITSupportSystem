@@ -10,6 +10,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h2 class="modal-title" style="text-align:center;color:green">ConfirmBox</h2>
             </div>
 
@@ -31,7 +34,7 @@
 </div>
 
 <table class="table table-bordered">
-    <tr>
+    <tr style="text-align:center">
         <th>
             ConfigName
         </th>
@@ -50,33 +53,32 @@
         <th>
             Action
         </th>
-        <th> </th>
     </tr>
 
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @item.ConfigName
-            </td>
-            <td>
-                @item.ConfigKey
-            </td>
-            <td>
-                @item.ConfigValue
-            </td>
-            <td>
-                @item.DisplayOrder
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
-                <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+<tr>
+    <td>
+        @item.ConfigName
+    </td>
+    <td>
+        @item.ConfigKey
+    </td>
+    <td>
+        @item.ConfigValue
+    </td>
+    <td>
+        @item.DisplayOrder
+    </td>
+    <td>
+        @item.Description
+    </td>
+    <td>
+        <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
+        <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
+    </td>
+</tr>
     }
 
 </table>
@@ -94,7 +96,7 @@
             url: '@Url.Action("Create","CommonLookUp")',
             success: function (data) {
                 $("#modal").html(data);
-                $("#addmodal").modal('show');
+                $("#addmodal").modal("show");
             }
         });
     }

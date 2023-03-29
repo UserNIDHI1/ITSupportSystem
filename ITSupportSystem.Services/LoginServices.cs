@@ -1,10 +1,9 @@
-﻿//using ITSupportSystem.Core1.Contract;
-//using ITSupportSystem.Core1.Contracts;
-using ITSupportSystem.Core1.Models;
+﻿using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,8 +25,23 @@ namespace ITSupportSystem.Services
 
         public Users Login(LoginViewModel model)
         {
-            return loginRepository.Login(model);
-
+            Users user = loginRepository.Login(model);
+            string hash = HashPasword(model.Password, user.PasswordSalt);
+            if (hash.SequenceEqual(user.Password))
+            {
+                return user;
+            }
+            return null;
         }
+        private string HashPasword(string Password, string salt)
+        {
+            string stringDataToHash = Password + "" + salt;
+            HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
+            byte[] bytValue = System.Text.Encoding.UTF8.GetBytes(stringDataToHash);
+            byte[] bytHash = hashAlg.ComputeHash(bytValue);
+            string base64 = Convert.ToBase64String(bytHash);
+            return base64;
+        }
+
     }
 }
