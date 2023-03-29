@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.Core1.Contracts
 {
-    public interface IRepository<T> where T: BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
         IQueryable<T> Collection();
         void Commit();
@@ -16,6 +16,6 @@ namespace ITSupportSystem.Core1.Contracts
         T Find(Guid Id);
         void Insert(T t);
         void Update(T t);
-        
+
     }
 }

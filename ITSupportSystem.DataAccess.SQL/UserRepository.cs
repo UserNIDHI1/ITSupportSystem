@@ -52,7 +52,7 @@ namespace ITSupportSystem.DataAccess.SQL
         {
             var list = (from u in contex.User
                         join ur in contex.UserRole on u.Id equals ur.UserId
-                        where !u.IsDeleted && !ur.IsDeleted && u.Id==Id
+                        where !u.IsDeleted && !ur.IsDeleted && u.Id == Id
                         orderby u.CreatedOn descending
                         select new UserViewModel()
                         {
@@ -60,10 +60,10 @@ namespace ITSupportSystem.DataAccess.SQL
                             Name = u.Name,
                             Email = u.Email,
                             RoleId = ur.RoleId,
-                            Password=u.Password,
-                            UserName=u.UserName,
-                            Gender=u.Gender,
-                            MobileNo=u.MobileNo
+                            Password = u.Password,
+                            UserName = u.UserName,
+                            Gender = u.Gender,
+                            MobileNo = u.MobileNo
                         }
                         ).FirstOrDefault();
             return list;
@@ -76,13 +76,13 @@ namespace ITSupportSystem.DataAccess.SQL
                           join r in contex.Role on ur.RoleId equals r.Id
                           where !u.IsDeleted && !ur.IsDeleted && !r.IsDeleted
                           orderby u.CreatedOn descending
-                          select new UserViewModel() 
+                          select new UserViewModel()
                           {
-                              Id=u.Id,
+                              Id = u.Id,
                               Name = u.Name,
                               Email = u.Email,
                               Password = u.Password,
-                              RoleId =ur.RoleId,
+                              RoleId = ur.RoleId,
                               RoleName = r.Name,
                               UserName = u.UserName,
                               Gender = u.Gender,

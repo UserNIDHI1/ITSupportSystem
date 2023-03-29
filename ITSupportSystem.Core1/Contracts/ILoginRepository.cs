@@ -17,4 +17,3 @@ namespace ITSupportSystem.Core1.ViewModel
 
 
 
-        

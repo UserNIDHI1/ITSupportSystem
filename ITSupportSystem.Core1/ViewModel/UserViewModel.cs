@@ -21,7 +21,7 @@ namespace ITSupportSystem.Core1.ViewModel
 
         [Required]
         public string Gender { get; set; }
-        
+
 
         [Required]
         [DataType(DataType.PhoneNumber)]

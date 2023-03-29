@@ -26,10 +26,6 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Password)
         </dd>
@@ -63,9 +59,9 @@
         @Html.AntiForgeryToken()
 
         @*<div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>*@
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>*@
 
         <div style="padding-left:0px; margin-top:10px; margin-left:150px;">
             <button type="submit" class="btn btn-primary">Delete</button>

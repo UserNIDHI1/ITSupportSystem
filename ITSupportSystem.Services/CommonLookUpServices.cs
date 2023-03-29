@@ -68,7 +68,7 @@ namespace ITSupportSystem.Services
 
         public void RemoveCommonLookUp(Guid Id)
         {
-            CommonLookUp commonlook = _commonlookupRepository.Collection().Where(x => x.Id ==Id).FirstOrDefault();
+            CommonLookUp commonlook = _commonlookupRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
             commonlook.IsDeleted = true;
             _commonlookupRepository.Update(commonlook);
             _commonlookupRepository.Commit();

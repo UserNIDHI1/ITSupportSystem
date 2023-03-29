@@ -3,6 +3,7 @@ using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.DataAccess.SQL.Migrations;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.session;
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
+    [Authentication]
     public class UserController : Controller
     {
 
@@ -49,7 +51,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Create(UserViewModel model)
         {
             var user = _userServices.CreateUser(model);
-            if (user!=null)
+            if (user != null)
             {
                 ViewBag.Message = user;
                 model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
@@ -59,7 +61,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            
+
             return RedirectToAction("Index");
         }
 

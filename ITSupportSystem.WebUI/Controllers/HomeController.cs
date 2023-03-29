@@ -1,5 +1,6 @@
 ﻿using ITSupportSystem.Core1.Contracts;
 using ITSupportSystem.Core1.Models;
+using ITSupportSystem.WebUI.session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
+    [Authentication]
     public class HomeController : Controller
     {
 

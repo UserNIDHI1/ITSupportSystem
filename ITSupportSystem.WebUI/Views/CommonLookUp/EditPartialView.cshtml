@@ -53,6 +53,12 @@
                             </div>
                         </div>
                         <br /><br />
+
+                        <div class="form-group">
+                            <label>IsActive : </label>
+                            <input type="checkbox" checked data-toggle="toggle" data-size="small" data-onstyle="success" data-offstyle="danger">
+                        </div>
+
                     </form>
                 </div>
 
@@ -65,12 +71,16 @@
     </div>
 </div>
 
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 @Styles.Render("~/Content/demo.css")
 <script>
     var IsCheck = false;
     function editpost() {
         IsCheck = true;
-        //var modal = $('#editmodal');
+
         var form = $('form[name="editform"]');
         var configname = $('#configname').val();
         var configkey = $('#configkey').val();
@@ -94,29 +104,29 @@
     }
 
     function editvalidate() {
-            if (IsCheck) {
-                var configname = $('#configname').val();
-                var configkey = $('#configkey').val();
-                var configvalue = $('#configvalue').val();
-                if (configname == '') {
-                    $('#confignameerror').text("Config Name is required");
-                }
-                else {
-                    $('#confignameerror').text("");
-                }
-                if (configkey == '') {
-                    $('#configkeyerror').text("Config Key is required");
-                }
-                else {
-                    $('#configkeyerror').text("");
-                }
-                if (configvalue == '') {
-                    $('#configvalueerror').text("Config Value is required");
-                }
-                else {
-                    $('#configvalueerror').text("");
-                }
+        if (IsCheck) {
+            var configname = $('#configname').val();
+            var configkey = $('#configkey').val();
+            var configvalue = $('#configvalue').val();
+            if (configname == '') {
+                $('#confignameerror').text("Config Name is required");
             }
-
+            else {
+                $('#confignameerror').text("");
+            }
+            if (configkey == '') {
+                $('#configkeyerror').text("Config Key is required");
+            }
+            else {
+                $('#configkeyerror').text("");
+            }
+            if (configvalue == '') {
+                $('#configvalueerror').text("Config Value is required");
+            }
+            else {
+                $('#configvalueerror').text("");
+            }
         }
+
+    }
 </script>

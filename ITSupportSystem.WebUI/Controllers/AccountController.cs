@@ -8,27 +8,30 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ITSupportSystem.Core1.Contracts;
 using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
+using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.session;
 using Microsoft.AspNetCore.Identity;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private ILoginRepository _loginRepository;
-        public AccountController(ILoginRepository loginRepository)
+        private ILoginService _loginService;
+        public AccountController(ILoginService loginService)
         {
-            _loginRepository = loginRepository;
+            _loginService = loginService;
         }
-
+        [Authentication]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: /Account/Login
+       
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -36,7 +39,7 @@ namespace ITSupportSystem.WebUI.Controllers
             return View();
         }
 
-        // POST: /Account/Login
+       
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string retutnUrl)
@@ -48,10 +51,12 @@ namespace ITSupportSystem.WebUI.Controllers
 
             else
             {
-                Users user = _loginRepository.Login(model);
+                Users user = _loginService.Login(model);
                 if (user != null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    Session["UserName"] = user.UserName;
+                    Session["Id"] = user.Id;
+                    return RedirectToAction("Index", "Account");
                 }
                 else
                 {
@@ -60,6 +65,16 @@ namespace ITSupportSystem.WebUI.Controllers
                 }
             }
         }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
+
+        }
+
+
         public ActionResult Register()
         {
             return View();

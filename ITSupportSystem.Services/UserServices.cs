@@ -34,7 +34,7 @@ namespace ITSupportSystem.Services
 
         public string CreateUser(UserViewModel user)
         {
-            if(userRepository.Collection().Where(u => u.UserName==user.UserName).Any())
+            if (userRepository.Collection().Where(u => u.UserName == user.UserName).Any())
             {
                 return "UserName is already exist";
             }
@@ -56,7 +56,7 @@ namespace ITSupportSystem.Services
             userData.UserName = user.UserName;
             userData.Gender = user.Gender;
             userData.MobileNo = user.MobileNo;
-           
+
             UserRole userRole = new UserRole();
             userRole.RoleId = user.RoleId;
             userRole.UserId = user.Id;

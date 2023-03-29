@@ -1,6 +1,7 @@
 ﻿using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
+    [Authentication]
     public class CommonLookUpController : Controller
     {
 
@@ -35,8 +37,8 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(CommonLookUp model)
         {
-            CommonLookUp commonLookUp= _commonLookServices.CreateCommonLookUp(model);
-            if(commonLookUp != null)
+            CommonLookUp commonLookUp = _commonLookServices.CreateCommonLookUp(model);
+            if (commonLookUp != null)
             {
                 return Content("True");
             }
@@ -60,15 +62,15 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(CommonLookUp model)
         {
-           CommonLookUp commonLookUp= _commonLookServices.UpdateCommonLookUp(model);
-           if (commonLookUp != null)
-           {
-               return Content("True");
-           }
-           else
-           {
-               return Content("False");
-           }
+            CommonLookUp commonLookUp = _commonLookServices.UpdateCommonLookUp(model);
+            if (commonLookUp != null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
         }
 
         //public ActionResult Delete(Guid Id)

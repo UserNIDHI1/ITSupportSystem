@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ITSupportSystem.Services
 {
     public interface IRoleServices
-    { 
+    {
         string CreateRole(RoleViewModel role);
         List<Role> GetRoleList();
         RoleViewModel GetRole(Guid Id);
@@ -72,11 +72,11 @@ namespace ITSupportSystem.Services
 
         public string UpdateRole(RoleViewModel model)
         {
-            if(roleRepository.Collection().Where(r=> r.Id != model.Id && r.Name==model.Name).Any())
+            if (roleRepository.Collection().Where(r => r.Id != model.Id && r.Name == model.Name).Any())
             {
                 return "Name is already exist";
             }
-            if(roleRepository.Collection().Where(r=> r.Id != model.Id && r.Code==model.Code).Any())
+            if (roleRepository.Collection().Where(r => r.Id != model.Id && r.Code == model.Code).Any())
             {
                 return "Code is already exist";
             }

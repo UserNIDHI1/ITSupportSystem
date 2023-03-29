@@ -23,6 +23,6 @@ namespace ITSupportSystem.Core1.ViewModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        
+
     }
 }

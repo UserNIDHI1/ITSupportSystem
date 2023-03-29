@@ -51,6 +51,9 @@
             Description
         </th>
         <th>
+            IsActive
+        </th>
+        <th>
             Action
         </th>
     </tr>
@@ -58,27 +61,29 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @item.ConfigName
-    </td>
-    <td>
-        @item.ConfigKey
-    </td>
-    <td>
-        @item.ConfigValue
-    </td>
-    <td>
-        @item.DisplayOrder
-    </td>
-    <td>
-        @item.Description
-    </td>
-    <td>
-        <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
-        <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
-    </td>
-</tr>
+        <tr>
+            <td>
+                @item.ConfigName
+            </td>
+            <td>
+                @item.ConfigKey
+            </td>
+            <td>
+                @item.ConfigValue
+            </td>
+            <td>
+                @item.DisplayOrder
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+            </td>
+            <td>
+                <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
+                <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
     }
 
 </table>

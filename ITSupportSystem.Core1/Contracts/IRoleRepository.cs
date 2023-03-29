@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.Core1.Contracts
 {
-   public interface IRoleRepository
+    public interface IRoleRepository
     {
         IQueryable<Role> Collection();
         void commit();

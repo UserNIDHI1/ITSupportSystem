@@ -2,6 +2,7 @@
 using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authentication]
+
     public class RoleController : Controller
     {
 
@@ -27,7 +29,6 @@ namespace ITSupportSystem.WebUI.Controllers
             List<Role> roles = _roleServices.GetRoleList().ToList();
             return View(roles);
         }
-
 
         public ActionResult Create()
         {
@@ -62,7 +63,7 @@ namespace ITSupportSystem.WebUI.Controllers
         {
 
             var role = _roleServices.UpdateRole(model);
-            if(role!=null)
+            if (role != null)
             {
                 ViewBag.Message = role;
                 return View(model);
@@ -90,5 +91,4 @@ namespace ITSupportSystem.WebUI.Controllers
         }
     }
 }
-    
-    
+
