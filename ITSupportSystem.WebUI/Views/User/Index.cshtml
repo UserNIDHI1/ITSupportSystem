@@ -1,4 +1,60 @@
-﻿@model IEnumerable<ITSupportSystem.Core1.ViewModel.UserViewModel>
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+@(Html.Kendo().Grid<UserViewModel>().Name("grid")
+
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Search(s=>
+    {
+        s.Field(c => c.Name);
+        s.Field(c => c.Email);
+        s.Field(c => c.RoleName);
+        s.Field(c => c.UserName);
+        s.Field(c => c.Gender);
+        s.Field(c => c.MobileNo);
+    })
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.Email);
+        columns.Bound(c => c.RoleName);
+        columns.Bound(c => c.UserName);
+        columns.Bound(c => c.Gender);
+        columns.Bound(c => c.MobileNo);
+
+        columns.Template(c => { }).Title(string.Empty)
+             .ClientTemplate(
+                 "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+    }).HtmlAttributes(new { style = "height:370px;" })
+
+    .Sortable()
+
+    .Scrollable()
+    .Pageable()
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUserJson", "User"))
+
+    .Update(update => update.Action("Edit", "User"))
+    .Destroy(destroy => destroy.Action("Delete", "User"))
+    .Create(create => create.Action("Create", "User"))
+    .PageSize(5))
+
+)
+
+
+@*@model IEnumerable<ITSupportSystem.Core1.ViewModel.UserViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -63,4 +119,4 @@
         </tr>
     }
 
-</table>
+</table>*@

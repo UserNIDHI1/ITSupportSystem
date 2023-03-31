@@ -71,7 +71,6 @@ namespace ITSupportSystem.WebUI.Controllers
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
-
         }
 
 

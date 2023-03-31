@@ -88,7 +88,6 @@ namespace ITSupportSystem.Services
             role.UpdatedOn = DateTime.Now;
             roleRepository.Update(role);
             roleRepository.commit();
-
             return null;
         }
     }

@@ -4,6 +4,8 @@ using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.DataAccess.SQL.Migrations;
 using ITSupportSystem.Services;
 using ITSupportSystem.WebUI.session;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
@@ -28,11 +30,11 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
         // GET: User
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
 
             List<UserViewModel> user = _userServices.GetUserList().ToList();
-            return View(user);
+            return View(user.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -113,6 +115,13 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             _userServices.RemoveUser(Id);
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult GetAllUserJson([DataSourceRequest] DataSourceRequest request)
+        {
+            List<UserViewModel> userViewModels = _userServices.GetUserList().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email ,RoleName =x.RoleName, UserName=x.UserName, Gender=x.Gender, MobileNo=x.MobileNo }).ToList();
+            return Json(userViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

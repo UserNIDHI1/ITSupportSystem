@@ -3,6 +3,8 @@ using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
 using ITSupportSystem.WebUI.session;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +26,10 @@ namespace ITSupportSystem.WebUI.Controllers
 
 
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleServices.GetRoleList().ToList();
-            return View(roles);
+            return View(roles.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -88,6 +90,12 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             _roleServices.RemoveRole(model);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetAllRolesJson([DataSourceRequest] DataSourceRequest request)
+        {
+            List<RoleViewModel> userRoleViewModels = _roleServices.GetRoleList().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
+            return Json(userRoleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

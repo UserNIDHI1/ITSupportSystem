@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ITSupportSystem.Core1.Models.Role>
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,37 +8,86 @@
 <h1 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary"})
 </p>
-<table class="table">
-    <div>
 
-    </div>
-    <tr class="text-danger">
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th></th>
-    </tr>
+@(
+    Html.Kendo().Grid<RoleViewModel>().Name("grid")
 
-    @foreach (var item in Model)
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Search(s=>
     {
-        <tr>
+        s.Field(c => c.Name);
+        s.Field(c => c.Code);
+    })
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id } ,new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.Code);
+
+        columns.Template(c => { }).Title(string.Empty)
+             .ClientTemplate(
+                 "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+    }).HtmlAttributes(new { style = "height:370px;" })
+
+    .Sortable()
+
+    .Scrollable()
+    .Pageable()
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllRolesJson", "Role"))
+
+    .Update(update => update.Action("Edit", "Role"))
+    .Destroy(destroy => destroy.Action("Delete", "Role"))
+    .Create(create => create.Action("Create", "Role"))
+    .PageSize(5))
+)
+@*@model IEnumerable<ITSupportSystem.Core1.Models.Role>
+
+    @{
+        ViewBag.Title = "Index";
     }
 
-</table>
+
+    @(Html.Kendo().DatePicker().Name("datepicker"))
+    <h1 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h1>
+
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
+        <div>
+
+        </div>
+        <tr class="text-danger">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>*@
