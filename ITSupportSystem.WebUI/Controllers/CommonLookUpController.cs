@@ -2,6 +2,8 @@
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
 using ITSupportSystem.WebUI.session;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +23,10 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
         // GET: CommonLookUp
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<CommonLookUp> commonlook = _commonLookServices.GetCommonLookUpList().ToList();
-            return View(commonlook);
+            return View(commonlook.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -89,6 +91,13 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             _commonLookServices.RemoveCommonLookUp(Id);
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult GetCommonLookUpJson([DataSourceRequest] DataSourceRequest request)
+        {
+            List<CommonLookUpViewModel> commonlookupViewModels = _commonLookServices.GetCommonLookUpList().Select(x => new CommonLookUpViewModel() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, DisplayOrder = x.DisplayOrder, Description = x.Description }).ToList();
+            return Json(commonlookupViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
     }

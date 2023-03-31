@@ -15,6 +15,13 @@
 
     .ToolBar(t=>t.Search())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+
+    .NoRecords("No Records Found.")
     .Search(s=>
     {
         s.Field(c => c.Name);
@@ -34,6 +41,7 @@
         columns.Bound(c => c.Gender);
         columns.Bound(c => c.MobileNo);
 
+
         columns.Template(c => { }).Title(string.Empty)
              .ClientTemplate(
                  "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
@@ -42,7 +50,7 @@
     .Sortable()
 
     .Scrollable()
-    .Pageable()
+
     .Filterable()
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUserJson", "User"))
 
@@ -52,6 +60,10 @@
     .PageSize(5))
 
 )
+
+
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+
 
 
 @*@model IEnumerable<ITSupportSystem.Core1.ViewModel.UserViewModel>

@@ -1,10 +1,59 @@
-﻿@model IEnumerable<ITSupportSystem.Core1.Models.CommonLookUp>
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
 
-<h2 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h2>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h1>
 
 <p>
-    <button type="button" class="btn btn-success" onclick="createcommonlookup()">Add New</button>
+    <button type="button" class="btn btn-primary" onclick="createcommonlookup()">Add New</button>
 </p>
+
+@(Html.Kendo().Grid<CommonLookUpViewModel>().Name("grid")
+
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+     .NoRecords("No Records Found.")
+
+    .Search(s=>
+    {
+        s.Field(c => c.ConfigName);
+        s.Field(c => c.ConfigKey);
+        s.Field(c => c.ConfigValue);
+        s.Field(c => c.DisplayOrder);
+    })
+
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.ConfigName);
+        columns.Bound(c => c.ConfigKey);
+        columns.Bound(c => c.ConfigValue);
+        columns.Bound(c => c.DisplayOrder);
+
+        columns.Command(command => { command.Custom("Edit").Click("editcommonlookup"); command.Custom("Delete").Click("mydelete"); }).Width(200);
+    }).HtmlAttributes(new { style = "height:370px;" })
+
+    .Sortable()
+
+    .Scrollable()
+
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookUpJson", "CommonLookUp"))
+
+    .Update(update => update.Action("Edit", "CommonLookUp"))
+    .Destroy(destroy => destroy.Action("Delete", "CommonLookUp"))
+    .Create(create => create.Action("Create", "CommonLookUp"))
+    .PageSize(5))
+)
+
 
 <div class="modal fade" id="deletemodal">
     <div class="modal-dialog">
@@ -33,108 +82,56 @@
     </div>
 </div>
 
-<table class="table table-bordered">
-    <tr style="text-align:center">
-        <th>
-            ConfigName
-        </th>
-        <th>
-            ConfigKey
-        </th>
-        <th>
-            ConfigValue
-        </th>
-        <th>
-            DisplayOrder
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            IsActive
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @item.ConfigName
-            </td>
-            <td>
-                @item.ConfigKey
-            </td>
-            <td>
-                @item.ConfigValue
-            </td>
-            <td>
-                @item.DisplayOrder
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.IsActive
-            </td>
-            <td>
-            </td>
-            <td>
-                <button id="@item.Id" type="button" class="btn btn-info" onclick="editcommonlookup(this)">Edit</button>
-                <a href="javascript:mydelete('@item.Id')" id="showModal" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-    }
-
-</table>
-
 <div id="modal">
-    <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")' />
-    <div class="modal" id="editmodal" data-url='@Url.Action("Edit","CommonLookUp")' />
+    @*<div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")' />
+        <div class="modal" id="editmodal" data-url='@Url.Action("Edit","CommonLookUp")' />*@
 </div>
 
 
 @Styles.Render("~/Content/demo.css")
 <script>
-    function createcommonlookup() {
-        $.get({
-            url: '@Url.Action("Create","CommonLookUp")',
-            success: function (data) {
-                $("#modal").html(data);
-                $("#addmodal").modal("show");
-            }
+        function createcommonlookup() {
+            $.get({
+                url: '@Url.Action("Create","CommonLookUp")',
+                success: function (data) {
+                    $("#modal").html(data);
+                    $("#addmodal").modal("show");
+                }
+            });
+        }
+
+    function editcommonlookup(e) {
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        var obj  = d.id;
+                $.get({
+                url: '@Url.Action("Edit","CommonLookUp")',
+                data: {'id': obj},
+                success: function (data) {
+                    $("#modal").html(data);
+                    $("#editmodal").modal('show');
+                }
         });
     }
 
-        function editcommonlookup(data) {
-            var obj = $(data).attr('id')
-        $.get({
-            url: '@Url.Action("Edit","CommonLookUp")',
-            data: {'id': obj},
-            success: function (data) {
-                $("#modal").html(data);
-                $("#editmodal").modal('show');
-            }
-        });
-    }
-
-    var mydelete = function (id) {
-        $("#deletemodal").modal('show');
-        $("#hdnDeleteLookup").val(id);
-    }
+        var mydelete = function (e)
+        {
+            e.preventDefault();
+            var d = this.dataItem($(e.currentTarget).closest("tr"));
+            id = d.id;
+            $("#deletemodal").modal('show');
+            $("#hdnDeleteLookup").val(id);
+        }
 
 
-    function DeleteForm_Submit() {
-        debugger
-        var id = $("#hdnDeleteLookup").val();
-        $.post({
-            url: '/CommonLookUp/Delete/' + id,
-            success: function () {
-                location.reload();
-            }
-        });
-    }
+        function DeleteForm_Submit() {
+            var id = $("#hdnDeleteLookup").val();
+            $.post({
+                url: '/CommonLookUp/Delete/' + id,
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
 </script>
+
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
