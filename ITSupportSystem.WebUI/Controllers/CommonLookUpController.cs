@@ -25,7 +25,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<CommonLookUp> commonlook = _commonLookServices.GetCommonLookUpList().ToList();
-            return View(commonlook.ToDataSourceResult(request));
+            return PartialView("_CommonLookUpIndexPartial", commonlook.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -39,6 +39,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Create(CommonLookUp model)
         {
             CommonLookUp commonLookUp = _commonLookServices.CreateCommonLookUp(model);
+            TempData["PageSelected"] = "Settings";
             if (commonLookUp != null)
             {
                 return Content("True");
@@ -67,6 +68,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Edit(CommonLookUp model)
         {
             CommonLookUp commonLookUp = _commonLookServices.UpdateCommonLookUp(model);
+            TempData["PageSelected"] = "Settings";
             if (commonLookUp != null)
             {
                 return Content("True");
@@ -80,6 +82,7 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(Guid Id)
         {
+            TempData["PageSelected"] = "Settings";
             _commonLookServices.RemoveCommonLookUp(Id);
             return RedirectToAction("Index");
         }

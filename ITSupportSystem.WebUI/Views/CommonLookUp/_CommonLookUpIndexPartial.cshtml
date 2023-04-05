@@ -125,7 +125,17 @@
             $.post({
                 url: '/CommonLookUp/Delete/' + id,
                 success: function () {
-                    location.reload();
+                    $.ajax({
+                        type: 'GET',
+                        url: "/CommonLookUp/Index",
+                        success: function () {
+
+                        }
+                    }).done(function (partialViewResult) {
+                        $("#CommonLookupTable").html(partialViewResult);
+                        $('.modal-backdrop').remove();
+                    });
+                    //location.reload();
                 }
             });
         }

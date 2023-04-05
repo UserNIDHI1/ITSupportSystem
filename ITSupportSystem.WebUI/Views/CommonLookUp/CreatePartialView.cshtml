@@ -97,8 +97,19 @@
                     alert('CommonLookup is already exist');
                 }
                 else {
+
                     $('#addmodal').modal('hide');
-                    location.reload();
+                    $.ajax({
+                        type: 'GET',
+                        url: "/CommonLookUp/Index",
+                        success: function () {
+                 
+                        }
+                    }).done(function (partialViewResult) {
+                        $("#CommonLookupTable").html(partialViewResult);
+                        $('.modal-backdrop').remove();
+                    });
+                    //location.reload();
                 }
             })
         }

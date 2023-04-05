@@ -11,7 +11,7 @@
             <ul class="align-center">
                 <li><a class="tablinks active" id="UserManagementTab" onclick="openSystems(event, 'UserManagement')">User</a></li>
                 <li> <a class="tablinks" id="RoleManagementTab" onclick="openSystems(event, 'RoleManagement')">Role</a> </li>
-                <li> <a class="tablinks" id="CommonLookUpManagementTab" onclick="openSystems(event, 'Settings')">CommonLookUp </a> </li>
+                <li> <a class="tablinks" id="SettingsTab" onclick="openSystems(event, 'Settings')">CommonLookUp </a> </li>
             </ul>
         </div>
 
@@ -41,7 +41,9 @@
             </div>
 
             <div id="Settings" class="tabcontent">
-                @Html.Partial("~/Views/CommonLookUp/_CommonLookUpIndexPartial.cshtml")
+                <div id="CommonLookupTable">
+                    @Html.Partial("~/Views/CommonLookUp/_CommonLookUpIndexPartial.cshtml")
+                </div>
             </div>
         </div>
     </div>
