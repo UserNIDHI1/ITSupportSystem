@@ -1,4 +1,4 @@
-﻿@using Kendo.Mvc.UI
+﻿@*@using Kendo.Mvc.UI
 @using ITSupportSystem.Core1.ViewModel
 
 @{
@@ -43,92 +43,90 @@
 
 
         columns.Template(c => { }).Title(string.Empty)
-             .ClientTemplate(
-                 "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
-    }).HtmlAttributes(new { style = "height:370px;" })
+          .ClientTemplate(
+              "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+        columns.Command(c => c.Destroy()).Width(120);
+    })
+       
 
     .Sortable()
-
     .Scrollable()
-
     .Filterable()
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUserJson", "User"))
-
     .Update(update => update.Action("Edit", "User"))
     .Destroy(destroy => destroy.Action("Delete", "User"))
     .Create(create => create.Action("Create", "User"))
     .PageSize(5))
-
 )
 
 
-<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>*@
 
 
 
 @*@model IEnumerable<ITSupportSystem.Core1.ViewModel.UserViewModel>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
-</p>
-<table class="table table-bordered">
-    <tr>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNo)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+    @{
+        ViewBag.Title = "Index";
     }
 
-</table>*@
+    <h2 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table table-bordered">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>*@

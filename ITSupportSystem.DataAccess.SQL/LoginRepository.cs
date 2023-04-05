@@ -14,7 +14,6 @@ namespace ITSupportSystem.DataAccess.SQL
     public class LoginRepository : ILoginRepository
     {
         internal DataContext context;
-
         public LoginRepository(DataContext context)
         {
             this.context = context;

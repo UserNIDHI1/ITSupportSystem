@@ -14,16 +14,13 @@ using System.Web.Mvc;
 namespace ITSupportSystem.WebUI.Controllers
 {
     [Authentication]
-
     public class RoleController : Controller
     {
-
         RoleServices _roleServices;
         public RoleController(RoleServices roleService)
         {
             _roleServices = roleService;
         }
-
 
         // GET: Admin
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
@@ -46,8 +43,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 ViewBag.Message = role;
                 return View(model);
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
         public ActionResult Edit(Guid Id)
@@ -63,14 +63,18 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(RoleViewModel model)
         {
-
             var role = _roleServices.UpdateRole(model);
             if (role != null)
             {
                 ViewBag.Message = role;
                 return View(model);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Account");
+            }
+
         }
 
         public ActionResult Delete(Guid Id)
@@ -82,7 +86,6 @@ namespace ITSupportSystem.WebUI.Controllers
             }
             return View(role);
         }
-
 
         [HttpPost]
         [ActionName("Delete")]

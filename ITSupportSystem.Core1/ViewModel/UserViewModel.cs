@@ -17,11 +17,12 @@ namespace ITSupportSystem.Core1.ViewModel
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
         public string UserName { get; set; }
 
         [Required]
         public string Gender { get; set; }
-
 
         [Required]
         [DataType(DataType.PhoneNumber)]
@@ -33,6 +34,7 @@ namespace ITSupportSystem.Core1.ViewModel
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "Password must be at least 1 lowercase letter, 1 uppercase letter, 1 numeric character, and 1 special character.")]
         public string Password { get; set; }
+        
         public string PasswordSalt { get; set; }
 
         public Guid Id { get; set; }

@@ -28,18 +28,20 @@ namespace ITSupportSystem.WebUI.Controllers
         [Authentication]
         public ActionResult Index()
         {
+            string res = TempData["PageSelected"] as string;
             return View();
         }
 
-       
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-       
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string retutnUrl)
@@ -48,7 +50,6 @@ namespace ITSupportSystem.WebUI.Controllers
             {
                 return View(model);
             }
-
             else
             {
                 Users user = _loginService.Login(model);
@@ -56,7 +57,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 {
                     Session["UserName"] = user.UserName;
                     Session["Id"] = user.Id;
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -68,11 +69,8 @@ namespace ITSupportSystem.WebUI.Controllers
 
         public ActionResult Logout()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
-
 
         public ActionResult Register()
         {

@@ -1,17 +1,17 @@
-﻿@*@using Kendo.Mvc.UI
+﻿@using Kendo.Mvc.UI
 @using ITSupportSystem.Core1.ViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
+<div class="align-center align-between pb20">
+    <h2><b>CommonLookUp Management</b></h2>
+    <div class="btnDiv" onclick="createcommonlookup()">
+        + Add New
+    </div>
+</div>
 
-<h1 align="center" style="margin-bottom:50px;color:green"><b>Index</b></h1>
+<div class="tableDiv">
 
-<p>
-    <button type="button" class="btn btn-primary" onclick="createcommonlookup()">Add New</button>
-</p>
-
-@(Html.Kendo().Grid<CommonLookUpViewModel>().Name("grid")
+    @(
+   Html.Kendo().Grid<CommonLookUpViewModel>().Name("CommonLookUpgrid")
 
     .ToolBar(t=>t.Search())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -52,6 +52,7 @@
     .Create(create => create.Action("Create", "CommonLookUp"))
     .PageSize(5))
 )
+</div>
 
 <div class="modal fade" id="deletemodal">
     <div class="modal-dialog">
@@ -60,7 +61,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h2 class="modal-title" style="text-align:center;color:green">ConfirmBox</h2>
+                <h2 class="modal-title" style="text-align:center;color:green">Delete</h2>
             </div>
 
             <div class="modal-body">
@@ -74,15 +75,13 @@
                 <div class="btn-group">
                     <a id="btndeletecancle" class="btn btn-danger" data-dismiss="modal">Cancle</a>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
 <div id="modal">
-    <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")' />
-        <div class="modal" id="editmodal" data-url='@Url.Action("Edit","CommonLookUp")' />
+
 </div>
 
 
@@ -132,4 +131,5 @@
         }
 </script>
 
-<div>@Html.ActionLink("back to list", "Index", "Account")</div>*@
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+

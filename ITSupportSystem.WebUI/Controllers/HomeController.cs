@@ -12,7 +12,6 @@ namespace ITSupportSystem.WebUI.Controllers
     [Authentication]
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             return View();

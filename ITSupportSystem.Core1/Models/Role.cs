@@ -10,6 +10,5 @@ namespace ITSupportSystem.Core1.Models
     {
         public string Name { get; set; }
         public string Code { get; set; }
-
     }
 }

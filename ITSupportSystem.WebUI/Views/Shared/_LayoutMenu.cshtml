@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html lang="en-us">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +9,12 @@
     <link rel="stylesheet" href="~/css/style.css">
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Kendo")
     @RenderSection("scripts", required: false)
@@ -23,10 +27,12 @@
                 <div class="align-center align-between">
                     <div class="align-center">
                         <div class="logoDiv"> <a href="#"> <img src="~/image/logo.svg" alt="CRB Logo"> </a> </div>
+
                         <div class="menuDiv">
                             <ul class="align-center">
                                 <li> @Html.ActionLink("Home", "Index", "Home")</li>
-                                <li> @Html.ActionLink("Systems", "Index", "Account") </li>
+                                <li> <a href="#"> Conference </a> </li>
+                                <li class="active"> @Html.ActionLink("Systems", "Index", "User") </li>
                             </ul>
                         </div>
                     </div>
@@ -56,8 +62,13 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+
+    <div class="section">
+        <div class="container">
+            <div class="container body-content">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
 </body>
@@ -66,7 +77,7 @@
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.2.510/styles/kendo.common.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" />
 @Scripts.Render("~/bundles/bootstrap")
-@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/css")*@
 
 
 

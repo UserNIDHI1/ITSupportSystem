@@ -17,7 +17,6 @@ namespace ITSupportSystem.Services
     public class LoginServices : ILoginService
     {
         ILoginRepository loginRepository;
-
         public LoginServices(ILoginRepository loginRepository)
         {
             this.loginRepository = loginRepository;
@@ -26,10 +25,13 @@ namespace ITSupportSystem.Services
         public Users Login(LoginViewModel model)
         {
             Users user = loginRepository.Login(model);
-            string hash = HashPasword(model.Password, user.PasswordSalt);
-            if (hash.SequenceEqual(user.Password))
+            if(user!=null)
             {
-                return user;
+                string hash = HashPasword(model.Password, user.PasswordSalt);
+                if (hash.SequenceEqual(user.Password))
+                {
+                    return user;
+                }
             }
             return null;
         }

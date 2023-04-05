@@ -1,19 +1,78 @@
-﻿
-@{
-    ViewBag.Title = "Role";
+﻿@{
+    ViewBag.Title = "Account Index";
 }
 
-<div class="col-md-6">
-    <h3>Role</h3>
-    <div class="list-group" style="padding-left:20px; margin-top:10px;background-color:burlywood">
-        @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })
-    </div>
-    <h3>User</h3>
-    <div class="list-group" style="padding-left: 20px; margin-top: 10px; background-color: burlywood">
-        @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
-    </div>
-    <h3>CommonLookUp</h3>
-    <div class="list-group" style="padding-left: 20px; margin-top: 10px; background-color: burlywood">
-        @Html.ActionLink("CommonLookUp", "Index", "CommonLookUp", null, new { @class = "list-group-item" })
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+            <h1 style="color:hotpink"><b>SYSTEM</b></h1>
+        </div>
+        <div class="tab">
+            <ul class="align-center">
+                <li><a class="tablinks active" id="UserManagementTab" onclick="openSystems(event, 'UserManagement')">User</a></li>
+                <li> <a class="tablinks" id="RoleManagementTab" onclick="openSystems(event, 'RoleManagement')">Role</a> </li>
+                <li> <a class="tablinks" id="CommonLookUpManagementTab" onclick="openSystems(event, 'Settings')">CommonLookUp </a> </li>
+            </ul>
+        </div>
+
+        <div class="tabContentDetails">
+            <div id="UserManagement" class="tabcontent" style="display: block">
+                <div class="align-center align-between pb20">
+                    <h2><b>User Management</b></h2>
+                    <div class="btnDiv">
+                        <a href="#"> @Html.ActionLink("+ Add New", "Create", "User")</a>
+                    </div>
+                </div>
+                <div class="tableDiv">
+                    @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
+                </div>
+            </div>
+
+            <div id="RoleManagement" class="tabcontent">
+                <div class="align-center align-between pb20">
+                    <h2><b>Role Management</b></h2>
+                    <div class="btnDiv">
+                        @Html.ActionLink("+ Add New", "Create", "Role")
+                    </div>
+                </div>
+                <div class="tableDiv">
+                    @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")
+                </div>
+            </div>
+
+            <div id="Settings" class="tabcontent">
+                @Html.Partial("~/Views/CommonLookUp/_CommonLookUpIndexPartial.cshtml")
+            </div>
+        </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        var data = '@TempData["PageSelected"]';
+        if (data != '') {
+            openSystems(null, data);
+        }
+    });
+
+
+    function openSystems(evt, SystemsName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(SystemsName).style.display = "block";
+        if (evt != null) {
+            evt.currentTarget.className += " active";
+        }
+        else {
+            document.getElementById(SystemsName + "Tab").className += "active";
+        }
+    }
+</script>

@@ -19,7 +19,6 @@ namespace ITSupportSystem.WebUI.Controllers
     [Authentication]
     public class UserController : Controller
     {
-
         UserServices _userServices;
         RoleServices _roleServices;
 
@@ -32,7 +31,6 @@ namespace ITSupportSystem.WebUI.Controllers
         // GET: User
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
-
             List<UserViewModel> user = _userServices.GetUserList().ToList();
             return View(user.ToDataSourceResult(request));
         }
@@ -45,7 +43,6 @@ namespace ITSupportSystem.WebUI.Controllers
                 Id = x.Id,
                 Name = x.Name
             }).ToList();
-
             return View(user);
         }
 
@@ -63,8 +60,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
         public ActionResult Edit(Guid Id)
@@ -95,7 +95,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
         public ActionResult Delete(Guid Id)
@@ -120,7 +124,7 @@ namespace ITSupportSystem.WebUI.Controllers
 
         public ActionResult GetAllUserJson([DataSourceRequest] DataSourceRequest request)
         {
-            List<UserViewModel> userViewModels = _userServices.GetUserList().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email ,RoleName =x.RoleName, UserName=x.UserName, Gender=x.Gender, MobileNo=x.MobileNo }).ToList();
+            List<UserViewModel> userViewModels = _userServices.GetUserList().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email, RoleName = x.RoleName, UserName = x.UserName, Gender = x.Gender, MobileNo = x.MobileNo }).ToList();
             return Json(userViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }

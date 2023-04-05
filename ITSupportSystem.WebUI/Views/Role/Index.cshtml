@@ -1,4 +1,4 @@
-﻿@using Kendo.Mvc.UI
+﻿@*@using Kendo.Mvc.UI
 @using ITSupportSystem.Core1.ViewModel
 
 @{
@@ -12,7 +12,7 @@
 </p>
 
 @(
-    Html.Kendo().Grid<RoleViewModel>().Name("grid")
+    Html.Kendo().Grid<RoleViewModel>().Name("Rolegrid")
 
     .ToolBar(t=>t.Search())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -31,20 +31,22 @@
 
     .Columns(columns =>
     {
-    columns.Bound(c => c.Name);
-    columns.Bound(c => c.Code);
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.Code);
 
-    columns.Template(c => { }).Title(string.Empty)
-         .ClientTemplate(
-            "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
-    }).HtmlAttributes(new { style = "height:370px;" })
+        columns.Template(c => { }).Title(string.Empty)
+           .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
 
+         columns.Command(c => c.Destroy()).Width(120);
+
+    })
+    .HtmlAttributes(new { style = "height:370px;" })
     .Sortable()
-
     .Scrollable()
-
     .Filterable()
-    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllRolesJson", "Role"))
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id))
+        .Read(read => read.Action("GetAllRolesJson", "Role"))
 
     .Update(update => update.Action("Edit", "Role"))
     .Destroy(destroy => destroy.Action("Delete", "Role"))
@@ -53,7 +55,9 @@
 )
 
 
-<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>*@
+
+
 
 
 @*@model IEnumerable<ITSupportSystem.Core1.Models.Role>

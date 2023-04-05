@@ -1,0 +1,48 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+
+@(
+    Html.Kendo().Grid<RoleViewModel>().Name("Rolegrid")
+
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+
+     .NoRecords("No Records Found.")
+    .Search(s=>
+    {
+        s.Field(c => c.Name);
+        s.Field(c => c.Code);
+    })
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.Code);
+
+        columns.Template(c => { }).Title(string.Empty)
+           .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+         columns.Command(c => c.Destroy()).Width(120);
+
+    })
+    .HtmlAttributes(new { style = "height:370px;" })
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id))
+    .Read(read => read.Action("GetAllRolesJson", "Role"))
+
+    .Update(update => update.Action("Edit", "Role"))
+    .Destroy(destroy => destroy.Action("Delete", "Role"))
+    .Create(create => create.Action("Create", "Role"))
+    .PageSize(5))
+)
+
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+

@@ -441,10 +441,20 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\demo.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\down-arrow.svg" />
+    <Content Include="image\edit.svg" />
+    <Content Include="image\eye.svg" />
+    <Content Include="image\key.svg" />
+    <Content Include="image\login-bg.jpg" />
+    <Content Include="image\logo.svg" />
+    <Content Include="image\search.svg" />
+    <Content Include="image\trash.svg" />
     <Content Include="kendo\js\angular.min.js" />
     <Content Include="kendo\js\cultures\kendo.culture.aa-DJ.min.js" />
     <Content Include="kendo\js\cultures\kendo.culture.aa-ER.min.js" />
@@ -2829,6 +2839,10 @@
     <Content Include="Views\CommonLookUp\Index.cshtml" />
     <Content Include="Views\CommonLookUp\CreatePartialView.cshtml" />
     <Content Include="Views\CommonLookUp\EditPartialView.cshtml" />
+    <Content Include="Views\Shared\_LayoutMenu.cshtml" />
+    <Content Include="Views\Role\_RoleIndexPartial.cshtml" />
+    <Content Include="Views\User\_UserIndexPartial.cshtml" />
+    <Content Include="Views\CommonLookUp\_CommonLookUpIndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

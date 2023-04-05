@@ -19,6 +19,7 @@ namespace ITSupportSystem.Services
         void RemoveRole(RoleViewModel model);
 
     }
+
     public class RoleServices : IRoleServices
     {
         IRoleRepository roleRepository;

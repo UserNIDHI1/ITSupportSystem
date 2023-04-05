@@ -4,41 +4,102 @@
     ViewBag.Title = "Edit";
 }
 
-<h2 style="margin-left:270px;color:green">Edit Role</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="text-danger">@ViewBag.Message</div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    <!DOCTYPE html>
+    <html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CRB Form</title>
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <div class="section">
+            <div class="container">
+
+                <div class="formDiv">
+                    <div class="topTitleHead pb20">
+                        <h2 style="text-align:left;"><b>Edit</b></h2>
+                    </div>
+                    @ViewBag.Message
+                    <div class="formSection">
+                        <div class="inputBox">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+
+                            <br /><br />
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    <div>
+                        <div class="inputBox">
+                            <button type="submit" class="btnDiv">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
-            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @Html.HiddenFor(model => model.Id)
-
-
-    <div style="padding-left:0px; margin-top:10px; margin-left:280px;">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-
-
-</div>
+    </body>
+</html>
 }
 
-<div>@Html.ActionLink("back to list", "Index")</div>
+
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+
+@*@model ITSupportSystem.Core1.ViewModel.RoleViewModel
+
+    @{
+        ViewBag.Title = "Edit";
+    }
+
+    <h2 style="margin-left:270px;color:green">Edit Role</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="text-danger">@ViewBag.Message</div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div style="padding-left:0px; margin-top:10px; margin-left:280px;">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+
+    </div>
+    }
+
+    <div>@Html.ActionLink("back to list", "Index")</div>*@

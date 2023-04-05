@@ -1,0 +1,62 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@(Html.Kendo().Grid<UserViewModel>().Name("Usergrid")
+
+        .ToolBar(t=>t.Search())
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+         .Pageable(pageable =>
+         {
+             pageable.Refresh(true);
+         })
+
+        .NoRecords("No Records Found.")
+        .Search(s=>
+        {
+            s.Field(c => c.Name);
+            s.Field(c => c.Email);
+            s.Field(c => c.RoleName);
+            s.Field(c => c.UserName);
+            s.Field(c => c.Gender);
+            s.Field(c => c.MobileNo);
+        })
+
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Name);
+            columns.Bound(c => c.Email);
+            columns.Bound(c => c.RoleName);
+            columns.Bound(c => c.UserName);
+            columns.Bound(c => c.Gender);
+            columns.Bound(c => c.MobileNo);
+
+
+            columns.Template(c => { }).Title(string.Empty)
+              .ClientTemplate(
+                  "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+            columns.Command(c => c.Destroy()).Width(120);
+
+
+        })
+
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUserJson", "User"))
+        .Update(update => update.Action("Edit", "User"))
+        .Destroy(destroy => destroy.Action("Delete", "User"))
+        .Create(create => create.Action("Create", "User"))
+        .PageSize(5))
+    )
+
+<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+
+
+

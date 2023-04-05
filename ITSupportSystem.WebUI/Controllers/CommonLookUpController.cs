@@ -15,7 +15,6 @@ namespace ITSupportSystem.WebUI.Controllers
     [Authentication]
     public class CommonLookUpController : Controller
     {
-
         ICommonLookUpServices _commonLookServices;
         public CommonLookUpController(ICommonLookUpServices commonLookServices)
         {
@@ -58,7 +57,10 @@ namespace ITSupportSystem.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("EditPartialView", commonlook);
+            else
+            {
+                return PartialView("EditPartialView", commonlook);
+            }
         }
 
         [HttpPost]
@@ -74,17 +76,6 @@ namespace ITSupportSystem.WebUI.Controllers
                 return Content("False");
             }
         }
-
-        //public ActionResult Delete(Guid Id)
-        //{
-        //    CommonLookUpViewModel commonlook = _commonLookServices.GetCommonLookUp(Id);
-        //    if (commonlook == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(commonlook);
-        //}
-
 
         [HttpPost]
         public ActionResult Delete(Guid Id)
