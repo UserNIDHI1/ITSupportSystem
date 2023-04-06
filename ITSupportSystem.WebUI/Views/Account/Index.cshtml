@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="tableDiv" id="userdiv">
-                    @* @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")*@
+                    @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="tableDiv" id="rolediv">
-                    @* @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")*@
+                    @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")
                 </div>
             </div>
 
@@ -59,31 +59,46 @@
         }
     });
 
+
     $(document).ready(function () {
         $('#userdiv').load('@Url.Action("Index" , "User")');
     });
 
-    function openSystems(evt, SystemsName) {
+    function openSystems(evt, SystemsName)
+    {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
+        for (i = 0; i < tabcontent.length; i++){
             tabcontent[i].style.display = "none";
         }
         tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
+        for (i = 0; i < tablinks.length; i++){
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-        document.getElementById(SystemsName).style.display = "block";
-        evt.currentTarget.className += " active";
 
-        if (SystemsName == "UserManagement") {
+        document.getElementById(SystemsName).style.display = "block";
+        if (evt != null){
+            evt.currentTarget.className += " active";
+        }
+        else{
+            document.getElementById(SystemsName + "Tab").className += " active";
+        }
+
+
+        if (SystemsName == "UserManagement"){
             $('#userdiv').load('@Url.Action("Index" , "User")');
         }
-        else if (SystemsName == "RoleManagement") {
+        else if (SystemsName == "RoleManagement"){
             $('#rolediv').load('@Url.Action("Index" ,"Role")');
         }
-        else if (SystemsName == "Settings") {
+        else if (SystemsName == "Settings"){
             $('#commonllokupdiv').load('@Url.Action("Index" ,"CommonLookUp")');
         }
     }
 </script>
+
+
+
+
+
+

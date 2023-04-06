@@ -43,7 +43,12 @@ namespace ITSupportSystem.WebUI.Controllers
                 ViewBag.Message = role;
                 return View(model);
             }
-            return RedirectToAction("Index", "Account");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Account");
+            }
+
         }
 
         public ActionResult Edit(Guid Id)
@@ -65,7 +70,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 ViewBag.Message = role;
                 return View(model);
             }
-            return RedirectToAction("Index", "Account");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
         public ActionResult Delete(Guid Id)

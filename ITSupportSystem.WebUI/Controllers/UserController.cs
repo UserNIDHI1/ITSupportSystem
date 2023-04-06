@@ -60,7 +60,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            return RedirectToAction("Index", "Account");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
         public ActionResult Edit(Guid Id)
@@ -91,7 +95,11 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            return RedirectToAction("Index", "Account");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Account");
+            }
         }
 
 
