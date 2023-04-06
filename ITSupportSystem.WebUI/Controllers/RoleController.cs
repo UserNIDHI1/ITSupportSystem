@@ -26,7 +26,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleServices.GetRoleList().ToList();
-            return View(roles.ToDataSourceResult(request));
+            return PartialView("_RoleIndexPartial", roles.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -43,11 +43,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 ViewBag.Message = role;
                 return View(model);
             }
-            else
-            {
-                TempData["PageSelected"] = "RoleManagement";
-                return RedirectToAction("Index", "Account");
-            }
+            return RedirectToAction("Index", "Account");
         }
 
         public ActionResult Edit(Guid Id)
@@ -69,12 +65,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 ViewBag.Message = role;
                 return View(model);
             }
-            else
-            {
-                TempData["PageSelected"] = "RoleManagement";
-                return RedirectToAction("Index", "Account");
-            }
-
+            return RedirectToAction("Index", "Account");
         }
 
         public ActionResult Delete(Guid Id)

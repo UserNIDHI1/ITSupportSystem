@@ -32,7 +32,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> user = _userServices.GetUserList().ToList();
-            return View(user.ToDataSourceResult(request));
+            return PartialView("_UserIndexPartial", user.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -60,11 +60,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            else
-            {
-                TempData["PageSelected"] = "UserManagement";
-                return RedirectToAction("Index", "Account");
-            }
+            return RedirectToAction("Index", "Account");
         }
 
         public ActionResult Edit(Guid Id)
@@ -95,12 +91,9 @@ namespace ITSupportSystem.WebUI.Controllers
                 }).ToList();
                 return View(model);
             }
-            else
-            {
-                TempData["PageSelected"] = "UserManagement";
-                return RedirectToAction("Index", "Account");
-            }
+            return RedirectToAction("Index", "Account");
         }
+
 
         public ActionResult Delete(Guid Id)
         {

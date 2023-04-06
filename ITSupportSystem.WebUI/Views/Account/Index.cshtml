@@ -9,9 +9,9 @@
         </div>
         <div class="tab">
             <ul class="align-center">
-                <li><a class="tablinks active" id="UserManagementTab" onclick="openSystems(event, 'UserManagement')">User</a></li>
-                <li> <a class="tablinks" id="RoleManagementTab" onclick="openSystems(event, 'RoleManagement')">Role</a> </li>
-                <li> <a class="tablinks" id="SettingsTab" onclick="openSystems(event, 'Settings')">CommonLookUp </a> </li>
+                <li><a class="tablinks active" onclick="openSystems(event, 'UserManagement')">User</a></li>
+                <li><a class="tablinks" onclick="openSystems(event, 'RoleManagement')">Role</a> </li>
+                <li> <a class="tablinks" onclick="openSystems(event, 'Settings')">CommonLookUp </a> </li>
             </ul>
         </div>
 
@@ -23,11 +23,11 @@
                         <a href="#"> @Html.ActionLink("Add New", "Create", "User")</a>
                     </div>
                 </div>
-                <div class="tableDiv">
-                    @*<div class="tableDiv" id="userdiv">*@
-                        @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
-                    </div>
+
+                <div class="tableDiv" id="userdiv">
+                    @* @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")*@
                 </div>
+            </div>
 
             <div id="RoleManagement" class="tabcontent">
                 <div class="align-center align-between pb20">
@@ -36,13 +36,13 @@
                         @Html.ActionLink("Add New", "Create", "Role")
                     </div>
                 </div>
-                <div class="tableDiv">
-                    @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")
+                <div class="tableDiv" id="rolediv">
+                    @* @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")*@
                 </div>
             </div>
 
             <div id="Settings" class="tabcontent">
-                <div id="CommonLookupTable">
+                <div id="commonllokupdiv">
                     @Html.Partial("~/Views/CommonLookUp/_CommonLookUpIndexPartial.cshtml")
                 </div>
             </div>
@@ -59,13 +59,9 @@
         }
     });
 
-    //$('#openSystems').click(function () {
-    //    var url = "/Account/Index";
-    //    $.get(url, null, function (data) {
-    //        $("#userdiv").html(data);
-    //    });
-    //})
-
+    $(document).ready(function () {
+        $('#userdiv').load('@Url.Action("Index" , "User")');
+    });
 
     function openSystems(evt, SystemsName) {
         var i, tabcontent, tablinks;
@@ -78,11 +74,16 @@
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
         document.getElementById(SystemsName).style.display = "block";
-        if (evt != null) {
-            evt.currentTarget.className += " active";
+        evt.currentTarget.className += " active";
+
+        if (SystemsName == "UserManagement") {
+            $('#userdiv').load('@Url.Action("Index" , "User")');
         }
-        else {
-            document.getElementById(SystemsName + "Tab").className += "active";
+        else if (SystemsName == "RoleManagement") {
+            $('#rolediv').load('@Url.Action("Index" ,"Role")');
+        }
+        else if (SystemsName == "Settings") {
+            $('#commonllokupdiv').load('@Url.Action("Index" ,"CommonLookUp")');
         }
     }
 </script>
