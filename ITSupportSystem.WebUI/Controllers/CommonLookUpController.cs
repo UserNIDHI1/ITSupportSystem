@@ -87,7 +87,6 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-
         public ActionResult GetCommonLookUpJson([DataSourceRequest] DataSourceRequest request)
         {
             List<CommonLookUpViewModel> commonlookupViewModels = _commonLookServices.GetCommonLookUpList().Select(x => new CommonLookUpViewModel() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, DisplayOrder = x.DisplayOrder, Description = x.Description }).ToList();

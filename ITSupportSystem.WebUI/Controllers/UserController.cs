@@ -121,7 +121,6 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-
         public ActionResult GetAllUserJson([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> userViewModels = _userServices.GetUserList().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email, RoleName = x.RoleName, UserName = x.UserName, Gender = x.Gender, MobileNo = x.MobileNo }).ToList();

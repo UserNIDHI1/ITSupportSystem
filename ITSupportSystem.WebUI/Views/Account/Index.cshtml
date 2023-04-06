@@ -20,19 +20,20 @@
                 <div class="align-center align-between pb20">
                     <h2><b>User Management</b></h2>
                     <div class="btnDiv">
-                        <a href="#"> @Html.ActionLink("+ Add New", "Create", "User")</a>
+                        <a href="#"> @Html.ActionLink("Add New", "Create", "User")</a>
                     </div>
                 </div>
                 <div class="tableDiv">
-                    @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
+                    @*<div class="tableDiv" id="userdiv">*@
+                        @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
+                    </div>
                 </div>
-            </div>
 
             <div id="RoleManagement" class="tabcontent">
                 <div class="align-center align-between pb20">
                     <h2><b>Role Management</b></h2>
                     <div class="btnDiv">
-                        @Html.ActionLink("+ Add New", "Create", "Role")
+                        @Html.ActionLink("Add New", "Create", "Role")
                     </div>
                 </div>
                 <div class="tableDiv">
@@ -57,6 +58,13 @@
             openSystems(null, data);
         }
     });
+
+    //$('#openSystems').click(function () {
+    //    var url = "/Account/Index";
+    //    $.get(url, null, function (data) {
+    //        $("#userdiv").html(data);
+    //    });
+    //})
 
 
     function openSystems(evt, SystemsName) {

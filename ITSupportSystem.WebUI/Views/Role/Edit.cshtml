@@ -37,11 +37,11 @@
 
                             <br /><br />
                             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
-
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                         </div>
+
+                    </div>
                     <div>
                         <div class="inputBox">
                             <button type="submit" class="btnDiv">Save</button>
@@ -57,7 +57,16 @@
 }
 
 
-<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+
+<button type="button" class="btn btn-link" id="btnid">Back to list</button>
+
+<script>
+    $(document).ready(function () {
+        $('#btnid').click(function () {
+            history.back();
+        });
+    });
+</script>
 
 @*@model ITSupportSystem.Core1.ViewModel.RoleViewModel
 

@@ -450,9 +450,12 @@
     <Content Include="image\down-arrow.svg" />
     <Content Include="image\edit.svg" />
     <Content Include="image\eye.svg" />
+    <Content Include="image\IT.svg" />
     <Content Include="image\key.svg" />
     <Content Include="image\login-bg.jpg" />
-    <Content Include="image\logo.svg" />
+    <Content Include="image\Logo.png" />
+    <Content Include="image\Logo1.png" />
+    <Content Include="image\Logo2.png" />
     <Content Include="image\search.svg" />
     <Content Include="image\trash.svg" />
     <Content Include="kendo\js\angular.min.js" />

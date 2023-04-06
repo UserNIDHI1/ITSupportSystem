@@ -6,7 +6,7 @@
 * { box-sizing: border-box;}
 body { font-size: 16px; color:#0D0C22 ; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; line-height: 1.4; background: #FFFFFF; }
 a { text-decoration: none; }
-img, svg { vertical-align: middle; height: auto; max-width: 100%; }
+img, svg { vertical-align: middle; height: auto; max-width: 100%; color:#E55030 }
 ul { margin: 0; padding: 0; list-style: none; }
 
 input::placeholder, textarea::placeholder { opacity: 1 !important; }
