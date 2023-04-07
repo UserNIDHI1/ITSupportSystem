@@ -94,7 +94,16 @@
                 }
                 else {
                     $('#editmodal').modal('hide');
-                    location.reload();
+                    $.ajax({
+                        type: 'GET',
+                        url: "/CommonLookUp/Index",
+                        success: function () {
+
+                        }
+                    }).done(function (partialViewResult) {
+                        $("#Settings").html(partialViewResult);
+                        $('.modal-backdrop').remove();
+                    });
                 }
             })
         }

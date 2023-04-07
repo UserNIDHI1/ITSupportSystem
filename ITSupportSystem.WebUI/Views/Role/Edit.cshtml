@@ -1,9 +1,15 @@
 ﻿@model ITSupportSystem.Core1.ViewModel.RoleViewModel
-
 @{
     ViewBag.Title = "Edit";
 }
+<script>
+    $(document).ready(function () {
+        $('#btnid').click(function () {
+            history.back();
+        });
+    });
 
+</script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -16,7 +22,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CRB Form</title>
 
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="~/css/style.css">
     </head>
     <body>
 
@@ -44,9 +50,8 @@
                     </div>
                     <div>
                         <div class="inputBox">
-                            <button type="submit" class="btnDiv">Save</button>
+                            <button type="submit" onclick="editRole(this)" class="btnDiv">Save</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -58,13 +63,7 @@
 
 
 <button type="button" class="btn btn-link" id="btnid">Back to list</button>
-<script>
-    $(document).ready(function () {
-        $('#btnid').click(function () {
-            history.back();
-        });
-    });
-</script>
+
 
 @*@model ITSupportSystem.Core1.ViewModel.RoleViewModel
 

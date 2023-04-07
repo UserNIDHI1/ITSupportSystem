@@ -10,6 +10,7 @@
 
 <div class="tableDiv">
 
+
     @(
    Html.Kendo().Grid<CommonLookUpViewModel>().Name("CommonLookUpgrid")
 
@@ -86,7 +87,7 @@
 
 
 @Styles.Render("~/Content/demo.css")
-<script>
+@*<script>
         function createcommonlookup() {
             $.get({
                 url: '@Url.Action("Create","CommonLookUp")',
@@ -138,7 +139,7 @@
                 }
             });
         }
-</script>
+</script>*@
 
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
 

@@ -28,7 +28,6 @@ namespace ITSupportSystem.WebUI.Controllers
             List<Role> roles = _roleServices.GetRoleList().ToList();
             return PartialView("_RoleIndexPartial", roles.ToDataSourceResult(request));
         }
-
         public ActionResult Create()
         {
             return View();
