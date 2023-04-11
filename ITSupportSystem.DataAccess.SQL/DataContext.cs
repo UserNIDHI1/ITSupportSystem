@@ -20,5 +20,6 @@ namespace ITSupportSystem.DataAccess.SQL
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<CommonLookUp> CommonLookUp { get; set; }
+        public DbSet<Form> Form { get; set; }
     }
 }

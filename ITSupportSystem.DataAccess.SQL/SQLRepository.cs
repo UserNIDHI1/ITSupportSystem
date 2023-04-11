@@ -12,7 +12,6 @@ namespace ITSupportSystem.DataAccess.SQL
 {
     public class SQLRepository<T> : IRepository<T> where T : BaseEntity
     {
-
         internal DataContext context;
         internal DbSet<T> dbSet;
 

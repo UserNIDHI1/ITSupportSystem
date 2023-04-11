@@ -11,7 +11,7 @@ namespace ITSupportSystem.Core1.Models
     {
         public string Name { get; set; }
         public string NavigateURL { get; set; }
-        public Guid ParentFormId { get; set; }
+        public Guid? ParentFormId { get; set; }
         public string FormAccessCode { get; set; }
         public int DisplayIndex { get; set; }
     }

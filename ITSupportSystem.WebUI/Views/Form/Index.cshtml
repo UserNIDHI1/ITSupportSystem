@@ -1,0 +1,77 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+
+        </div>
+    </div>
+</div>
+
+<div class="tabContentDetails">
+    <div class="tabcontent" style="display: block">
+        <div class="align-center align-between pb20">
+            <h2><b>Form Management</b></h2>
+            <div class="btnDiv">
+                <a href="#"> @Html.ActionLink("Add New", "Create", "Form")</a>
+            </div>
+        </div>
+    </div>
+
+
+    @(
+    Html.Kendo().Grid<FormViewModel>().Name("Formgrid")
+
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+
+     .NoRecords("No Records Found.")
+    .Search(s=>
+    {
+        s.Field(c => c.Name);
+        s.Field(c => c.ParentFormName);
+        s.Field(c => c.NavigateURL);
+        s.Field(c => c.FormAccessCode);
+        s.Field(c => c.DisplayIndex);
+    })
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.ParentFormName);
+        columns.Bound(c => c.NavigateURL);
+        columns.Bound(c => c.FormAccessCode);
+        columns.Bound(c => c.DisplayIndex);
+
+        columns.Template(c => { }).Title(string.Empty)
+           .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "Form") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+        columns.Command(c => c.Destroy()).Width(120);
+
+    })
+    .HtmlAttributes(new { style = "height:370px;" })
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id))
+    .Read(read => read.Action("GetAllFormJson", "Form"))
+
+    .Update(update => update.Action("Edit", "Form"))
+    .Destroy(destroy => destroy.Action("Delete", "Form"))
+    .Create(create => create.Action("Create", "Form"))
+    .PageSize(5))
+)
+
+</div>

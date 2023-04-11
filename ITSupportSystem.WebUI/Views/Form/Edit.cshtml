@@ -1,0 +1,77 @@
+﻿@model ITSupportSystem.Core1.ViewModel.FormViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Form", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <!DOCTYPE html>
+    <html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CRB Form</title>
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+    <body>
+        <div class="mainDiv">
+            <div class="formDiv">
+                <div class="topTitleHead pb20">
+                    <h3 style="text-align:left;"><b>Edit</b></h3>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="text-danger" style="font-size: 15px">
+                    @ViewBag.Message
+                </div>
+                <div class="formSection">
+                    <div class="inputBox">
+
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="inputBox">
+                        @Html.LabelFor(model => model.NavigateURL, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.NavigateURL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NavigateURL, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="inputBox selectBox">
+                        @Html.LabelFor(model => model.ParentFormId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "errorMsg" })
+                        @Html.DropDownListFor(model => model.ParentFormId, new SelectList(Model.FormDropDown, "ParentFormId", "ParentFormName"), "Select ParentFormId", new { @class = "form-control" })
+                    </div>
+
+                    <div class="inputBox">
+                        @Html.LabelFor(model => model.FormAccessCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.FormAccessCode, new { htmlAttributes = new { @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model.FormAccessCode, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="inputBox">
+                        @Html.LabelFor(model => model.DisplayIndex, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.DisplayIndex, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
+                        @Html.ValidationMessageFor(model => model.DisplayIndex, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div>
+                    <div class="inputBox">
+                        <button type="submit" class="btnDiv">Save</button>
+                    </div>
+                    @Html.HiddenFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+}
+
+<div>@Html.ActionLink("back to list", "Index", "Form")</div>
+

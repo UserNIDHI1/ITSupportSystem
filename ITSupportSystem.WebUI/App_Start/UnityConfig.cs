@@ -52,14 +52,20 @@ namespace ITSupportSystem.WebUI
 
             container.RegisterType<ILoginRepository, LoginRepository>();
             container.RegisterType<ILoginService, LoginServices>();
+
             container.RegisterType<IRepository<Role>, SQLRepository<Role>>();
             container.RegisterType<IRoleServices, RoleServices>();
             container.RegisterType<IRoleRepository, RoleRepository>();
+
             container.RegisterType<IUserServices, UserServices>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IRepository<UserRole>, SQLRepository<UserRole>>();
+
             container.RegisterType<IRepository<CommonLookUp>, SQLRepository<CommonLookUp>>();
             container.RegisterType<ICommonLookUpServices, CommonLookUpServices>();
+
+            container.RegisterType<IFormRepository, FormRepository>();
+            container.RegisterType<IFormServices, FormServices>();
         }
     }
 }

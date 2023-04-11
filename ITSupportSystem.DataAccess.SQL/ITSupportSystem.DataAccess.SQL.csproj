@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
+    <Compile Include="FormRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Migrations\202303130923040_User.cs" />
     <Compile Include="Migrations\202303130923040_User.designer.cs">
@@ -72,6 +73,14 @@
     <Compile Include="Migrations\202303281019465_addpasswordsalt.cs" />
     <Compile Include="Migrations\202303281019465_addpasswordsalt.designer.cs">
       <DependentUpon>202303281019465_addpasswordsalt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304070939483_Form.cs" />
+    <Compile Include="Migrations\202304070939483_Form.designer.cs">
+      <DependentUpon>202304070939483_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304071321075_ParentIdNull.cs" />
+    <Compile Include="Migrations\202304071321075_ParentIdNull.designer.cs">
+      <DependentUpon>202304071321075_ParentIdNull.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303281019465_addpasswordsalt.resx">
       <DependentUpon>202303281019465_addpasswordsalt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304070939483_Form.resx">
+      <DependentUpon>202304070939483_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304071321075_ParentIdNull.resx">
+      <DependentUpon>202304071321075_ParentIdNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

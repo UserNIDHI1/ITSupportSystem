@@ -426,6 +426,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -2846,6 +2847,9 @@
     <Content Include="Views\Role\_RoleIndexPartial.cshtml" />
     <Content Include="Views\User\_UserIndexPartial.cshtml" />
     <Content Include="Views\CommonLookUp\_CommonLookUpIndexPartial.cshtml" />
+    <Content Include="Views\Form\Index.cshtml" />
+    <Content Include="Views\Form\Create.cshtml" />
+    <Content Include="Views\Form\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
