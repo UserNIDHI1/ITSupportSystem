@@ -25,7 +25,7 @@ namespace ITSupportSystem.Services
         public Users Login(LoginViewModel model)
         {
             Users user = loginRepository.Login(model);
-            if(user!=null)
+            if (user != null)
             {
                 string hash = HashPasword(model.Password, user.PasswordSalt);
                 if (hash.SequenceEqual(user.Password))

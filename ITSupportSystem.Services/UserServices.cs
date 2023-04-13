@@ -93,7 +93,7 @@ namespace ITSupportSystem.Services
             userrole.RoleId = model.RoleId;
             userrole.UpdatedOn = DateTime.Now;
             _userrolerepository.Update(userrole);
-            _userrolerepository.Commit();
+            _userrolerepository.commit();
 
             return null;
         }
@@ -133,7 +133,7 @@ namespace ITSupportSystem.Services
             UserRole userRole = _userrolerepository.Collection().Where(x => x.UserId == Id).FirstOrDefault();
             userRole.IsDeleted = true;
             _userrolerepository.Update(userRole);
-            _userrolerepository.Commit();
+            _userrolerepository.commit();
 
         }
 

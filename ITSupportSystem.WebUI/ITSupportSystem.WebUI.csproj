@@ -2843,18 +2843,19 @@
     <Content Include="Views\CommonLookUp\Index.cshtml" />
     <Content Include="Views\CommonLookUp\CreatePartialView.cshtml" />
     <Content Include="Views\CommonLookUp\EditPartialView.cshtml" />
-    <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <Content Include="Views\Role\_RoleIndexPartial.cshtml" />
     <Content Include="Views\User\_UserIndexPartial.cshtml" />
     <Content Include="Views\CommonLookUp\_CommonLookUpIndexPartial.cshtml" />
     <Content Include="Views\Form\Index.cshtml" />
     <Content Include="Views\Form\Create.cshtml" />
     <Content Include="Views\Form\Edit.cshtml" />
+    <Content Include="Views\Role\Permission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Permission\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

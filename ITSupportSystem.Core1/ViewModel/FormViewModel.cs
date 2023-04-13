@@ -12,13 +12,19 @@ namespace ITSupportSystem.Core1.ViewModel
     {
         [Required]
         public string Name { get; set; }
+
         public string NavigateURL { get; set; }
+
         public Guid? ParentFormId { get; set; }
+
         [Required]
         public string FormAccessCode { get; set; }
+
         [Required]
         public int DisplayIndex { get; set; }
+
         public string ParentFormName { get; set; }
+
         public List<DropdownForm> FormDropDown { get; set; }
     }
 

@@ -27,7 +27,7 @@ namespace ITSupportSystem.DataAccess.SQL
             return dbSet;
         }
 
-        public void Commit()
+        public void commit()
         {
             context.SaveChanges();
         }
@@ -37,7 +37,6 @@ namespace ITSupportSystem.DataAccess.SQL
             var t = Find(Id);
             if (context.Entry(t).State == EntityState.Detached)
                 dbSet.Attach(t);
-
             dbSet.Remove(t);
         }
 
@@ -49,7 +48,7 @@ namespace ITSupportSystem.DataAccess.SQL
         public void Insert(T t)
         {
             dbSet.Add(t);
-            Commit();
+            commit();
         }
 
         public void save()

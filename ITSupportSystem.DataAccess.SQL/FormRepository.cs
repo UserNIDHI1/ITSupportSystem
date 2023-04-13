@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.DataAccess.SQL
 {
-
     public interface IFormRepository
     {
         IQueryable<Form> Collection();
@@ -83,24 +82,23 @@ namespace ITSupportSystem.DataAccess.SQL
         public FormViewModel Getform(Guid Id)
         {
             var form = (from f in contex.Form
-                            join p in contex.Form on f.ParentFormId equals p.Id into fdata
-                            from pf in fdata.DefaultIfEmpty()
-                            where !f.IsDeleted && f.Id==Id
-                            select new FormViewModel()
-                            {
-                                Id = f.Id,
-                                ParentFormId = f.ParentFormId,
-                                ParentFormName = pf.Name,
-                                FormAccessCode = f.FormAccessCode,
-                                DisplayIndex = f.DisplayIndex,
-                                NavigateURL = f.NavigateURL,
-                                Name=f.Name
+                        join p in contex.Form on f.ParentFormId equals p.Id into fdata
+                        from pf in fdata.DefaultIfEmpty()
+                        where !f.IsDeleted && f.Id == Id
+                        select new FormViewModel()
+                        {
+                            Id = f.Id,
+                            ParentFormId = f.ParentFormId,
+                            ParentFormName = pf.Name,
+                            FormAccessCode = f.FormAccessCode,
+                            DisplayIndex = f.DisplayIndex,
+                            NavigateURL = f.NavigateURL,
+                            Name = f.Name
 
-                            }).FirstOrDefault();
+                        }).FirstOrDefault();
             return form;
         }
 
-        
         public void Insert(Form form)
         {
             dbSet.Add(form);

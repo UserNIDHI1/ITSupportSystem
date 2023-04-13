@@ -66,6 +66,9 @@ namespace ITSupportSystem.WebUI
 
             container.RegisterType<IFormRepository, FormRepository>();
             container.RegisterType<IFormServices, FormServices>();
+
+            container.RegisterType<IPermissionRepository, PermissionRepository>();
+            container.RegisterType<IPermissionServices, PermissionServices>();
         }
     }
 }

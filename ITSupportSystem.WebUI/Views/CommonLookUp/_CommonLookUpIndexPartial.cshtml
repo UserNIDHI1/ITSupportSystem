@@ -31,7 +31,6 @@
         s.Field(c => c.DisplayOrder);
     })
 
-
     .Columns(columns =>
     {
         columns.Bound(c => c.ConfigName);
@@ -87,59 +86,6 @@
 
 
 @Styles.Render("~/Content/demo.css")
-@*<script>
-        function createcommonlookup() {
-            $.get({
-                url: '@Url.Action("Create","CommonLookUp")',
-                success: function (data) {
-                    $("#modal").html(data);
-                    $("#addmodal").modal("show");
-                }
-            });
-        }
-
-    function editcommonlookup(e) {
-        var d = this.dataItem($(e.currentTarget).closest("tr"));
-        var obj  = d.id;
-                $.get({
-                url: '@Url.Action("Edit","CommonLookUp")',
-                data: {'id': obj},
-                success: function (data) {
-                    $("#modal").html(data);
-                    $("#editmodal").modal('show');
-                }
-        });
-    }
-
-        var mydelete = function (e)
-        {
-            e.preventDefault();
-            var d = this.dataItem($(e.currentTarget).closest("tr"));
-            id = d.id;
-            $("#deletemodal").modal('show');
-            $("#hdnDeleteLookup").val(id);
-        }
-
-
-        function DeleteForm_Submit() {
-            var id = $("#hdnDeleteLookup").val();
-            $.post({
-                url: '/CommonLookUp/Delete/' + id,
-                success: function () {
-                    $.ajax({
-                        type: 'GET',
-                        url: "/CommonLookUp/Index",
-                        success: function () {
-
-                        }
-                    }).done(function (partialViewResult) {
-                        $("#CommonLookupTable").html(partialViewResult);
-                        $('.modal-backdrop').remove();
-                    });
-                }
-            });
-        }
-</script>*@
 
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
 

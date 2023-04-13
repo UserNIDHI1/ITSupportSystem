@@ -10,7 +10,7 @@ namespace ITSupportSystem.Core1.Contracts
     public interface IRepository<T> where T : BaseEntity
     {
         IQueryable<T> Collection();
-        void Commit();
+        void commit();
         void save();
         void Delete(Guid Id);
         T Find(Guid Id);

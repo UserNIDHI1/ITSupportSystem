@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ITSupportSystem.Core1.Models
-{
+{ 
     public class Form : BaseEntity
     {
         public string Name { get; set; }

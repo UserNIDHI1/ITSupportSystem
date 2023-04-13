@@ -30,7 +30,6 @@ namespace ITSupportSystem.Core1.ViewModel
         public string MobileNo { get; set; }
 
         [Required]
-        //[DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "Password must be at least 1 lowercase letter, 1 uppercase letter, 1 numeric character, and 1 special character.")]
         public string Password { get; set; }

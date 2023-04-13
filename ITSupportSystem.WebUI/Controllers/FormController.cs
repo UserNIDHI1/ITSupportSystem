@@ -1,6 +1,7 @@
 ﻿using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.session;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,12 +14,15 @@ namespace ITSupportSystem.WebUI.Controllers
 {
     public class FormController : Controller
     {
+        
 
         FormServices _formServices;
         public FormController(FormServices formService)
         {
             _formServices = formService;
         }
+
+        [Authentication]
 
         // GET: Form
         public ActionResult Index()
@@ -50,7 +54,7 @@ namespace ITSupportSystem.WebUI.Controllers
         {
 
             var form = _formServices.CreateForm(model);
-            if(form !=null)
+            if (form != null)
             {
                 ViewBag.Message = form;
                 model.FormDropDown = _formServices.GetFormList().Select(x => new DropdownForm()
@@ -63,12 +67,11 @@ namespace ITSupportSystem.WebUI.Controllers
             else
             {
                 return RedirectToAction("Index", "Form");
-            } 
+            }
         }
 
         public ActionResult Edit(Guid Id)
         {
-
             FormViewModel form = _formServices.GetForm(Id);
             form.FormDropDown = _formServices.GetFormList().Select(x => new DropdownForm()
             {

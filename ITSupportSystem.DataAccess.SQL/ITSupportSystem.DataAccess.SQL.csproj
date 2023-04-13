@@ -82,7 +82,12 @@
     <Compile Include="Migrations\202304071321075_ParentIdNull.designer.cs">
       <DependentUpon>202304071321075_ParentIdNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304120536531_Permission.cs" />
+    <Compile Include="Migrations\202304120536531_Permission.designer.cs">
+      <DependentUpon>202304120536531_Permission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -122,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304071321075_ParentIdNull.resx">
       <DependentUpon>202304071321075_ParentIdNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304120536531_Permission.resx">
+      <DependentUpon>202304120536531_Permission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

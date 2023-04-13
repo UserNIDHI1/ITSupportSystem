@@ -17,9 +17,12 @@ namespace ITSupportSystem.WebUI.Controllers
     public class RoleController : Controller
     {
         RoleServices _roleServices;
-        public RoleController(RoleServices roleService)
+        PermissionServices _permissionServices;
+
+        public RoleController(RoleServices roleService, PermissionServices permissionServices)
         {
             _roleServices = roleService;
+            _permissionServices = permissionServices;
         }
 
         // GET: Admin
@@ -47,7 +50,6 @@ namespace ITSupportSystem.WebUI.Controllers
                 TempData["PageSelected"] = "RoleManagement";
                 return RedirectToAction("Index", "Account");
             }
-
         }
 
         public ActionResult Edit(Guid Id)
@@ -98,6 +100,19 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             List<RoleViewModel> userRoleViewModels = _roleServices.GetRoleList().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
             return Json(userRoleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Permission(Guid Id)
+        {
+            IEnumerable<PermissionViewModel> permision = _permissionServices.GetPermissionn(Id).ToList();
+            ViewBag.RoleId = Id;
+            return View(permision);
+        }
+
+        public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
+        {
+            IEnumerable<PermissionViewModel> permissionViewModels = _permissionServices.GetPermissionn(Id).ToList();
+            return Json(permissionViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

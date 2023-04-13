@@ -40,7 +40,7 @@ namespace ITSupportSystem.Services
                 commonlook.DisplayOrder = model.DisplayOrder;
                 commonlook.Description = model.Description;
                 _commonlookupRepository.Insert(commonlook);
-                _commonlookupRepository.Commit();
+                _commonlookupRepository.commit();
                 return commonlook;
             }
             else
@@ -71,7 +71,7 @@ namespace ITSupportSystem.Services
             CommonLookUp commonlook = _commonlookupRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
             commonlook.IsDeleted = true;
             _commonlookupRepository.Update(commonlook);
-            _commonlookupRepository.Commit();
+            _commonlookupRepository.commit();
         }
 
         public CommonLookUp UpdateCommonLookUp(CommonLookUp model)
@@ -88,7 +88,7 @@ namespace ITSupportSystem.Services
                 commonlook.Description = model.Description;
                 commonlook.UpdatedOn = DateTime.Now;
                 _commonlookupRepository.Update(commonlook);
-                _commonlookupRepository.Commit();
+                _commonlookupRepository.commit();
                 return commonlook;
             }
             else

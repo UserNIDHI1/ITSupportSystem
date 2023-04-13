@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.Services
 {
-
     public interface IFormServices
     {
         string CreateForm(FormViewModel model);
@@ -35,6 +34,10 @@ namespace ITSupportSystem.Services
             {
                 return "FormAccessCode is already exist";
             }
+            if (_formRepository.Collection().Where(f => f.Name == model.Name).Any())
+            {
+                return "Name is already exist";
+            }
             Form formData = new Form();
             formData.Name = model.Name;
             formData.NavigateURL = model.NavigateURL;
@@ -46,7 +49,6 @@ namespace ITSupportSystem.Services
             }
             _formRepository.Insert(formData);
             _formRepository.commit();
-
             return null;
         }
 
@@ -73,7 +75,10 @@ namespace ITSupportSystem.Services
             {
                 return "FormAccessCode is already exist";
             }
-
+            if (_formRepository.Collection().Where(f => f.Id != model.Id && f.Name == model.Name).Any())
+            {
+                return "Name is already exist";
+            }
             Form form = _formRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             form.Name = model.Name;
             form.NavigateURL = model.NavigateURL;
@@ -82,7 +87,6 @@ namespace ITSupportSystem.Services
             form.ParentFormId = model.ParentFormId;
             _formRepository.Update(form);
             _formRepository.commit();
-
             return null;
         }
     }
