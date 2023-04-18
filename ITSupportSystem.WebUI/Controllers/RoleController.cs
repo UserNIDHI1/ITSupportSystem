@@ -104,15 +104,31 @@ namespace ITSupportSystem.WebUI.Controllers
 
         public ActionResult Permission(Guid Id)
         {
-            IEnumerable<PermissionViewModel> permision = _permissionServices.GetPermissionn(Id).ToList();
+            //List<PermissionViewModel> permision = _permissionServices.GetPermission(Id).ToList();
             ViewBag.RoleId = Id;
-            return View(permision);
+            return View();
         }
 
-        public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
+        public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid RoleId)
         {
-            IEnumerable<PermissionViewModel> permissionViewModels = _permissionServices.GetPermissionn(Id).ToList();
+            List<PermissionViewModel> permissionViewModels = _permissionServices.GetPermission(RoleId).ToList();
             return Json(permissionViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePermission(List<Permission> model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                _permissionServices.UpdatePermission(model);
+                return Content("true") ;
+                
+            }
         }
     }
 }

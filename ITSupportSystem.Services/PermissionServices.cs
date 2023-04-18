@@ -11,7 +11,8 @@ namespace ITSupportSystem.Services
 {
     public interface IPermissionServices
     {
-        List<PermissionViewModel> GetPermissionn(Guid Id);
+        List<PermissionViewModel> GetPermission(Guid RoleId);
+        void UpdatePermission(List<Permission> model);
     }
 
     public class PermissionServices : IPermissionServices
@@ -25,11 +26,15 @@ namespace ITSupportSystem.Services
             this._formServices = formServices;
         }
 
-        public List<PermissionViewModel> GetPermissionn(Guid RoleId)
+        public List<PermissionViewModel> GetPermission(Guid RoleId)
         {
             return _permissionRepository.GetPermission(RoleId).ToList();
         }
 
+        public void UpdatePermission(List<Permission> model)
+        {
+            _permissionRepository.InsertRange(model);
+        }
     }
 }
 

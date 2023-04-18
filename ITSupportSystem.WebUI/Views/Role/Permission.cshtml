@@ -1,6 +1,6 @@
 ﻿@using Kendo.Mvc.UI
-@model IEnumerable<ITSupportSystem.Core1.ViewModel.PermissionViewModel>
 @using ITSupportSystem.Core1.ViewModel
+
 
 @{
     ViewBag.Title = "Index";
@@ -8,9 +8,6 @@
 
 <div class="section">
     <div class="container">
-        <div class="topTitleHead pb20">
-
-        </div>
     </div>
 </div>
 <div class="tabContentDetails">
@@ -19,49 +16,132 @@
             <h2><b>Permission</b></h2>
         </div>
     </div>
-    @(
-            Html.Kendo().Grid<PermissionViewModel>().Name("Permissiongrid")
 
-            .ToolBar(t=>t.Search())
-            .Editable(editable => editable.Mode(GridEditMode.InLine))
+    @(Html.Kendo().Grid<PermissionViewModel>
+    ().Name("PermissionGrid")
 
-             .Pageable(pageable =>
-             {
-                 pageable.Refresh(true);
-             })
+    .ToolBar(t=>t.Search())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .NoRecords("No Records Found.")
+    .Search(s=>
+    {
+        s.Field(c => c.FormName);
+    })
+    .Columns(columns =>
+    {
+        columns.Template(c => { })
+        .Title("<b>All Select</b><br /> <input type='checkbox' id='allView_Checkbox' name='allView' />")
+        .ClientTemplate("<input type='checkbox' onclick='SelectAll(this)' id='#=FormId#' name='row'/>").Width(80);
 
-             .NoRecords("No Records Found.")
-            .Search(s=>
-            {
-                s.Field(c => c.View);
-                s.Field(c => c.Insert);
-                s.Field(c => c.Update);
-                s.Field(c => c.Delete);
-            })
-
-            .Columns(columns =>
-            {
-                columns.Select().Width(50);
-                columns.Bound(c => c.FormName);
-                columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-                columns.Bound(p => p.Insert).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-                columns.Bound(p => p.Update).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-                columns.Bound(p => p.Delete).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-
-                @*columns.Bound(c => c.View);
-                columns.Bound(c => c.Insert);
-                columns.Bound(c => c.Update);
-                columns.Bound(c => c.Delete);*@
-            })
-            .HtmlAttributes(new { style = "height:400px;width:1300px;" })
-            .Sortable()
-            .Scrollable()
-            .Filterable()
-            .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.RoleId))
-            .Read(read => read.Action("GetAllPermissionJson", "Role", new { Id = ViewBag.RoleId }))
-            .PageSize(5))
-        )
+        columns.Bound(c => c.FormName);
+        columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' #=View == true ? checked='checked' : '' # id='view_#=FormId#' onclick='CheckValue#=FormId#' />");
+        columns.Bound(p => p.Insert).ClientTemplate("<input type='checkbox' #=Insert == true ? checked='checked' : '' # id='insert_#=FormId#' onclick='CheckValue#=FormId#' />");
+        columns.Bound(p => p.Update).ClientTemplate("<input type='checkbox' #=Update == true ? checked='checked' : '' # id='update_#=FormId#' onclick='CheckValue#=FormId#' />");
+        columns.Bound(p => p.Delete).ClientTemplate("<input type='checkbox' #=Delete == true ? checked='checked' : '' # id='delete_#=FormId#' onclick='CheckValue#=FormId#'/>");
+    })
+    .HtmlAttributes(new { style = "height:330px;width:1100px;" })
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.RoleId))
+    .Read(read => read.Action("GetAllPermissionJson", "Role", new { RoleId = ViewBag.RoleId }))
+    )
+    )
+    <br />
 </div>
-<div>@Html.ActionLink("back to list", "Index", "Account")</div>
+
+<div style="text-align:center;">
+    <button type=button class="btn btn-success" id="SubmitBtnId" onclick="savepermission()" style="width:200px">Save</button>
+</div>
+
+
+<script>
+    $(".class-on-my-checkboxes").click(function () {
+        if (!this.checked) {
+            $("#id-of-checkall-checkbox").attr('checked', false);
+        }
+        else if ($(".class-on-my-checkboxes").length == $(".class-on-my-checkboxes:checked").length) {
+            $("#id-of-checkall-checkbox").attr('checked', true);
+        }
+    });
+</script>
+
+
+@*Row wise selected chckbox*@
+
+<script>
+    function SelectAll(e) {
+        console.log(e);
+        var Id = e.id;
+        if (e.checked) {
+            document.getElementById('view_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('view_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('insert_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('insert_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('update_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('update_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('delete_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('delete_' + Id).checked = false;
+        }
+    }
+</script>
+
+
+@*add data in database *@
+<script>
+    function savepermission() {
+        debugger;
+        var grid = $("#PermissionGrid").data("kendoGrid");
+        var ds = grid.dataSource.view();
+        if (ds.length > 0) {
+            const data = [];
+            for (var i = 0; i < ds.length; i++) {
+                FormId = ds[i].FormId;
+                RoleId = ds[i].RoleId;
+                Id = ds[i].Id;
+                FormName = ds[i].FormName;
+                View = document.getElementById("view_" + FormId).checked;
+                Insert = document.getElementById("insert_" + FormId).checked;
+                Update = document.getElementById("update_" + FormId).checked;
+                Delete = document.getElementById("delete_" + FormId).checked;
+
+                var jsonData = { FormId: FormId, FormName: FormName, RoleId: RoleId, View: View, Insert: Insert, Update: Update, Delete: Delete };
+                data.push(jsonData);
+            }
+            $.ajax({
+                type: 'post',
+                url: '/Role/UpdatePermission',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                }
+            });
+        }
+    }
+
+   @* store data in databse and redirect another page*@
+    $('#SubmitBtnId').click(function () {
+        toastr.success('Data Saved Successfully...');
+             document.location = '@Url.Action("Index","Account")';
+     });
+
+</script>
+
+
 
 
