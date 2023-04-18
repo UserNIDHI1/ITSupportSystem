@@ -30,14 +30,14 @@
     .Columns(columns =>
     {
         columns.Template(c => { })
-        .Title("<b>All Select</b><br /> <input type='checkbox' id='allView_Checkbox' name='allView' />")
-        .ClientTemplate("<input type='checkbox' onclick='SelectAll(this)' id='#=FormId#' name='row'/>").Width(80);
+        .Title("<b>All Select</b><br/> <input type='checkbox' id='AllCheck' name='all' />")
+        .ClientTemplate("<input type='checkbox' class='selectcheckbox' onclick='SelectAll(this)' #=View == true && Insert == true && Update == true &&  Delete == true ? checked='checked' : '' # id='#=FormId#' name='row'/>").Width(80);
 
         columns.Bound(c => c.FormName);
-        columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' #=View == true ? checked='checked' : '' # id='view_#=FormId#' onclick='CheckValue#=FormId#' />");
-        columns.Bound(p => p.Insert).ClientTemplate("<input type='checkbox' #=Insert == true ? checked='checked' : '' # id='insert_#=FormId#' onclick='CheckValue#=FormId#' />");
-        columns.Bound(p => p.Update).ClientTemplate("<input type='checkbox' #=Update == true ? checked='checked' : '' # id='update_#=FormId#' onclick='CheckValue#=FormId#' />");
-        columns.Bound(p => p.Delete).ClientTemplate("<input type='checkbox' #=Delete == true ? checked='checked' : '' # id='delete_#=FormId#' onclick='CheckValue#=FormId#'/>");
+        columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' class='selectcheckbox' #=View == true ? checked='checked' : '' # id='view_#=FormId#' onclick='CheckValue(this)' />");
+        columns.Bound(p => p.Insert).ClientTemplate("<input type='checkbox' class='selectcheckbox' #=Insert == true ? checked='checked' : '' # id='insert_#=FormId#' onclick='CheckValue(this)' />");
+        columns.Bound(p => p.Update).ClientTemplate("<input type='checkbox' class='selectcheckbox' #=Update == true ? checked='checked' : '' # id='update_#=FormId#' onclick='CheckValue(this)' />");
+        columns.Bound(p => p.Delete).ClientTemplate("<input type='checkbox' class='selectcheckbox' #=Delete == true ? checked='checked' : '' # id='delete_#=FormId#' onclick='CheckValue(this)'/>");
     })
     .HtmlAttributes(new { style = "height:330px;width:1100px;" })
     .Sortable()
@@ -55,42 +55,76 @@
 </div>
 
 
+
 <script>
-    $(".class-on-my-checkboxes").click(function () {
-        if (!this.checked) {
-            $("#id-of-checkall-checkbox").attr('checked', false);
+
+    @* AllSelect checkbox*@
+    $('#AllCheck').click(function ()
+    {
+        if ($(this).prop('checked') == true)
+        {
+            $('.selectcheckbox').prop('checked', true);
         }
-        else if ($(".class-on-my-checkboxes").length == $(".class-on-my-checkboxes:checked").length) {
-            $("#id-of-checkall-checkbox").attr('checked', true);
+        else
+        {
+            $('.selectcheckbox').prop('checked', false);
         }
     });
-</script>
 
+
+    function CheckValue(e) {
+        var id = e.id.split("_")[1];
+        if ($("#view_" + id).prop("checked") == true && $("#insert_" + id).prop("checked") == true && $("#update_" + id).prop("checked") == true && $("#delete_" + id).prop("checked") == true)
+        {
+            $("#" + id).prop("checked", true);
+        }
+        else
+        {
+            $("#" + id).prop("checked", false);
+        }
+    }
+
+
+
+</script>
 
 @*Row wise selected chckbox*@
 
 <script>
     function SelectAll(e) {
-        console.log(e);
+
         var Id = e.id;
+
+
+        $(".selectcheckbox").change(function () {
+            if ($(".selectcheckbox").length == $(".selectcheckbox:checked").length)
+                $("#AllCheck").prop('checked', true);
+            else
+                $("#AllCheck").prop('checked', false);
+        });
+
         if (e.checked) {
             document.getElementById('view_' + Id).checked = true;
+
         }
         else {
             document.getElementById('view_' + Id).checked = false;
         }
+
         if (e.checked) {
             document.getElementById('insert_' + Id).checked = true;
         }
         else {
             document.getElementById('insert_' + Id).checked = false;
         }
+
         if (e.checked) {
             document.getElementById('update_' + Id).checked = true;
         }
         else {
             document.getElementById('update_' + Id).checked = false;
         }
+
         if (e.checked) {
             document.getElementById('delete_' + Id).checked = true;
         }
@@ -104,7 +138,6 @@
 @*add data in database *@
 <script>
     function savepermission() {
-        debugger;
         var grid = $("#PermissionGrid").data("kendoGrid");
         var ds = grid.dataSource.view();
         if (ds.length > 0) {
