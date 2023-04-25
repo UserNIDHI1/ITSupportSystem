@@ -12,57 +12,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CRB Form</title>
 
-        <link rel="stylesheet" href="css/style.css">
+        @*<link rel="stylesheet" href="css/style.css">*@
 
     </head>
     <body>
         <div class="mainDiv">
             <div class="formDiv">
                 <div class="topTitleHead pb20">
-                    <h3 style="text-align:left;"><b>CREATE</b></h3>
+                    <h3 style="text-align:left;font-family:sans-serif;color:forestgreen"><b>CREATE</b></h3>
                 </div>
                 <div class="formSection">
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>Name</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
                     <div class="inputBox selectBox">
-                        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>RoleId</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.RoleDropDown, "Id", "Name"), "Select Role", new { @class = "form-control" })
                     </div>
 
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>Email</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>Password</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorMsg" })
                         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>UserName</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errorMsg" })
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>MobileNo</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "errorMsg" })
                         @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
 
                     </div>
 
                     <div class="inputBox w-100">
-                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "" })
+                        <label class="form-label"><b>Gender</b><strong style="color:red;font-size:18px;">*</strong></label>                
                         <div class="radioBtnSection">
                             <div class="radioBtnDiv">
                                 Female @Html.RadioButtonFor(model => model.Gender, "Female")
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="inputBox">
-                        <button type="submit" class="btnDiv">Create</button>
+                        <button type="submit" class="btnDiv" style="color:black">CREATE</button>
                     </div>
                 </div>
             </div>

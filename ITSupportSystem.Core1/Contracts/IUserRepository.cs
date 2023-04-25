@@ -17,6 +17,6 @@ namespace ITSupportSystem.Core1.Contracts
         Users Find(Guid Id);
         void Delete(Guid Id);
         List<UserViewModel> GetUserList();
-        UserViewModel Getuser(Guid Id);
+        UserViewModel GetUser(Guid Id);
     }
 }

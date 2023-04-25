@@ -44,8 +44,7 @@
     .Scrollable()
     .Filterable()
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.RoleId))
-    .Read(read => read.Action("GetAllPermissionJson", "Role", new { RoleId = ViewBag.RoleId }))
-    )
+    .Read(read => read.Action("GetAllPermissionJson", "Role", new { RoleId = ViewBag.RoleId })))
     )
     <br />
 </div>
@@ -71,7 +70,6 @@
         }
     });
 
-
     function CheckValue(e) {
         var id = e.id.split("_")[1];
         if ($("#view_" + id).prop("checked") == true && $("#insert_" + id).prop("checked") == true && $("#update_" + id).prop("checked") == true && $("#delete_" + id).prop("checked") == true)
@@ -83,19 +81,13 @@
             $("#" + id).prop("checked", false);
         }
     }
-
-
-
 </script>
 
-@*Row wise selected chckbox*@
 
+@*Row wise selected chckbox*@
 <script>
     function SelectAll(e) {
-
         var Id = e.id;
-
-
         $(".selectcheckbox").change(function () {
             if ($(".selectcheckbox").length == $(".selectcheckbox:checked").length)
                 $("#AllCheck").prop('checked', true);
@@ -105,7 +97,6 @@
 
         if (e.checked) {
             document.getElementById('view_' + Id).checked = true;
-
         }
         else {
             document.getElementById('view_' + Id).checked = false;

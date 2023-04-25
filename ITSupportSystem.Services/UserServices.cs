@@ -43,7 +43,6 @@ namespace ITSupportSystem.Services
                 return "Email is already exist";
             }
 
-
             Users userData = new Users();
             string salt = "";
             string password = HashPasword(user.Password, out salt);
@@ -137,6 +136,7 @@ namespace ITSupportSystem.Services
 
         }
 
+        // Hash password
         private static string CreateSalt(int size)
         {
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();

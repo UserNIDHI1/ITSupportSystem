@@ -20,48 +20,48 @@
         <div class="mainDiv">
             <div class="formDiv">
                 <div class="topTitleHead pb20">
-                    <h3 style="text-align:left;"><b>Edit</b></h3>
+                    <h3 style="text-align:left;color:green;font-family:sans-serif"><b>Edit</b></h3>
                 </div>
                 <div class="formSection">
                     <div class="inputBox">
 
                         <div class="text-danger">@ViewBag.Message</div>
 
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>Name</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="inputBox selectBox">
-                        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>RoleId</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.RoleDropDown, "Id", "Name"), "Select Role", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
 
                     </div>
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                         <label class="form-label"><b>Email</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
                     </div>
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>UserName</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
 
                     </div>
 
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <label class="form-label"><b>MobileNo</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
 
                     </div>
 
                     <div class="inputBox w-100">
-                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "" })
+                        <label class="form-label"><b>Gender</b><strong style="color:red;font-size:18px;">*</strong></label>
                         <div class="radioBtnSection">
                             <div class="radioBtnDiv">
                                 Female @Html.RadioButtonFor(model => model.Gender, "Female")
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="inputBox">
-                        <button type="submit" class="btnDiv">Save</button>
+                        <button type="submit" class="btnDiv" style="color:black">SAVE</button>
                     </div>
                     @Html.HiddenFor(model => model.Id)
                 </div>

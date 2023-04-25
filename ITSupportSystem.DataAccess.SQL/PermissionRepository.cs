@@ -68,22 +68,23 @@ namespace ITSupportSystem.DataAccess.SQL
 
         public List<PermissionViewModel> GetPermission(Guid RoleId)
         {
-            var PermissionsList = (from f in context.Form.Where(x=>!x.IsDeleted).AsEnumerable()
-                                  join p in context.Permission.Where(x=>x.RoleId==RoleId) on
-                                  f.Id equals p.FormId into fp
-                                  from fPer in fp.DefaultIfEmpty()
-                                  select new PermissionViewModel
-                                  {
-                                      FormId = f.Id,
-                                      FormName = f.Name,
-                                      RoleId = RoleId,
-                                      View = fPer != null ? fPer.View : false,
-                                      Insert = fPer != null ? fPer.Insert : false,
-                                      Update = fPer != null ? fPer.Update : false,
-                                      Delete = fPer != null ? fPer.Delete : false
-                                  }).ToList();
+            var PermissionsList = (from f in context.Form.Where(x => !x.IsDeleted).AsEnumerable()
+                                   join p in context.Permission.Where(x => x.RoleId == RoleId) on
+                                   f.Id equals p.FormId into fp
+                                   from fPer in fp.DefaultIfEmpty()
+                                   select new PermissionViewModel
+                                   {
+                                       FormId = f.Id,
+                                       FormName = f.Name,
+                                       RoleId = RoleId,
+                                       NavigateUrl = f.NavigateURL,
+                                       ParentFormId=f.ParentFormId,
+                                       View = fPer != null ? fPer.View : false,
+                                       Insert = fPer != null ? fPer.Insert : false,
+                                       Update = fPer != null ? fPer.Update : false,
+                                       Delete = fPer != null ? fPer.Delete : false
+                                   }).ToList();
             return PermissionsList;
         }
-        
     }
 }

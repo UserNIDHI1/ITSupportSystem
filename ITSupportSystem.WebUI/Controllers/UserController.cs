@@ -28,7 +28,7 @@ namespace ITSupportSystem.WebUI.Controllers
             this._roleServices = roleServices;
         }
 
-        // GET: User
+       
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> user = _userServices.GetUserList().ToList();
@@ -52,7 +52,7 @@ namespace ITSupportSystem.WebUI.Controllers
             var user = _userServices.CreateUser(model);
             if (user != null)
             {
-                ViewBag.Message = user;
+                ViewBag.Message = user; //already exist
                 model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
                 {
                     Id = x.Id,
@@ -87,7 +87,7 @@ namespace ITSupportSystem.WebUI.Controllers
             var user = _userServices.UpdateUser(model);
             if (user != null)
             {
-                ViewBag.Message = user;
+                ViewBag.Message = user; //already exist
                 model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
                 {
                     Id = x.Id,
@@ -122,6 +122,8 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
+
+        //kendo json
         public ActionResult GetAllUserJson([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> userViewModels = _userServices.GetUserList().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email, RoleName = x.RoleName, UserName = x.UserName, Gender = x.Gender, MobileNo = x.MobileNo }).ToList();

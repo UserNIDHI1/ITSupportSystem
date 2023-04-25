@@ -21,9 +21,15 @@ namespace ITSupportSystem.WebUI.Controllers
     public class AccountController : Controller
     {
         private ILoginService _loginService;
-        public AccountController(ILoginService loginService)
+        private PermissionServices _permissionServices;
+        private IRepository<UserRole> _userroleRepository;
+        
+
+        public AccountController(ILoginService loginService,PermissionServices permissionServices, IRepository<UserRole> userroleRepository)
         {
             _loginService = loginService;
+            _permissionServices = permissionServices;
+            _userroleRepository = userroleRepository;
         }
         [Authentication]
         public ActionResult Index()
@@ -31,7 +37,6 @@ namespace ITSupportSystem.WebUI.Controllers
             string res = TempData["PageSelected"] as string;
             return View();
         }
-
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -57,11 +62,15 @@ namespace ITSupportSystem.WebUI.Controllers
                 {
                     Session["UserName"] = user.UserName;
                     Session["Id"] = user.Id;
+                    Guid RoleId = _userroleRepository.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+                    Session["RoleId"] = RoleId;
+                    var permission = _permissionServices.GetPermission(RoleId).ToList();
+                    Session["Permission"] = permission;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid Email and Password");
+                    ModelState.AddModelError("", "Invalid login attempt");
                     return View();
                 }
             }

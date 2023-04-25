@@ -48,7 +48,7 @@ namespace ITSupportSystem.DataAccess.SQL
             return dbSet.Find(Id);
         }
 
-        public UserViewModel Getuser(Guid Id)
+        public UserViewModel GetUser(Guid Id)
         {
             var list = (from u in contex.User
                         join ur in contex.UserRole on u.Id equals ur.UserId

@@ -419,6 +419,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\AccessCode.cs" />
+    <Compile Include="ActionFilter\CheckPermission.cs" />
+    <Compile Include="ActionFilter\CustomActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2825,7 +2828,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
@@ -2850,6 +2852,7 @@
     <Content Include="Views\Form\Create.cshtml" />
     <Content Include="Views\Form\Edit.cshtml" />
     <Content Include="Views\Role\Permission.cshtml" />
+    <Content Include="Views\Shared\GenerateMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

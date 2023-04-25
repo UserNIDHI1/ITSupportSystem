@@ -25,7 +25,6 @@ namespace ITSupportSystem.WebUI.Controllers
             _permissionServices = permissionServices;
         }
 
-        // GET: Admin
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleServices.GetRoleList().ToList();
@@ -104,7 +103,6 @@ namespace ITSupportSystem.WebUI.Controllers
 
         public ActionResult Permission(Guid Id)
         {
-            //List<PermissionViewModel> permision = _permissionServices.GetPermission(Id).ToList();
             ViewBag.RoleId = Id;
             return View();
         }
@@ -126,7 +124,9 @@ namespace ITSupportSystem.WebUI.Controllers
             {
                 TempData["PageSelected"] = "RoleManagement";
                 _permissionServices.UpdatePermission(model);
-                return Content("true") ;
+                var permission = _permissionServices.GetPermission((Guid)Session["RoleId"]).ToList();
+                Session["Permission"] = permission;
+                return Content("true");
                 
             }
         }

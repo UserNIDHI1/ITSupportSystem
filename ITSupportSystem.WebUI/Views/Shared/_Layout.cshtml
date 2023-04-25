@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ITSupportSystem.Core1.ViewModel
+
+<!DOCTYPE html>
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
@@ -18,24 +20,51 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Kendo")
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/bootstrap.js"></script>
-
-
-
 </head>
 <body>
+
     <div class="mainDiv">
         <div class="header">
             <div class="container">
                 <div class="align-center align-between">
                     <div class="align-center">
                         <div class="logoDiv"> <a href="#"> <img src="~/image/Logo.png" alt="CRB Logo"> </a> </div>
+
+
                         <div class="menuDiv">
                             <ul class="align-center">
-                                <li> @Html.ActionLink("Home", "Index", "Home")</li>
-                                <li> @Html.ActionLink("Ticket", "Index", "Ticket") </li>
-                                <li> @Html.ActionLink("Systems", "Index", "Account") </li>
-                                <li>@Html.ActionLink("Form", "Index", "Form")</li>
+                                @if (Session["UserName"] != null)
+                                 {
+                                    var list = Session["Permission"] as List<PermissionViewModel>;
+                                    foreach (var item in list.Where(x => x.View == true && x.ParentFormId == null))
+                                    {
+                                        <div class="userInfo">
+                                            <div class="align-center">
+                                                <div class="userName align-center">
+                                                    @if (list.Where(x => x.ParentFormId == item.FormId).Count() > 0)
+                                                    {
+                                                        if (list.Where(x => x.ParentFormId == item.FormId && x.View == true).Count() > 0)
+                                                        {
+                                                            <span><a href="@item.NavigateUrl" style="color: #fffdfc; font-size:20px;"> @item.FormName </a></span>
+                                                            <div class="userInfoDiv">
+                                                                <div class="userInfoBox">
+                                                                    @foreach (var child in list.Where(x => x.ParentFormId == item.FormId && x.View == true))
+                                                                    {
+                                                                        <a href="@child.NavigateUrl">@child.FormName</a>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span><a href="@item.NavigateUrl" style="color: #fffdfc; font-size:20px;"> @item.FormName </a></span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                 }
                             </ul>
                         </div>
                     </div>
@@ -43,17 +72,15 @@
                     <div class="userInfo">
                         <div class="align-center">
                             <div class="userProfile">
-
                             </div>
                             <div class="userName align-center">
                                 @if (Session["UserName"] != null)
                                 {
-                                    <span>@Session["UserName"] </span>
+                                    <span>Hello @Session["UserName"]</span>
                                     <i> <img src="~/image/down-arrow.svg" alt="Dropdown Icon"> </i>
                                     <div class="userInfoDiv">
                                         <div class="userInfoBox">
                                             <a href="#">Profile</a>
-                                            <a href="#">Settings</a>
                                             @Html.ActionLink("Logout", "Logout", "Account")
                                         </div>
                                     </div>
@@ -76,8 +103,6 @@
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" />
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
-
-
 
 
 

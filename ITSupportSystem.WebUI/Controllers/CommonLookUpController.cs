@@ -21,7 +21,6 @@ namespace ITSupportSystem.WebUI.Controllers
             _commonLookServices = commonLookServices;
         }
 
-        // GET: CommonLookUp
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<CommonLookUp> commonlook = _commonLookServices.GetCommonLookUpList().ToList();
@@ -49,7 +48,6 @@ namespace ITSupportSystem.WebUI.Controllers
                 return Content("False");
             }
         }
-
 
         public ActionResult Edit(Guid Id)
         {
@@ -92,6 +90,5 @@ namespace ITSupportSystem.WebUI.Controllers
             List<CommonLookUpViewModel> commonlookupViewModels = _commonLookServices.GetCommonLookUpList().Select(x => new CommonLookUpViewModel() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, DisplayOrder = x.DisplayOrder, Description = x.Description }).ToList();
             return Json(commonlookupViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-
     }
 }

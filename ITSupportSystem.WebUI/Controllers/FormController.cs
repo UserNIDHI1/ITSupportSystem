@@ -1,5 +1,6 @@
 ﻿using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
+using ITSupportSystem.DataAccess.SQL;
 using ITSupportSystem.Services;
 using ITSupportSystem.WebUI.session;
 using Kendo.Mvc.Extensions;
@@ -14,19 +15,19 @@ namespace ITSupportSystem.WebUI.Controllers
 {
     public class FormController : Controller
     {
-        
-
         FormServices _formServices;
-        public FormController(FormServices formService)
+        PermissionServices _permissionServices;
+
+        public FormController(FormServices formService,PermissionServices permissionServices)
         {
             _formServices = formService;
+            _permissionServices = permissionServices;
         }
 
         [Authentication]
-
-        // GET: Form
         public ActionResult Index()
         {
+            
             List<FormViewModel> formviewmodel = _formServices.GetFormList().ToList();
             return View(formviewmodel);
         }
@@ -36,7 +37,6 @@ namespace ITSupportSystem.WebUI.Controllers
             List<FormViewModel> formViewModels = _formServices.GetFormList().ToList();
             return Json(formViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult Create()
         {
@@ -52,7 +52,6 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(FormViewModel model)
         {
-
             var form = _formServices.CreateForm(model);
             if (form != null)
             {
@@ -84,7 +83,10 @@ namespace ITSupportSystem.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(FormViewModel model)
         {
+
             var form = _formServices.UpdateForm(model);
+            var permission = _permissionServices.GetPermission((Guid)Session["RoleId"]).ToList();
+            Session["Permission"] = permission;
             if (form != null)
             {
                 ViewBag.Message = form;
@@ -113,9 +115,9 @@ namespace ITSupportSystem.WebUI.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelete(FormViewModel model)
+        public ActionResult ConfirmDelete(Guid Id)
         {
-            _formServices.RemoveForm(model);
+            _formServices.RemoveForm(Id);  
             return RedirectToAction("Index");
         }
     }

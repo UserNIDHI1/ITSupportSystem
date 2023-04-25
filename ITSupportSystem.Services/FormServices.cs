@@ -16,16 +16,18 @@ namespace ITSupportSystem.Services
         List<FormViewModel> GetFormList();
         FormViewModel GetForm(Guid Id);
         string UpdateForm(FormViewModel model);
-        void RemoveForm(FormViewModel model);
+        void RemoveForm(Guid Id);
     }
 
     public class FormServices : IFormServices
     {
         IFormRepository _formRepository;
+        IPermissionRepository _permissionRepository;
 
-        public FormServices(IFormRepository formRepository)
+        public FormServices(IFormRepository formRepository,IPermissionRepository permissionRepository)
         {
             _formRepository = formRepository;
+            _permissionRepository = permissionRepository;
         }
 
         public string CreateForm(FormViewModel model)
@@ -61,9 +63,9 @@ namespace ITSupportSystem.Services
             return _formRepository.GetFormList().OrderByDescending(x => x.CreatedOn).ToList();
         }
 
-        public void RemoveForm(FormViewModel model)
+        public void RemoveForm(Guid Id)
         {
-            Form form = _formRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            Form form = _formRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
             form.IsDeleted = true;
             _formRepository.Update(form);
             _formRepository.commit();

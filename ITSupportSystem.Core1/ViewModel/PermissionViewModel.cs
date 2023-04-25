@@ -18,5 +18,8 @@ namespace ITSupportSystem.Core1.ViewModel
         public Guid RoleId { get; set; }
         public Guid FormId { get; set; }
         public string FormName { get; set; }
+        [Required]
+        public string NavigateUrl { get; set; }
+        public Guid? ParentFormId { get; set; }
     }
 }
