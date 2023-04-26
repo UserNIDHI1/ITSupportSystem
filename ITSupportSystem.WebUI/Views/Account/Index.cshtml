@@ -19,9 +19,12 @@
             <div id="UserManagement" class="tabcontent" style="display: block">
                 <div class="align-center align-between pb20">
                     <h2><b>User Management</b></h2>
-                    <div class="btnDiv">
-                        <a href="#"> @Html.ActionLink("Add New", "Create", "User")</a>
-                    </div>
+                    
+                        <div class="btnDiv">
+                            <a href="#"> @Html.ActionLink("+ Add New", "Create", "User")</a>
+                        </div>
+                    
+
                 </div>
 
                 <div class="tableDiv" id="userdiv">
@@ -31,9 +34,12 @@
             <div id="RoleManagement" class="tabcontent">
                 <div class="align-center align-between pb20">
                     <h2><b>Role Management</b></h2>
-                    <div class="btnDiv">
-                        @Html.ActionLink("Add New", "Create", "Role")
-                    </div>
+                   
+                        <div class="btnDiv">
+                            @Html.ActionLink("+ Add New", "Create", "Role")
+                        </div>
+                    
+
                 </div>
                 <div class="tableDiv" id="rolediv">
                 </div>

@@ -1,5 +1,6 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupportSystem.Core1.ViewModel
+@using ITSupportSystem.Services
 
 
 @{
@@ -18,9 +19,14 @@
     <div class="tabcontent" style="display: block">
         <div class="align-center align-between pb20">
             <h2><b>Form Management</b></h2>
-            <div class="btnDiv">
-                <a href="#"> @Html.ActionLink("Add New", "Create", "Form")</a>
-            </div>
+
+            @if (ITSupportSystem.WebUI.ActionFilter.AccessPermission.Insert == true)
+            {
+                <div class="btnDiv">
+                    <a href="#"> @Html.ActionLink("+ Add New", "Create", "Form")</a>
+                </div>
+            }
+
         </div>
     </div>
 
@@ -54,11 +60,21 @@
         columns.Bound(c => c.FormAccessCode);
         columns.Bound(c => c.DisplayIndex);
 
-        columns.Template(c => { }).Title(string.Empty)
-           .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Form") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+        if (ITSupportSystem.WebUI.ActionFilter.AccessPermission.Update == true)
+        {
+            columns.Template(c => { }).Title(string.Empty)
 
-        columns.Command(c => c.Destroy()).Width(120);
+           .ClientTemplate(
+
+       "<a href='" + Url.Action("Edit", "Form") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+        }
+
+        if (ITSupportSystem.WebUI.ActionFilter.AccessPermission.Delete == true)
+        {
+            columns.Command(c => c.Destroy()).Width(120);
+        }
+
 
     })
     .HtmlAttributes(new { style = "height:370px;" })

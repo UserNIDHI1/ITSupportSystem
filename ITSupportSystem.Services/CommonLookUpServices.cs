@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.Services
 {
-
     public interface ICommonLookUpServices
     {
         CommonLookUp CreateCommonLookUp(CommonLookUp model);

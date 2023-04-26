@@ -2,6 +2,7 @@
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.DataAccess.SQL;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.ActionFilter;
 using ITSupportSystem.WebUI.session;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
+    [Authentication]
     public class FormController : Controller
     {
         FormServices _formServices;
@@ -24,11 +26,13 @@ namespace ITSupportSystem.WebUI.Controllers
             _permissionServices = permissionServices;
         }
 
-        [Authentication]
+        
+        [CustomActionFilter("F1",AccessPermission.PermissionOrder.IsView)]
         public ActionResult Index()
         {
-            
             List<FormViewModel> formviewmodel = _formServices.GetFormList().ToList();
+            var permission = _permissionServices.GetPermission((Guid)Session["RoleId"]).ToList();
+            Session["Permission"] = permission;
             return View(formviewmodel);
         }
 
@@ -117,7 +121,7 @@ namespace ITSupportSystem.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(Guid Id)
         {
-            _formServices.RemoveForm(Id);  
+            _formServices.RemoveForm(Id);
             return RedirectToAction("Index");
         }
     }

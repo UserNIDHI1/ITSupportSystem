@@ -420,7 +420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionFilter\AccessCode.cs" />
-    <Compile Include="ActionFilter\CheckPermission.cs" />
+    <Compile Include="ActionFilter\AccessPermission.cs" />
     <Compile Include="ActionFilter\CustomActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

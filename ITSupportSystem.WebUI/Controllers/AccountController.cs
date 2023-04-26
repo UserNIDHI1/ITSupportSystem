@@ -76,6 +76,7 @@ namespace ITSupportSystem.WebUI.Controllers
             }
         }
 
+
         public ActionResult Logout()
         {
             return RedirectToAction("Login");
