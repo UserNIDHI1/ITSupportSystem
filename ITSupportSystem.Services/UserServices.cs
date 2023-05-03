@@ -18,7 +18,6 @@ namespace ITSupportSystem.Services
         UserViewModel GetUser(Guid Id);
         string UpdateUser(UserViewModel model);
         void RemoveUser(Guid Id);
-        Guid GetRoleIdByUserId(Guid Id);
     }
     public class UserServices : IUserServices
     {
@@ -55,13 +54,15 @@ namespace ITSupportSystem.Services
             userData.UserName = user.UserName;
             userData.Gender = user.Gender;
             userData.MobileNo = user.MobileNo;
+            userRepository.Insert(userData);
+            userRepository.commit();
 
             UserRole userRole = new UserRole();
             userRole.RoleId = user.RoleId;
             userRole.UserId = user.Id;
-            userRepository.Insert(userData);
+            
             _userrolerepository.Insert(userRole);
-            userRepository.commit();
+            _userrolerepository.commit();
 
             return null;
         }
@@ -98,24 +99,9 @@ namespace ITSupportSystem.Services
             return null;
         }
 
-        public Guid GetRoleIdByUserId(Guid Id)
-        {
-            Guid roleId = _userrolerepository.Collection().Where(x => x.UserId == Id).Select(x => x.RoleId).FirstOrDefault();
-            return roleId;
-        }
-
         public UserViewModel GetUser(Guid Id)
         {
-            Users user = userRepository.Find(Id);
-            UserViewModel userViewModel = new UserViewModel();
-            userViewModel.Id = user.Id;
-            userViewModel.Name = user.Name;
-            userViewModel.Email = user.Email;
-            userViewModel.Password = user.Password;
-            userViewModel.UserName = user.UserName;
-            userViewModel.Gender = user.Gender;
-            userViewModel.MobileNo = user.MobileNo;
-            return userViewModel;
+            return userRepository.GetUser(Id);
         }
 
         public List<UserViewModel> GetUserList()
@@ -156,6 +142,5 @@ namespace ITSupportSystem.Services
             string base64 = Convert.ToBase64String(bytHash);
             return base64;
         }
-
     }
 }

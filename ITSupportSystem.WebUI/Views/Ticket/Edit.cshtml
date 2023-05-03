@@ -65,7 +65,6 @@
                         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                         <input type="file" id="file" name="file" class="form-control" />
                     </div>
-
                 </div>
 
                 @if (Model.TicketAttachment != null)
@@ -77,8 +76,6 @@
                             @Html.LabelFor(model => model.Attachment, item.FileName, new { htmlAttributes = new { @class = "form-control" } })
                             <a href='/Content/TicketAttachment/@item.FileName' download><i class='glyphicon glyphicon-download'></i></a>
                         </div>
-
-
                     }
                 }
 

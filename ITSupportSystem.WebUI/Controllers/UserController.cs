@@ -62,7 +62,6 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             UserViewModel user = _userServices.GetUser(Id);
-            user.RoleId = _userServices.GetRoleIdByUserId(Id);
             user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown(){Id = x.Id,Name = x.Name}).ToList();
             return View(user);
         }

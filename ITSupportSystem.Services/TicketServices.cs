@@ -59,6 +59,7 @@ namespace ITSupportSystem.Services
             return ticket;
         }
         public Ticket UpdateTicket(TicketViewModel model)
+        
         {
             Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             ticket.Title = model.Title;

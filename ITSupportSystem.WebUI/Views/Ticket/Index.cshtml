@@ -27,6 +27,26 @@
     </div>
 
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1>Attachment List</h1>
+                </div>
+                <div id="AttachmentModalContent" style="margin-left:50px">
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     @(Html.Kendo().Grid<TicketViewModel>().Name("Ticketgrid")
 
         .ToolBar(t=>t.Search())
@@ -54,9 +74,8 @@
             columns.Bound(c => c.Type);
             columns.Bound(c => c.Priority);
             columns.Bound(c => c.Status);
-            columns.Bound(c => c.Image).ClientTemplate("<a href='/Content/TicketAttachment/#=Image#' download><i class='glyphicon glyphicon-download-alt'></i></a>");
-
-
+            columns.Bound(c => c.TicketAttachment).Hidden().ClientTemplate("<input type = 'hidden' id = 'hdn_#=Id#' value = '#=TicketAttachment#' /> ");
+            columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount#</a>#}# ");
 
             columns.Template(c => { }).Title(string.Empty)
               .ClientTemplate(
@@ -76,3 +95,21 @@
         .PageSize(5))
     )
 </div>
+
+<script>
+    function CheckValue(e) {
+        var grid = $("#Ticketgrid").data("kendoGrid");
+        var row = $(e).closest("tr");  //returns null if no match is found.
+        var item = grid.dataItem(row); //row wise data
+        var list = item.TicketAttachment; //attach data
+        if (list != null && list.length > 0) {
+            var htmlData = '';
+            for (let i = 0; i < list.length; i++) {
+                htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
+            }
+        }
+        $("#AttachmentModalContent").html(htmlData);
+        $("#AttachmentModal").modal('show')
+    }
+</script>
+

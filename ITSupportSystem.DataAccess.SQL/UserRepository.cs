@@ -52,6 +52,7 @@ namespace ITSupportSystem.DataAccess.SQL
         {
             var list = (from u in contex.User
                         join ur in contex.UserRole on u.Id equals ur.UserId
+                        join r in contex.Role on ur.RoleId equals r.Id
                         where !u.IsDeleted && !ur.IsDeleted && u.Id == Id
                         orderby u.CreatedOn descending
                         select new UserViewModel()
@@ -60,6 +61,7 @@ namespace ITSupportSystem.DataAccess.SQL
                             Name = u.Name,
                             Email = u.Email,
                             RoleId = ur.RoleId,
+                            RoleName=r.Name,
                             Password = u.Password,
                             UserName = u.UserName,
                             Gender = u.Gender,

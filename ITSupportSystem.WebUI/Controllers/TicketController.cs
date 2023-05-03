@@ -50,9 +50,9 @@ namespace ITSupportSystem.WebUI.Controllers
                 model.StatusDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
                 model.TypeDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Type);
                 model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                var ticket = _ticketServices.CreateTicket(model);
+                
             }
-
+            var ticket = _ticketServices.CreateTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
 
@@ -87,6 +87,11 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             List<TicketViewModel> ticketViewModels = _ticketServices.GetTicketList().ToList();
             return Json(ticketViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public string OpenModelPopup()
+        {
+            return "<h1>This is Modal Popup Window</h1>";
         }
     }
 }

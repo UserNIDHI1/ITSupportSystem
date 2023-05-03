@@ -30,5 +30,6 @@ namespace ITSupportSystem.Core1.ViewModel
         public string Status { get; set; }
         public string Attachment { get; set; }
         public List<TicketAttachment> TicketAttachment { get; set; }
+        public int AttachmentCount { get; set; }
     }
 }
