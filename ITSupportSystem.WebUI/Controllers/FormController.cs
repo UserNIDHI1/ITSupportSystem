@@ -42,6 +42,8 @@ namespace ITSupportSystem.WebUI.Controllers
             return Json(formViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
+        //Url manage for insert
+        [CustomActionFilter("F1", AccessPermission.PermissionOrder.IsInsert)]
         public ActionResult Create()
         {
             FormViewModel form = new FormViewModel();

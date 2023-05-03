@@ -38,11 +38,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult Create()
         {
             UserViewModel user = new UserViewModel();
-            user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
+            user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown(){Id = x.Id, Name = x.Name}).ToList();
             return View(user);
         }
 
@@ -53,11 +49,7 @@ namespace ITSupportSystem.WebUI.Controllers
             if (user != null)
             {
                 ViewBag.Message = user; //already exist
-                model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }).ToList();
+                model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown(){ Id = x.Id,Name = x.Name}).ToList();
                 return View(model);
             }
             else
@@ -71,12 +63,7 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             UserViewModel user = _userServices.GetUser(Id);
             user.RoleId = _userServices.GetRoleIdByUserId(Id);
-            user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
-
+            user.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown(){Id = x.Id,Name = x.Name}).ToList();
             return View(user);
         }
 

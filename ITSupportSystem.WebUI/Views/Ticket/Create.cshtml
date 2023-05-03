@@ -1,0 +1,81 @@
+﻿@model ITSupportSystem.Core1.ViewModel.TicketViewModel
+
+
+@using (Html.BeginForm("Create", "Ticket", FormMethod.Post,new { enctype="multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+    <!DOCTYPE html>
+    <html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CRB Form</title>
+
+    </head>
+    <body>
+        <div class="mainDiv">
+            <div class="formDiv">
+                <div class="topTitleHead pb20">
+                    <h3 style="text-align:left;font-family:sans-serif;color:forestgreen"><b>CREATE</b></h3>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="formSection">
+                <div class="inputBox">
+                    <label class="form-label"><b>Title</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "errorMsg" })
+                </div>
+
+
+                <div class="inputBox selectBox">
+                    <label class="form-label"><b>AssignTo</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    @Html.DropDownListFor(model => model.AssignTo, new SelectList(Model.AssignedDropDown, "Id", "Name"), "Assign to", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "errorMsg" })
+                </div>
+
+
+                <div class="inputBox selectBox">
+                    <label class="form-label"><b>Type</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.TypeDropDown, "Id", "Name"), "Select Type", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "errorMsg" })
+                </div>
+
+                <div class="inputBox selectBox">
+                    <label class="form-label"><b>Priority</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    @Html.DropDownListFor(model => model.PriorityId, new SelectList(Model.PriorityDropDown, "Id", "Name"), "Select Priority", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "errorMsg" })
+                </div>
+
+                <div class="inputBox selectBox">
+                    <label class="form-label"><b>Status</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.StatusDropDown, "Id", "Name"), "Select Status", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "errorMsg" })
+
+                </div>
+
+                <div class="inputBox">
+                    <label class="form-label"><b>Image</b><strong style="color:red;font-size:18px;">*</strong></label>
+                    <input type="file" id="file" name="file" class="form-control" />
+                </div>
+
+            </div>
+                <div class="inputBox">
+                    <label class="form-label"><b>Description</b></label>
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errorMsg" })
+                </div>
+
+                <div class="inputBox">
+                    <button type="submit" class="btnDiv" style="color:black">CREATE</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+}
+
+
+<div>@Html.ActionLink("back to list", "Index")</div>

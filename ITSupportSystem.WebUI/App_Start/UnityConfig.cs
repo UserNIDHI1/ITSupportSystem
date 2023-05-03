@@ -69,6 +69,10 @@ namespace ITSupportSystem.WebUI
 
             container.RegisterType<IPermissionRepository, PermissionRepository>();
             container.RegisterType<IPermissionServices, PermissionServices>();
+
+            container.RegisterType<ITicketRepository, TicketRepository>();
+            container.RegisterType<ITicketServices, TicketServices>();
+            container.RegisterType<IRepository<TicketAttachment>, SQLRepository<TicketAttachment>>();
         }
     }
 }

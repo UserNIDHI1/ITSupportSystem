@@ -21,6 +21,7 @@
                 <div class="topTitleHead pb20">
                     <h3 style="text-align:left;font-family:sans-serif;color:forestgreen"><b>CREATE</b></h3>
                 </div>
+
                 <div class="formSection">
                     <div class="inputBox">
                         <label class="form-label"><b>Name</b><strong style="color:red;font-size:18px;">*</strong></label>
@@ -30,8 +31,9 @@
 
                     <div class="inputBox selectBox">
                         <label class="form-label"><b>RoleId</b><strong style="color:red;font-size:18px;">*</strong></label>
-                        @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.RoleDropDown, "Id", "Name"), "Select Role", new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
                     </div>
 
 
@@ -80,7 +82,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </body>
 </html>

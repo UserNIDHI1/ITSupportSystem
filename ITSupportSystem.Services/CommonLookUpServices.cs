@@ -16,6 +16,7 @@ namespace ITSupportSystem.Services
         CommonLookUpViewModel GetCommonLookUp(Guid Id);
         CommonLookUp UpdateCommonLookUp(CommonLookUp model);
         void RemoveCommonLookUp(Guid Id);
+        List<CommonLookUp> CommonLookUpByName(string name);
     }
 
     public class CommonLookUpServices : ICommonLookUpServices
@@ -94,6 +95,11 @@ namespace ITSupportSystem.Services
             {
                 return null;
             }
+        }
+
+        public List<CommonLookUp> CommonLookUpByName(string name)
+        {
+            return _commonlookupRepository.Collection().Where(cl => cl.ConfigName == name && !cl.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
         }
     }
 }

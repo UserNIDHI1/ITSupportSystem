@@ -84,6 +84,7 @@ namespace ITSupportSystem.Services
             user.UserName = model.UserName;
             user.Gender = model.Gender;
             user.MobileNo = model.MobileNo;
+
             user.UpdatedOn = DateTime.Now;
             userRepository.Update(user);
             userRepository.commit();

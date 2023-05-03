@@ -36,6 +36,7 @@ namespace ITSupportSystem.Core1.ViewModel
         
         public string PasswordSalt { get; set; }
 
+
         public Guid Id { get; set; }
 
 
@@ -47,11 +48,5 @@ namespace ITSupportSystem.Core1.ViewModel
         {
             Id = Guid.NewGuid();
         }
-    }
-
-    public class DropDown
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }

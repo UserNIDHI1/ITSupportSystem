@@ -11,7 +11,6 @@ namespace ITSupportSystem.Core1.Contracts
     {
         IQueryable<T> Collection();
         void commit();
-        void save();
         void Delete(Guid Id);
         T Find(Guid Id);
         void Insert(T t);

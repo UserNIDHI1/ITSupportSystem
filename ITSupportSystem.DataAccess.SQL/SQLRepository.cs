@@ -14,12 +14,14 @@ namespace ITSupportSystem.DataAccess.SQL
     {
         internal DataContext context;
         internal DbSet<T> dbSet;
+        internal DbSet<TicketAttachment> ticketAttachments;
 
 
         public SQLRepository(DataContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();
+            this.ticketAttachments = context.Set<TicketAttachment>();
 
         }
         public IQueryable<T> Collection()
@@ -48,18 +50,13 @@ namespace ITSupportSystem.DataAccess.SQL
         public void Insert(T t)
         {
             dbSet.Add(t);
-            commit();
-        }
-
-        public void save()
-        {
-            throw new NotImplementedException();
         }
 
         public void Update(T t)
         {
             dbSet.Attach(t);
             context.Entry(t).State = EntityState.Modified;
+           
         }
     }
 }

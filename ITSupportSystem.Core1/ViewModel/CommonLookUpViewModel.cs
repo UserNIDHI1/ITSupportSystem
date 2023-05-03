@@ -14,6 +14,6 @@ namespace ITSupportSystem.Core1.ViewModel
         public string ConfigValue { get; set; }
         public int? DisplayOrder { get; set; }
         public string Description { get; set; }
-        public Guid Id { get; set; }
+        public Guid Id { get; set; }       
     }
 }

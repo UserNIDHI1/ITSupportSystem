@@ -1,0 +1,78 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+@using ITSupportSystem.Services
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+
+        </div>
+    </div>
+</div>
+
+<div class="tabContentDetails">
+    <div class="tabcontent" style="display: block">
+        <div class="align-center align-between pb20">
+            <h2><b>Ticket Management</b></h2>
+
+            <div class="btnDiv">
+                <a href="#"> @Html.ActionLink("+ Add New", "Create", "Ticket")</a>
+            </div>
+        </div>
+    </div>
+
+
+    @(Html.Kendo().Grid<TicketViewModel>().Name("Ticketgrid")
+
+        .ToolBar(t=>t.Search())
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+         .Pageable(pageable =>
+         {
+             pageable.Refresh(true);
+         })
+
+        .NoRecords("No Records Found.")
+        .Search(s=>
+        {
+            s.Field(c => c.Title);
+            s.Field(c => c.Assigned);
+            s.Field(c => c.Type);
+            s.Field(c => c.Priority);
+            s.Field(c => c.Status);
+        })
+
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Title);
+            columns.Bound(c => c.Assigned);
+            columns.Bound(c => c.Type);
+            columns.Bound(c => c.Priority);
+            columns.Bound(c => c.Status);
+            columns.Bound(c => c.Image).ClientTemplate("<a href='/Content/TicketAttachment/#=Image#' download><i class='glyphicon glyphicon-download-alt'></i></a>");
+
+
+
+            columns.Template(c => { }).Title(string.Empty)
+              .ClientTemplate(
+                  "<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+
+            columns.Command(c => c.Destroy()).Width(120);
+
+        })
+
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllTicketJson", "Ticket"))
+        .Update(update => update.Action("Edit", "Ticket"))
+        .Destroy(destroy => destroy.Action("Delete", "Ticket"))
+        .Create(create => create.Action("Create", "Ticket"))
+        .PageSize(5))
+    )
+</div>

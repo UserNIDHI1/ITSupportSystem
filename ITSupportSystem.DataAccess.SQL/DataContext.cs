@@ -22,5 +22,9 @@ namespace ITSupportSystem.DataAccess.SQL
         public DbSet<CommonLookUp> CommonLookUp { get; set; }
         public DbSet<Form> Form { get; set; }
         public DbSet<Permission> Permission { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
+        public DbSet<TicketStatusHistory> TicketStatusHistory { get; set; }
+        public DbSet<TicketAttachment> TicketAttachment { get; set; }
+        public DbSet<TicketComment> TicketComment { get; set; }
     }
 }
