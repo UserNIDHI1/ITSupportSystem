@@ -25,11 +25,12 @@ namespace ITSupportSystem.WebUI.Controllers
             _permissionServices = permissionServices;
         }
 
-        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Index()
         {
             List<Role> roles = _roleServices.GetRoleList().ToList();
-            return PartialView("_RoleIndexPartial", roles.ToDataSourceResult(request));
+            return PartialView("_RoleIndexPartial");
         }
+
         public ActionResult Create()
         {
             return View();
@@ -95,6 +96,7 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
+        //ajax jason
         public ActionResult GetAllRolesJson([DataSourceRequest] DataSourceRequest request)
         {
             List<RoleViewModel> userRoleViewModels = _roleServices.GetRoleList().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();

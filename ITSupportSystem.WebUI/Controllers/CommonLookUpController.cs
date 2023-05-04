@@ -21,10 +21,10 @@ namespace ITSupportSystem.WebUI.Controllers
             _commonLookServices = commonLookServices;
         }
 
-        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Index()
         {
             List<CommonLookUp> commonlook = _commonLookServices.GetCommonLookUpList().ToList();
-            return PartialView("_CommonLookUpIndexPartial", commonlook.ToDataSourceResult(request));
+            return PartialView("_CommonLookUpIndexPartial");
         }
 
         public ActionResult Create()

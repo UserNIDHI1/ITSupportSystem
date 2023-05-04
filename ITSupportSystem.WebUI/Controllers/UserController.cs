@@ -29,10 +29,10 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
        
-        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Index()
         {
             List<UserViewModel> user = _userServices.GetUserList().ToList();
-            return PartialView("_UserIndexPartial", user.ToDataSourceResult(request));
+            return PartialView("_UserIndexPartial");
         }
 
         public ActionResult Create()

@@ -35,16 +35,17 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h1>Attachment List</h1>
+                    <h1 style="color:chocolate;text-align:center;font-family:Algerian;">Attachment List</h1>
                 </div>
-                <div id="AttachmentModalContent" style="margin-left:50px">
+                <div class="modal-body">
+                    <div id="AttachmentModalContent" style="margin-left:50px">
+                    </div>
                 </div>
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
-
 
 
     @(Html.Kendo().Grid<TicketViewModel>().Name("Ticketgrid")
@@ -78,13 +79,12 @@
             columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount#</a>#}# ");
 
             columns.Template(c => { }).Title(string.Empty)
-              .ClientTemplate(
-                  "<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+              .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
 
             columns.Command(c => c.Destroy()).Width(120);
 
         })
-
+        .HtmlAttributes(new { style = "height:370px;" })
         .Sortable()
         .Scrollable()
         .Filterable()

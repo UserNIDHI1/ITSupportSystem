@@ -24,7 +24,7 @@ namespace ITSupportSystem.WebUI.Controllers
         }
         public ActionResult Index()
         {
-            List<TicketViewModel> user = _ticketServices.GetTicketList().ToList();
+            List<TicketViewModel> user = _ticketServices.GetTicketList().OrderByDescending(x => x.CreatedOn).ToList();
             return View(user);
         }
 

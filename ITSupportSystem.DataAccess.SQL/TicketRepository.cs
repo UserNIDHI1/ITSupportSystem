@@ -106,8 +106,8 @@ namespace ITSupportSystem.DataAccess.SQL
                                Type = g.Key.Type,
                                Priority = g.Key.Priority,
                                Status = g.Key.Status,
-                               TicketAttachment =g.Where(x => x.FileName!=null).Any() ? g.ToList() : null,
-                               AttachmentCount = g.Where(x => x.FileName != null).Any() ? g.Count() : 0
+                               TicketAttachment =g.Where(x =>x != null && x.FileName!=null).Any() ? g.ToList() : null,
+                               AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
                            }).FirstOrDefault();
             return tickets;
         }
@@ -152,8 +152,8 @@ namespace ITSupportSystem.DataAccess.SQL
                               Type = g.Key.Type,
                               Priority = g.Key.Priority,
                               Status = g.Key.Status,
-                              TicketAttachment = g.Where(x => x.FileName != null).Any() ? g.ToList() : null,
-                              AttachmentCount = g.Where(x => x.FileName != null).Any() ? g.Count() : 0
+                              TicketAttachment = g.Where(x => x != null && x.FileName != null).Any() ? g.ToList() : null,
+                              AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
                           }).ToList();
             return ticket;
         }
