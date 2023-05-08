@@ -80,7 +80,7 @@
                 }
 
                 <div class="inputBox">
-                    <button type="submit" class="btnDiv" style="color:black">SAVE</button>
+                    <button type="submit" class="btnDiv" id="SubmitBtnId" style="color:black">SAVE</button>
                 </div>
             </div>
         </div>
@@ -89,3 +89,10 @@
 }
 
 <div>@Html.ActionLink("back to list", "Index")</div>
+
+<script>
+      $('#SubmitBtnId').click(function () {
+        toastr.success('Data Saved Successfully...');
+             document.location = '@Url.Action("Index","Ticket")';
+     });
+</script>

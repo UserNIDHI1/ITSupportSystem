@@ -1,6 +1,7 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupportSystem.Core1.ViewModel
 @using ITSupportSystem.Services
+@model IEnumerable<ITSupportSystem.Core1.ViewModel.TicketViewModel>
 
 
 @{
@@ -10,10 +11,46 @@
 <div class="section">
     <div class="container">
         <div class="topTitleHead pb20">
-
         </div>
     </div>
 </div>
+
+
+@*for StatusFilter(dropdown)*@
+<div class="k-d-flex k-justify-content-center" style="margin-left:88%;">
+    <div class="k-w-300">
+        <label for="status" style="font-size:15px;color:coral">Status</label><br/>
+        @(Html.Kendo().DropDownList()
+                      .Name("status")
+                      .HtmlAttributes(new { style = "width:100%" })
+                      .OptionLabel("Select Status")
+                      .DataTextField("Name")
+                      .DataValueField("Name")
+                      .Events(e=>e.Change("onChange"))
+                      .Filter("contains")
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("StatusFilter", "Ticket");
+                          });
+                      })
+                    )
+    </div>
+</div>
+<script>
+    function onChange(e) {
+        var value = $("#status").val();
+        grid = $("#Ticketgrid").data("kendoGrid");
+        if (value) {
+            grid.dataSource.filter({ field: "status", operator: "contains", value: value });
+        }
+        else {
+            grid.dataSource.filter({});
+        }
+    }
+</script>
+
 
 <div class="tabContentDetails">
     <div class="tabcontent" style="display: block">
@@ -49,55 +86,98 @@
     </div>
 
 
-    @(Html.Kendo().Grid<TicketViewModel>().Name("Ticketgrid")
+    <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
 
-        .ToolBar(t=>t.Search())
-        .Editable(editable => editable.Mode(GridEditMode.InLine))
+        </div>
+    </div>
 
-         .Pageable(pageable =>
-         {
-             pageable.Refresh(true);
-         })
 
-        .NoRecords("No Records Found.")
-        .Search(s=>
-        {
-            s.Field(c => c.Title);
-            s.Field(c => c.Assigned);
-            s.Field(c => c.Type);
-            s.Field(c => c.Priority);
-            s.Field(c => c.Status);
-        })
+    @*  delete modal*@
+    <div class="modal fade" id="deletemodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 class="modal-title" style="text-align:center;color:green">Delete</h2>
+                </div>
 
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.Title);
-            columns.Bound(c => c.Assigned);
-            columns.Bound(c => c.Type);
-            columns.Bound(c => c.Priority);
-            columns.Bound(c => c.Status);
-            columns.Bound(c => c.TicketAttachment).Hidden().ClientTemplate("<input type = 'hidden' id = 'hdn_#=Id#' value = '#=TicketAttachment#' /> ");
-            columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount#</a>#}# ");
+                <div class="modal-body">
+                    <h3 style="text-align:center">Are you sure you want to delete?</h3>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <input type="hidden" id="hdnDeleteTicket" />
+                        <a id="btnsaveDelete" onclick="DeleteTicket()" class="btn btn-primary mr-2">Delete</a>
+                    </div>
+                    <div class="btn-group">
+                        <a id="btndeletecancle" class="btn btn-danger" data-dismiss="modal">Cancle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            columns.Template(c => { }).Title(string.Empty)
-              .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+    <div id="modal">
 
-            columns.Command(c => c.Destroy()).Width(120);
+    </div>
 
-        })
-        .HtmlAttributes(new { style = "height:370px;" })
-        .Sortable()
-        .Scrollable()
-        .Filterable()
-        .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllTicketJson", "Ticket"))
-        .Update(update => update.Action("Edit", "Ticket"))
-        .Destroy(destroy => destroy.Action("Delete", "Ticket"))
-        .Create(create => create.Action("Create", "Ticket"))
-        .PageSize(5))
-    )
+    @(Html.Kendo().Grid<TicketViewModel>
+                ().Name("Ticketgrid")
+
+
+                .ToolBar(t=>t.Search())
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+                .Pageable(pageable =>
+                {
+                    pageable.Refresh(true);
+                })
+
+                .NoRecords("No Records Found.")
+                .Search(s=>
+                {
+                    s.Field(c => c.Title);
+                    s.Field(c => c.Assigned);
+                    s.Field(c => c.Type);
+                    s.Field(c => c.Priority);
+                    s.Field(c => c.Status);
+                })
+
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Title);
+                    columns.Bound(c => c.Assigned);
+                    columns.Bound(c => c.Type);
+                    columns.Bound(c => c.Priority);
+                    columns.Bound(c => c.Status);
+                    columns.Bound(c => c.TicketAttachment).Hidden().ClientTemplate("<input type='hidden' id='hdn_#=Id#' value='#=TicketAttachment#' /> ");
+                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount#</a>#}# ");
+
+                    columns.Template(c => { }).Title(string.Empty)
+                    .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+                    columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(75);
+
+
+
+                })
+                .HtmlAttributes(new { style = "height:370px;" })
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllTicketJson", "Ticket"))
+                .Update(update => update.Action("Edit", "Ticket"))
+                .Destroy(destroy => destroy.Action("Delete", "Ticket"))
+                .Create(create => create.Action("Create", "Ticket"))
+                .PageSize(5))
+                )
 </div>
 
 <script>
+
+    //get the data in modal from the tickets
     function CheckValue(e) {
         var grid = $("#Ticketgrid").data("kendoGrid");
         var row = $(e).closest("tr");  //returns null if no match is found.
@@ -106,11 +186,40 @@
         if (list != null && list.length > 0) {
             var htmlData = '';
             for (let i = 0; i < list.length; i++) {
-                htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>" 
+                htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
             }
         }
         $("#AttachmentModalContent").html(htmlData);
         $("#AttachmentModal").modal('show')
     }
 </script>
+
+<script>
+    var ticketdelete = function (e) {
+        e.preventDefault();
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        id = d.id;
+        $("#deletemodal").modal('show');
+        $("#hdnDeleteTicket").val(id);
+    }
+
+
+    function DeleteTicket() {
+        debugger;
+        var id = $("#hdnDeleteTicket").val();
+        $.post({
+            url: '/Ticket/Delete/' + id,
+            success: function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "/Ticket/Index",
+                    success: function () {
+                        location.reload()
+                    }
+                });
+            }
+        });
+    }
+</script>
+
 

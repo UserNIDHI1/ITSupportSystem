@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <div class="inputBox">
-                        <button type="submit" class="btnDiv" style="color:black">CREATE</button>
+                        <button type="submit" class="btnDiv" id="SubmitBtnId" style="color:black">CREATE</button>
                     </div>
 
                 </div>
@@ -49,6 +49,15 @@
     </body>
 </html>
 }
+
+
+
+<script>
+      $('#SubmitBtnId').click(function () {
+        toastr.success('Data Saved Successfully...');
+             document.location = '@Url.Action("Index","Account")';
+     });
+</script>
 
 
 <button type="button" class="btn btn-link" id="btnid">Back to list</button>

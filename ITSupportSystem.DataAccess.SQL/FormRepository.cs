@@ -94,7 +94,6 @@ namespace ITSupportSystem.DataAccess.SQL
                             DisplayIndex = f.DisplayIndex,
                             NavigateURL = f.NavigateURL,
                             Name = f.Name
-
                         }).FirstOrDefault();
             return form;
         }

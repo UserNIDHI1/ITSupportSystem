@@ -63,7 +63,7 @@
 
                 <div>
                     <div class="inputBox">
-                        <button type="submit" class="btnDiv" style="color:black">SAVE</button>
+                        <button type="submit" class="btnDiv" id="SubmitBtnId" style="color:black">SAVE</button>
                     </div>
                     @Html.HiddenFor(model => model.Id)
                 </div>
@@ -74,4 +74,11 @@
 }
 
 <div>@Html.ActionLink("back to list", "Index", "Form")</div>
+
+<script>
+      $('#SubmitBtnId').click(function () {
+        toastr.success('Data Saved Successfully...');
+             document.location = '@Url.Action("Index","Form")';
+     });
+</script>
 

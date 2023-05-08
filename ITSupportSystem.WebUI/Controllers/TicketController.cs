@@ -83,15 +83,28 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index", "Ticket");
         }
 
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(Guid Id)
+        {
+            _ticketServices.RemoveTicket(Id);
+            return RedirectToAction("Index","Ticket");
+        }
+
+
+
         public ActionResult GetAllTicketJson([DataSourceRequest] DataSourceRequest request)
         {
             List<TicketViewModel> ticketViewModels = _ticketServices.GetTicketList().ToList();
             return Json(ticketViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
-        public string OpenModelPopup()
+
+        //for statusfilter(dropdown)
+        public ActionResult StatusFilter()
         {
-            return "<h1>This is Modal Popup Window</h1>";
+            var statusFilter = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
+            return Json(statusFilter, JsonRequestBehavior.AllowGet);
         }
     }
 }

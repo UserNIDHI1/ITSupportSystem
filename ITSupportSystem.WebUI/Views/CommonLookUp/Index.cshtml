@@ -68,7 +68,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <input type="hidden" id="hdnDeleteLookup" />
+                    <input type="hidden" id="hdnDeleteTicket" />
                     <a id="btnsaveDelete" onclick="DeleteForm_Submit()" class="btn btn-primary mr-2">Delete</a>
                 </div>
                 <div class="btn-group">
@@ -117,12 +117,12 @@
             var d = this.dataItem($(e.currentTarget).closest("tr"));
             id = d.id;
             $("#deletemodal").modal('show');
-            $("#hdnDeleteLookup").val(id);
+            $("#hdnDeleteTicket").val(id);
         }
 
 
         function DeleteForm_Submit() {
-            var id = $("#hdnDeleteLookup").val();
+            var id = $("#hdnDeleteTicket").val();
             $.post({
                 url: '/CommonLookUp/Delete/' + id,
                 success: function () {

@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="inputBox">
-                        <button type="submit" class="btnDiv" style="color:black">SAVE</button>
+                        <button type="submit" class="btnDiv" id="SubmitBtnId" style="color:black">SAVE</button>
                     </div>
                     @Html.HiddenFor(model => model.Id)
                 </div>
@@ -85,4 +85,14 @@
 </html>
 }
 
+
+<script>
+      $('#SubmitBtnId').click(function () {
+        toastr.success('Data Saved Successfully...');
+             document.location = '@Url.Action("Index","Account")';
+     });
+</script>
+
+
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
+

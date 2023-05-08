@@ -65,6 +65,8 @@ namespace ITSupportSystem.DataAccess.SQL
                 dbSet.Attach(t);
             dbSet.Remove(t);
         }
+
+        //Edit case
         public TicketViewModel Getticket(Guid Id)
         {
             var ticket = (from t in context.Ticket
@@ -112,7 +114,7 @@ namespace ITSupportSystem.DataAccess.SQL
             return tickets;
         }
 
-
+        //GetTicketList
         public List<TicketViewModel> GetTicketList()
         {
             var ticketList = (from t in context.Ticket
@@ -120,6 +122,7 @@ namespace ITSupportSystem.DataAccess.SQL
                               join ct in context.CommonLookUp on t.TypeId equals ct.Id
                               join cp in context.CommonLookUp on t.PriorityId equals cp.Id
                               join cs in context.CommonLookUp on t.StatusId equals cs.Id
+                              where t.IsDeleted==false
                               select new TicketViewModel()
                               {
                                   Id = t.Id,

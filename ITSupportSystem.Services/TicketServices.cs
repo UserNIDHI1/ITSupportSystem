@@ -14,6 +14,7 @@ namespace ITSupportSystem.Services
     {
         Ticket CreateTicket(TicketViewModel model);
         Ticket UpdateTicket(TicketViewModel model);
+        Ticket RemoveTicket(Guid Id);
         List<TicketViewModel> GetTicketList();
         TicketViewModel GetTicket(Guid Id);
 
@@ -48,7 +49,7 @@ namespace ITSupportSystem.Services
             _ticketRepository.Insert(ticket);
             _ticketRepository.commit();
 
-            if(model.Image!=null)
+            if (model.Image != null)
             {
                 TicketAttachment ticketAttachment = new TicketAttachment();
                 {
@@ -76,7 +77,7 @@ namespace ITSupportSystem.Services
             _ticketRepository.Update(ticket);
             _ticketRepository.commit();
 
-            if(model.Image!=null)
+            if (model.Image != null)
             {
                 TicketAttachment ticketAttachment = new TicketAttachment();
                 {
@@ -90,6 +91,30 @@ namespace ITSupportSystem.Services
             }
             return ticket;
         }
+
+        public Ticket RemoveTicket(Guid Id)
+        {
+            TicketViewModel model = new TicketViewModel();
+            Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
+            ticket.IsDeleted = true;
+            _ticketRepository.Update(ticket);
+            _ticketRepository.commit();
+
+
+            if (model.Image != null)
+            {
+                TicketAttachment ticketAttachment = new TicketAttachment();
+                {
+                    ticketAttachment.TicketId = ticket.Id;
+                    ticketAttachment.FileName = model.Image;
+                }
+
+                _ticketAttachmentRepository.Update(ticketAttachment);
+                _ticketAttachmentRepository.commit();
+            }
+            return ticket;
+        }
+
 
         public TicketViewModel GetTicket(Guid Id)
         {
@@ -108,7 +133,5 @@ namespace ITSupportSystem.Services
         {
             return _commonLookUpServices.CommonLookUpByName(configName).Select(x => new DropDown { Id = x.Id, Name = x.ConfigKey }).ToList();
         }
-
-
     }
 }
