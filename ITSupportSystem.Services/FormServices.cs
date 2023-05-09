@@ -32,6 +32,7 @@ namespace ITSupportSystem.Services
 
         public string CreateForm(FormViewModel model)
         {
+            //already exist
             if (_formRepository.Collection().Where(f => f.FormAccessCode == model.FormAccessCode).Any())
             {
                 return "FormAccessCode is already exist";
@@ -54,6 +55,8 @@ namespace ITSupportSystem.Services
             return null;
         }
 
+
+        //get form from the FormRepository
         public FormViewModel GetForm(Guid Id)
         {
             return _formRepository.Getform(Id);
@@ -61,14 +64,6 @@ namespace ITSupportSystem.Services
         public List<FormViewModel> GetFormList()
         {
             return _formRepository.GetFormList().OrderByDescending(x => x.CreatedOn).ToList();
-        }
-
-        public void RemoveForm(Guid Id)
-        {
-            Form form = _formRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
-            form.IsDeleted = true;
-            _formRepository.Update(form);
-            _formRepository.commit();
         }
 
         public string UpdateForm(FormViewModel model)
@@ -90,6 +85,14 @@ namespace ITSupportSystem.Services
             _formRepository.Update(form);
             _formRepository.commit();
             return null;
+        }
+
+        public void RemoveForm(Guid Id)
+        {
+            Form form = _formRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
+            form.IsDeleted = true;
+            _formRepository.Update(form);
+            _formRepository.commit();
         }
     }
 }

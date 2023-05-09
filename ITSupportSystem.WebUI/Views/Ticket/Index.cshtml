@@ -19,7 +19,7 @@
 @*for StatusFilter(dropdown)*@
 <div class="k-d-flex k-justify-content-center" style="margin-left:88%;">
     <div class="k-w-300">
-        <label for="status" style="font-size:15px;color:coral">Status</label><br/>
+        <label for="status" style="font-size:15px;color:coral">Status</label><br />
         @(Html.Kendo().DropDownList()
                       .Name("status")
                       .HtmlAttributes(new { style = "width:100%" })
@@ -40,6 +40,7 @@
 </div>
 <script>
     function onChange(e) {
+        debugger;
         var value = $("#status").val();
         grid = $("#Ticketgrid").data("kendoGrid");
         if (value) {
@@ -52,6 +53,7 @@
 </script>
 
 
+
 <div class="tabContentDetails">
     <div class="tabcontent" style="display: block">
         <div class="align-center align-between pb20">
@@ -62,7 +64,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
@@ -91,7 +92,6 @@
 
         </div>
     </div>
-
 
     @*  delete modal*@
     <div class="modal fade" id="deletemodal">
@@ -154,14 +154,11 @@
                     columns.Bound(c => c.Priority);
                     columns.Bound(c => c.Status);
                     columns.Bound(c => c.TicketAttachment).Hidden().ClientTemplate("<input type='hidden' id='hdn_#=Id#' value='#=TicketAttachment#' /> ");
-                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount#</a>#}# ");
+                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount# </a>#}#");
 
                     columns.Template(c => { }).Title(string.Empty)
-                    .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
-                    columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(75);
-
-
-
+                    .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(80);
+                    columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(85);
                 })
                 .HtmlAttributes(new { style = "height:370px;" })
                 .Sortable()
@@ -176,7 +173,6 @@
 </div>
 
 <script>
-
     //get the data in modal from the tickets
     function CheckValue(e) {
         var grid = $("#Ticketgrid").data("kendoGrid");
@@ -188,9 +184,9 @@
             for (let i = 0; i < list.length; i++) {
                 htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
             }
+            $("#AttachmentModalContent").html(htmlData);
+            $("#AttachmentModal").modal('show');
         }
-        $("#AttachmentModalContent").html(htmlData);
-        $("#AttachmentModal").modal('show')
     }
 </script>
 

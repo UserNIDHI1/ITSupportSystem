@@ -26,8 +26,9 @@ namespace ITSupportSystem.WebUI.Controllers
             _permissionServices = permissionServices;
         }
 
-        
+        //access denied[F1=FormName]
         [CustomActionFilter("F1",AccessPermission.PermissionOrder.IsView)]
+        
         public ActionResult Index()
         {
             List<FormViewModel> formviewmodel = _formServices.GetFormList().ToList();

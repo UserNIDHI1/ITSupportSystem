@@ -96,7 +96,7 @@ namespace ITSupportSystem.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        //ajax jason
+        //json
         public ActionResult GetAllRolesJson([DataSourceRequest] DataSourceRequest request)
         {
             List<RoleViewModel> userRoleViewModels = _roleServices.GetRoleList().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
@@ -109,6 +109,7 @@ namespace ITSupportSystem.WebUI.Controllers
             return View();
         }
 
+        //json method for permission
         public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid RoleId)
         {
             List<PermissionViewModel> permissionViewModels = _permissionServices.GetPermission(RoleId).ToList();

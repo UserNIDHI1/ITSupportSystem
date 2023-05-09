@@ -13,7 +13,7 @@ namespace ITSupportSystem.Services
     public interface ITicketServices
     {
         Ticket CreateTicket(TicketViewModel model);
-        Ticket UpdateTicket(TicketViewModel model);
+        Ticket UpdateTicket(TicketViewModel model,string ticketIds);
         Ticket RemoveTicket(Guid Id);
         List<TicketViewModel> GetTicketList();
         TicketViewModel GetTicket(Guid Id);
@@ -59,10 +59,10 @@ namespace ITSupportSystem.Services
                 _ticketAttachmentRepository.Insert(ticketAttachment);
                 _ticketAttachmentRepository.commit();
             }
+
             return ticket;
         }
-        public Ticket UpdateTicket(TicketViewModel model)
-
+        public Ticket UpdateTicket(TicketViewModel model, string ticketIds)
         {
             Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             ticket.Title = model.Title;
@@ -89,6 +89,22 @@ namespace ITSupportSystem.Services
                 _ticketAttachmentRepository.Insert(ticketAttachment);
                 _ticketAttachmentRepository.commit();
             }
+
+
+            if(!string.IsNullOrEmpty(ticketIds))
+            {
+                string[] ticketAttachment = ticketIds.Split(',');
+                if(ticketAttachment != null && ticketAttachment.Length>0)
+                {
+                    foreach(var item in ticketAttachment)
+                    {
+                        var TicketToDelete = _ticketAttachmentRepository.Collection().Where(x => x.Id.ToString() == item).FirstOrDefault();
+                        TicketToDelete.IsDeleted = true;
+                        _ticketAttachmentRepository.Update(TicketToDelete);
+                        _ticketAttachmentRepository.commit();
+                    }
+                }
+            }
             return ticket;
         }
 
@@ -99,26 +115,11 @@ namespace ITSupportSystem.Services
             ticket.IsDeleted = true;
             _ticketRepository.Update(ticket);
             _ticketRepository.commit();
-
-
-            if (model.Image != null)
-            {
-                TicketAttachment ticketAttachment = new TicketAttachment();
-                {
-                    ticketAttachment.TicketId = ticket.Id;
-                    ticketAttachment.FileName = model.Image;
-                }
-
-                _ticketAttachmentRepository.Update(ticketAttachment);
-                _ticketAttachmentRepository.commit();
-            }
             return ticket;
         }
 
-
         public TicketViewModel GetTicket(Guid Id)
         {
-
             return _ticketRepository.Getticket(Id);
         }
 

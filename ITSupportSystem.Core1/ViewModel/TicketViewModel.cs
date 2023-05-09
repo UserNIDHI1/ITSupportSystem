@@ -28,8 +28,14 @@ namespace ITSupportSystem.Core1.ViewModel
         public string Type { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+
+        //for attach the image
         public string Attachment { get; set; }
         public List<TicketAttachment> TicketAttachment { get; set; }
+        //For image attachment count
         public int AttachmentCount { get; set; }
+
+        //for delete the single image attachment
+       // public string deleteid { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ITSupportSystem.Core1;
+using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
 using Kendo.Mvc.Extensions;
@@ -24,8 +25,8 @@ namespace ITSupportSystem.WebUI.Controllers
         }
         public ActionResult Index()
         {
-            List<TicketViewModel> user = _ticketServices.GetTicketList().OrderByDescending(x => x.CreatedOn).ToList();
-            return View(user);
+            List<TicketViewModel> ticketViewModels = _ticketServices.GetTicketList().OrderByDescending(x => x.CreatedOn).ToList();
+            return View(ticketViewModels);
         }
 
         public ActionResult Create()
@@ -43,6 +44,7 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             if (file != null)
             {
+                //Save the image
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
                 file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);
 
@@ -52,7 +54,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 
             }
-            var ticket = _ticketServices.CreateTicket(model);
+            Ticket ticket = _ticketServices.CreateTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
 
@@ -67,7 +69,7 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file)
+        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file,string ticketAttachmentIds)
         {
             if (file != null)
             {
@@ -78,8 +80,10 @@ namespace ITSupportSystem.WebUI.Controllers
                 model.StatusDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
                 model.TypeDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Type);
                 model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                var ticket = _ticketServices.UpdateTicket(model);
+               
             }
+            var ticketdeleteid = Request.Params["hdnAttachmentDeleteId"];
+            Ticket ticket = _ticketServices.UpdateTicket(model, ticketdeleteid);
             return RedirectToAction("Index", "Ticket");
         }
 
@@ -92,7 +96,7 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
 
-
+        //Ticket kendo json
         public ActionResult GetAllTicketJson([DataSourceRequest] DataSourceRequest request)
         {
             List<TicketViewModel> ticketViewModels = _ticketServices.GetTicketList().ToList();

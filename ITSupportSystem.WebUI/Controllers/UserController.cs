@@ -74,11 +74,7 @@ namespace ITSupportSystem.WebUI.Controllers
             if (user != null)
             {
                 ViewBag.Message = user; //already exist
-                model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown()
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }).ToList();
+                model.RoleDropDown = _roleServices.GetRoleList().Select(x => new DropDown(){Id = x.Id,Name = x.Name}).ToList();
                 return View(model);
             }
             else

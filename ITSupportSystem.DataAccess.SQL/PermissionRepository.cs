@@ -51,9 +51,12 @@ namespace ITSupportSystem.DataAccess.SQL
             return dbSet.Find(Id);
         }
 
+
+        //for permission
         public void InsertRange(List<Permission> model)
         {
             var recordstoDelete = Collection().ToList().Where(x => x.RoleId == model.FirstOrDefault().RoleId);
+            //delete the record in database and add new record
             dbSet.RemoveRange(recordstoDelete);
             commit();
             dbSet.AddRange(model);

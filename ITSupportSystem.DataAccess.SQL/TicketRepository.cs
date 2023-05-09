@@ -91,7 +91,7 @@ namespace ITSupportSystem.DataAccess.SQL
                           }).AsEnumerable();
 
             var tickets = (from t in ticket
-                           join ta in context.TicketAttachment on t.Id equals ta.TicketId
+                           join ta in context.TicketAttachment.Where(x=>!x.IsDeleted) on t.Id equals ta.TicketId
                            into fdata
                            from fd in fdata.DefaultIfEmpty()
                            group fd by t into g
@@ -122,7 +122,7 @@ namespace ITSupportSystem.DataAccess.SQL
                               join ct in context.CommonLookUp on t.TypeId equals ct.Id
                               join cp in context.CommonLookUp on t.PriorityId equals cp.Id
                               join cs in context.CommonLookUp on t.StatusId equals cs.Id
-                              where t.IsDeleted==false
+                              where !t.IsDeleted
                               select new TicketViewModel()
                               {
                                   Id = t.Id,
@@ -138,7 +138,7 @@ namespace ITSupportSystem.DataAccess.SQL
                                   Status = cs.ConfigKey,
                               }).AsEnumerable();
             var ticket = (from t in ticketList
-                          join ta in context.TicketAttachment on t.Id equals ta.TicketId
+                          join ta in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals ta.TicketId
                           into fdata
                           from fd in fdata.DefaultIfEmpty()
                           group fd by t into g

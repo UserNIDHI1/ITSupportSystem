@@ -41,7 +41,7 @@ namespace ITSupportSystem.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            Session.Abandon();
+            Session.Abandon();  //session remove
             FormsAuthentication.SignOut();
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -60,6 +60,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 Users user = _loginService.Login(model);
                 if (user != null)
                 {
+                    //store UserName and Id store in session
                     Session["UserName"] = user.UserName;
                     Session["Id"] = user.Id;
                     Guid RoleId = _userroleRepository.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();

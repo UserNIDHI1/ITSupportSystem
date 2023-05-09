@@ -39,7 +39,6 @@
                         <label class="form-label"><b>AssignTo</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.DropDownListFor(model => model.AssignTo, new SelectList(Model.AssignedDropDown, "Id", "Name"), "Assign to", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })
-
                     </div>
 
                     <div class="inputBox selectBox">
@@ -60,21 +59,24 @@
                         @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
                     </div>
 
-
                     <div class="inputBox">
                         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                         <input type="file" id="file" name="file" class="form-control" />
                     </div>
                 </div>
 
+                <input type="hidden" id="hdnAttachmentDeleteId" name="hdnAttachmentDeleteId" />
+
                 @if (Model.TicketAttachment != null)
                 {
-                    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-2" })<br/><br/>
+                    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-2" })<br /><br />
                     foreach (var item in Model.TicketAttachment)
                     {
-                        <div>
+                        <div class="attachmentBox" id="@item.Id">
+
                             @Html.LabelFor(model => model.Attachment, item.FileName, new { htmlAttributes = new { @class = "form-control" } })
-                            <a href='/Content/TicketAttachment/@item.FileName' download><i class='glyphicon glyphicon-download'></i></a>
+                            <a href='/Content/TicketAttachment/@item.FileName' download><i class='glyphicon glyphicon-download'></i></a>&nbsp;&nbsp;
+                            <i class="glyphicon glyphicon-trash" onclick="DeleteAttachmentTicket('@item.Id')"></i>
                         </div>
                     }
                 }
@@ -90,9 +92,29 @@
 
 <div>@Html.ActionLink("back to list", "Index")</div>
 
+
+<script>
+    function DeleteAttachmentTicket(id) {
+        debugger;
+        let val = '';
+        var ele = document.getElementById(id);
+        ele.style.display = "none";     //hide the attachment
+        if ($("#hdnAttachmentDeleteId").val() != '')
+        {
+            val = $("#hdnAttachmentDeleteId").val() + "," + id;
+        }
+        else
+        {
+            val = id;
+        }
+        $("#hdnAttachmentDeleteId").val(val);
+    }
+</script>
+
+
 <script>
       $('#SubmitBtnId').click(function () {
-        toastr.success('Data Saved Successfully...');
+        toastr.success('Data Updated Successfully...');
              document.location = '@Url.Action("Index","Ticket")';
      });
 </script>
