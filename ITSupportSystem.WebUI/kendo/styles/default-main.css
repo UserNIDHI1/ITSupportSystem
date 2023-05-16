@@ -41304,9 +41304,10 @@ kendo-card-footer {
     margin-inline-start: -2px;
 }
 
-.k-grid .k-grid-header .k-filterable > .k-cell-inner .k-link {
-    padding-inline-end: 0;
-}
+    .k-grid .k-grid-header .k-filterable > .k-cell-inner .k-link {
+        padding-inline-end: 0;
+        color: palevioletred;
+    }
 
 .k-grid .k-cell-inner {
     display: flex;

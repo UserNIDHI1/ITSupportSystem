@@ -15,6 +15,7 @@ namespace ITSupportSystem.DataAccess.SQL
         internal DataContext context;
         internal DbSet<T> dbSet;
         internal DbSet<TicketAttachment> ticketAttachments;
+        internal DbSet<TicketComment> ticketComment;
 
 
         public SQLRepository(DataContext context)
@@ -22,7 +23,7 @@ namespace ITSupportSystem.DataAccess.SQL
             this.context = context;
             this.dbSet = context.Set<T>();
             this.ticketAttachments = context.Set<TicketAttachment>();
-
+            this.ticketComment = context.Set<TicketComment>();
         }
         public IQueryable<T> Collection()
         {

@@ -17,8 +17,11 @@ namespace ITSupportSystem.DataAccess.SQL
         void Update(Ticket ticket);
         void Delete(Guid Id);
         Ticket Find(Guid Id);
-        List<TicketViewModel> GetTicketList();
         TicketViewModel Getticket(Guid Id);
+        List<TicketViewModel> GetTicketList();
+
+        List<TicketCommentViewModel> GetTicketCommentList(Guid Id);
+        TicketCommentViewModel GetTicketCommentById(Guid Id);
     }
 
 
@@ -53,6 +56,7 @@ namespace ITSupportSystem.DataAccess.SQL
             context.Entry(ticket).State = EntityState.Modified;
             commit();
         }
+
         public Ticket Find(Guid Id)
         {
             return dbSet.Find(Id);
@@ -71,6 +75,7 @@ namespace ITSupportSystem.DataAccess.SQL
         {
             var ticket = (from t in context.Ticket
                           join u in context.User on t.AssignTo equals u.Id
+                          join uc in context.User on t.CreatedBy equals uc.Id
                           join ct in context.CommonLookUp on t.TypeId equals ct.Id
                           join cp in context.CommonLookUp on t.PriorityId equals cp.Id
                           join cs in context.CommonLookUp on t.StatusId equals cs.Id
@@ -88,6 +93,8 @@ namespace ITSupportSystem.DataAccess.SQL
                               Type = ct.ConfigKey,
                               Priority = cp.ConfigKey,
                               Status = cs.ConfigKey,
+                              CreatedByName = uc.UserName,
+                              CreatedBy=uc.Id,
                           }).AsEnumerable();
 
             var tickets = (from t in ticket
@@ -108,6 +115,7 @@ namespace ITSupportSystem.DataAccess.SQL
                                Type = g.Key.Type,
                                Priority = g.Key.Priority,
                                Status = g.Key.Status,
+                               CreatedByName=g.Key.CreatedByName,
                                TicketAttachment =g.Where(x =>x != null && x.FileName!=null).Any() ? g.ToList() : null,
                                AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
                            }).FirstOrDefault();
@@ -119,6 +127,7 @@ namespace ITSupportSystem.DataAccess.SQL
         {
             var ticketList = (from t in context.Ticket
                               join u in context.User on t.AssignTo equals u.Id
+                              join uc in context.User on t.CreatedBy equals uc.Id                            
                               join ct in context.CommonLookUp on t.TypeId equals ct.Id
                               join cp in context.CommonLookUp on t.PriorityId equals cp.Id
                               join cs in context.CommonLookUp on t.StatusId equals cs.Id
@@ -136,6 +145,8 @@ namespace ITSupportSystem.DataAccess.SQL
                                   Type = ct.ConfigKey,
                                   Priority = cp.ConfigKey,
                                   Status = cs.ConfigKey,
+                                  CreatedByName = uc.UserName,
+                                  CreatedBy = uc.Id,                                 
                               }).AsEnumerable();
             var ticket = (from t in ticketList
                           join ta in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals ta.TicketId
@@ -159,6 +170,42 @@ namespace ITSupportSystem.DataAccess.SQL
                               AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
                           }).ToList();
             return ticket;
+        }
+
+        public List<TicketCommentViewModel> GetTicketCommentList(Guid Id)
+        {
+            var ticketcommentlist = (from tc in context.TicketComment
+                                     join t in context.Ticket on tc.TicketId equals t.Id
+                                     join u in context.User on tc.CreatedBy equals u.Id
+                                     where !tc.IsDeleted && tc.TicketId==Id 
+                                     select new TicketCommentViewModel()
+                                     {
+                                         Id=tc.Id,
+                                         CreatedByName = u.UserName,
+                                         CreatedOn=tc.CreatedOn,
+                                         Comment = tc.Comment,                   
+                                         CreatedBy=u.Id,
+                                         TicketId =t.Id,
+                                     }).ToList();
+            return ticketcommentlist;
+        }
+
+        public TicketCommentViewModel GetTicketCommentById(Guid Id)
+        {
+            var ticketcommentlist = (from tc in context.TicketComment
+                                     join t in context.Ticket on tc.TicketId equals t.Id
+                                     join u in context.User on tc.CreatedBy equals u.Id
+                                     where !tc.IsDeleted && tc.Id == Id
+                                     select new TicketCommentViewModel()
+                                     {
+                                         Id = tc.Id,
+                                         CreatedByName = u.UserName,
+                                         CreatedOn = tc.CreatedOn,
+                                         Comment = tc.Comment,
+                                         CreatedBy = u.Id,
+                                         TicketId = t.Id,
+                                     }).FirstOrDefault();
+            return ticketcommentlist;
         }
     }
 }

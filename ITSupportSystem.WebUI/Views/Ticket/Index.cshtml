@@ -15,12 +15,15 @@
     </div>
 </div>
 
-
-@*for StatusFilter(dropdown)*@
-<div class="k-d-flex k-justify-content-center" style="margin-left:88%;">
-    <div class="k-w-300">
-        <label for="status" style="font-size:15px;color:coral">Status</label><br />
-        @(Html.Kendo().DropDownList()
+<div class="tabContentDetails">
+    <div class="tabcontent" style="display: block">
+        <div class="align-center align-between pb20">
+            <h3 style="color:Highlight"><b>Ticket Management</b></h3>
+            <div class="k-d-flex k-justify-content-center" style="margin-left:45%;">
+                <div class="k-w-300">
+                    <label for="status" style="font-size:15px;color:coral">Status</label><br />
+                    @*for StatusFilter(dropdown)*@
+                    @(Html.Kendo().DropDownList()
                       .Name("status")
                       .HtmlAttributes(new { style = "width:100%" })
                       .OptionLabel("Select Status")
@@ -36,51 +39,30 @@
                           });
                       })
                     )
-    </div>
-</div>
-<script>
-    function onChange(e) {
-        debugger;
-        var value = $("#status").val();
-        grid = $("#Ticketgrid").data("kendoGrid");
-        if (value) {
-            grid.dataSource.filter({ field: "status", operator: "contains", value: value });
-        }
-        else {
-            grid.dataSource.filter({});
-        }
-    }
-</script>
-
-
-
-<div class="tabContentDetails">
-    <div class="tabcontent" style="display: block">
-        <div class="align-center align-between pb20">
-            <h2><b>Ticket Management</b></h2>
-
-            <div class="btnDiv">
+                </div>
+            </div>
+            <div class="btnDiv" style="margin-bottom:2px;">
                 <a href="#"> @Html.ActionLink("+ Add New", "Create", "Ticket")</a>
             </div>
+
         </div>
     </div>
 
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal" >
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color:lightgray">
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h1 style="color:chocolate;text-align:center;font-family:Algerian;">Attachment List</h1>
+                    <h1 style="color:green;text-align:center;font-family:Algerian;">Attachment List</h1>
                 </div>
-                <div class="modal-body">
-                    <div id="AttachmentModalContent" style="margin-left:50px">
-                    </div>
+                <div class="modal-body" style="background-color:lightgray;">
+                    <div id="AttachmentModalContent" style="padding-left:60px;"></div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="background-color:lightgray;">
                 </div>
             </div>
         </div>
@@ -113,7 +95,7 @@
                         <a id="btnsaveDelete" onclick="DeleteTicket()" class="btn btn-primary mr-2">Delete</a>
                     </div>
                     <div class="btn-group">
-                        <a id="btndeletecancle" class="btn btn-danger" data-dismiss="modal">Cancle</a>
+                        <a id="btndeletecancel" class="btn btn-danger" data-dismiss="modal">Cancel</a>
                     </div>
                 </div>
             </div>
@@ -154,10 +136,11 @@
                     columns.Bound(c => c.Priority);
                     columns.Bound(c => c.Status);
                     columns.Bound(c => c.TicketAttachment).Hidden().ClientTemplate("<input type='hidden' id='hdn_#=Id#' value='#=TicketAttachment#' /> ");
-                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'>#=AttachmentCount# </a>#}#");
+                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#'><button class='btn btn-primary'>#=AttachmentCount#</button></a>#}#");
 
                     columns.Template(c => { }).Title(string.Empty)
-                    .ClientTemplate("<a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(80);
+                     .ClientTemplate(
+                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " <a href='" + Url.Action("Details", "Ticket") + "/#=Id#' )'><img src='/image/eye.svg'></a>").Width(70);
                     columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(85);
                 })
                 .HtmlAttributes(new { style = "height:370px;" })
@@ -182,7 +165,7 @@
         if (list != null && list.length > 0) {
             var htmlData = '';
             for (let i = 0; i < list.length; i++) {
-                htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
+                htmlData += "<a class='ticket' href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br />"
             }
             $("#AttachmentModalContent").html(htmlData);
             $("#AttachmentModal").modal('show');
@@ -215,6 +198,21 @@
                 });
             }
         });
+    }
+</script>
+
+@*for StatusFilter(dropdown)*@
+<script>
+    function onChange(e) {
+        debugger;
+        var value = $("#status").val();
+        grid = $("#Ticketgrid").data("kendoGrid");
+        if (value) {
+            grid.dataSource.filter({ field: "status", operator: "contains", value: value });
+        }
+        else {
+            grid.dataSource.filter({});
+        }
     }
 </script>
 

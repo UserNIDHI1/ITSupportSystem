@@ -35,6 +35,8 @@ namespace ITSupportSystem.Services
             }
             return null;
         }
+
+        //encrypt password
         private string HashPasword(string Password, string salt)
         {
             string stringDataToHash = Password + "" + salt;

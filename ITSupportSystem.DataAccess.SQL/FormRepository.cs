@@ -18,7 +18,7 @@ namespace ITSupportSystem.DataAccess.SQL
         Form Find(Guid Id);
         void Delete(Guid Id);
         List<FormViewModel> GetFormList();
-        FormViewModel Getform(Guid Id);
+        FormViewModel GetformById(Guid Id);
     }
 
 
@@ -33,7 +33,6 @@ namespace ITSupportSystem.DataAccess.SQL
             contex = new DataContext();
             this.dbSet = contex.Set<Form>();
         }
-
 
         public IQueryable<Form> Collection()
         {
@@ -74,12 +73,11 @@ namespace ITSupportSystem.DataAccess.SQL
                                 NavigateURL = f.NavigateURL,
                                 Name = f.Name
                             }
-                         ).Distinct()
-                         .ToList();
+                         ).Distinct().ToList();
             return formlist;
         }
 
-        public FormViewModel Getform(Guid Id)
+        public FormViewModel GetformById(Guid Id)
         {
             var form = (from f in contex.Form
                         join p in contex.Form on f.ParentFormId equals p.Id into fdata

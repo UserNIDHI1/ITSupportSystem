@@ -8,7 +8,7 @@ namespace ITSupportSystem.Core1.Models
 {
     public class TicketComment : BaseEntity
     {
-        public string TicketId { get; set; }
+        public Guid TicketId { get; set; }
         public string Comment { get; set; }
     }
 }

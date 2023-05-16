@@ -18,7 +18,7 @@
 <div class="tabContentDetails">
     <div class="tabcontent" style="display: block">
         <div class="align-center align-between pb20">
-            <h2><b>Form Management</b></h2>
+            <h3 style="color:Highlight"><b>Form Management</b></h3>
 
             @if (ITSupportSystem.WebUI.ActionFilter.AccessPermission.Insert == true)
             {
@@ -26,7 +26,6 @@
                     <a href="#"> @Html.ActionLink("+ Add New", "Create", "Form")</a>
                 </div>
             }
-
         </div>
     </div>
 

@@ -94,6 +94,14 @@
     <Compile Include="Migrations\202305020859486_ticketattachment.designer.cs">
       <DependentUpon>202305020859486_ticketattachment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305110725284_changeticketcomment.cs" />
+    <Compile Include="Migrations\202305110725284_changeticketcomment.designer.cs">
+      <DependentUpon>202305110725284_changeticketcomment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305161304280_Auditlog.cs" />
+    <Compile Include="Migrations\202305161304280_Auditlog.designer.cs">
+      <DependentUpon>202305161304280_Auditlog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,6 +153,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305020859486_ticketattachment.resx">
       <DependentUpon>202305020859486_ticketattachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305110725284_changeticketcomment.resx">
+      <DependentUpon>202305110725284_changeticketcomment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305161304280_Auditlog.resx">
+      <DependentUpon>202305161304280_Auditlog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -24,22 +24,14 @@
         columns.Bound(c => c.Name);
         columns.Bound(c => c.Code);
 
-
         columns.Template(c => { }).Title(string.Empty)
           .ClientTemplate(
             "<a href='" + Url.Action("Permission", "Role") + "/#=Id#'><i class='glyphicon glyphicon-cog'/></a>").Width(55);
 
-
-       
             columns.Template(c => { }).Title(string.Empty)
            .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#'><i class='glyphicon glyphicon-pencil'/></a>").Width(55);
-        
-
-        
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#'><i class='glyphicon glyphicon-pencil'/></a>").Width(55);       
             columns.Command(c => c.Destroy()).Width(100);
-        
-
 
     })
     .HtmlAttributes(new { style = "height:370px;" })
@@ -54,6 +46,5 @@
     .Create(create => create.Action("Create", "Role"))
     .PageSize(5))
 )
-
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
 

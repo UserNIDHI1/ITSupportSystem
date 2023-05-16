@@ -59,7 +59,7 @@ namespace ITSupportSystem.Services
         //get form from the FormRepository
         public FormViewModel GetForm(Guid Id)
         {
-            return _formRepository.Getform(Id);
+            return _formRepository.GetformById(Id);
         }
         public List<FormViewModel> GetFormList()
         {

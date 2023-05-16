@@ -48,12 +48,14 @@ namespace ITSupportSystem.WebUI.Controllers
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
                 file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);
 
-                model.PriorityDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Priority);
-                model.StatusDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
-                model.TypeDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Type);
-                model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                
             }
+            model.CreatedBy = new Guid(Session["Id"].ToString());
+            model.PriorityDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Priority);
+            model.StatusDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
+            model.TypeDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Type);
+            model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+
+
             Ticket ticket = _ticketServices.CreateTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
@@ -69,7 +71,7 @@ namespace ITSupportSystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file,string ticketAttachmentIds)
+        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file, string ticketAttachmentIds)
         {
             if (file != null)
             {
@@ -80,7 +82,7 @@ namespace ITSupportSystem.WebUI.Controllers
                 model.StatusDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
                 model.TypeDropDown = _ticketServices.SetDropDownValue(Constant.ConfigName.Type);
                 model.AssignedDropDown = _userServices.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-               
+
             }
             var ticketdeleteid = Request.Params["hdnAttachmentDeleteId"];
             Ticket ticket = _ticketServices.UpdateTicket(model, ticketdeleteid);
@@ -92,7 +94,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult ConfirmDelete(Guid Id)
         {
             _ticketServices.RemoveTicket(Id);
-            return RedirectToAction("Index","Ticket");
+            return RedirectToAction("Index", "Ticket");
         }
 
 
@@ -103,12 +105,53 @@ namespace ITSupportSystem.WebUI.Controllers
             return Json(ticketViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
-
         //for statusfilter(dropdown)
         public ActionResult StatusFilter()
         {
             var statusFilter = _ticketServices.SetDropDownValue(Constant.ConfigName.Status);
             return Json(statusFilter, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Details(Guid Id)
+        {
+            TicketViewModel ticketViewModel = _ticketServices.GetTicket(Id);
+            return View(ticketViewModel);
+        }
+
+
+        public ActionResult Comment(TicketCommentViewModel model)
+        {
+            model.CreatedBy = (Guid)Session["Id"];
+            _ticketServices.CommentTicket(model);
+            return Content("true");
+        }
+
+        //create ticket comment
+        public ActionResult CommentIndexList(Guid Id)
+        {
+            List<TicketCommentViewModel> ticketCommentViewModel = _ticketServices.GetCommentList(Id).ToList();
+            return PartialView("CommentListPartialView", ticketCommentViewModel);
+        }
+
+
+        public ActionResult CommentIndexListEdit(Guid Id)
+        {
+            TicketCommentViewModel ticketCommentModel = _ticketServices.GetCommentListEdit(Id);
+            return View("CommentListPartialView", ticketCommentModel);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteComment(Guid Id)
+        {
+            var commit = _ticketServices.GetCommentListEdit(Id);
+            _ticketServices.RemoveTicketComment(commit);
+            return Content("true");
+        }
+
+        public ActionResult CommentEdit(TicketCommentViewModel model)
+        {
+            _ticketServices.EditTicketComment(model);
+            return Content("true");
         }
     }
 }

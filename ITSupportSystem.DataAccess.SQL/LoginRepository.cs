@@ -20,7 +20,7 @@ namespace ITSupportSystem.DataAccess.SQL
         }
         public Users Login(LoginViewModel model)
         {
-            var user = context.User.Where(x => x.Email == model.Email && !x.IsDeleted).FirstOrDefault();
+            Users user = context.User.Where(x => x.Email == model.Email && !x.IsDeleted).FirstOrDefault();
             return user;
         }
     }

@@ -63,7 +63,6 @@ namespace ITSupportSystem.Services
             
             _userrolerepository.Insert(userRole);
             _userrolerepository.commit();
-
             return null;
         }
 
@@ -95,7 +94,6 @@ namespace ITSupportSystem.Services
             userrole.UpdatedOn = DateTime.Now;
             _userrolerepository.Update(userrole);
             _userrolerepository.commit();
-
             return null;
         }
 

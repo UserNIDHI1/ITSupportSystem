@@ -2,15 +2,13 @@
 @using ITSupportSystem.Core1.ViewModel
 
 <div class="align-center align-between pb20">
-    <h2><b>CommonLookUp Management</b></h2>
+    <h3 style="color:Highlight"><b>CommonLookUp Management</b></h3>    
     <div class="btnDiv" onclick="createcommonlookup()">
         Add New
     </div>
 </div>
 
 <div class="tableDiv">
-
-
     @(
    Html.Kendo().Grid<CommonLookUpViewModel>().Name("CommonLookUpgrid")
 
@@ -61,7 +59,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h2 class="modal-title" style="text-align:center;color:green">Delete</h2>
+                <img src="~/image/deletealert.png" style="height:60px;width:60px;margin-left:250px;" />
             </div>
 
             <div class="modal-body">
@@ -73,7 +71,7 @@
                     <a id="btnsaveDelete" onclick="DeleteForm_Submit()" class="btn btn-primary mr-2">Delete</a>
                 </div>
                 <div class="btn-group">
-                    <a id="btndeletecancle" class="btn btn-danger" data-dismiss="modal">Cancle</a>
+                    <a id="btndeletecancel" class="btn btn-danger" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
         </div>

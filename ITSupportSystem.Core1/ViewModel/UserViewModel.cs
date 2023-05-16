@@ -36,6 +36,7 @@ namespace ITSupportSystem.Core1.ViewModel
         
         public string PasswordSalt { get; set; }
 
+        public string CreatedByName { get; set; }
 
         public Guid Id { get; set; }
 

@@ -82,10 +82,5 @@ namespace ITSupportSystem.WebUI.Controllers
         {
             return RedirectToAction("Login");
         }
-
-        public ActionResult Register()
-        {
-            return View();
-        }
     }
 }

@@ -48,9 +48,11 @@ namespace ITSupportSystem.DataAccess.SQL
             return dbSet.Find(Id);
         }
 
+
+        //for edit
         public UserViewModel GetUser(Guid Id)
         {
-            var list = (from u in contex.User
+            var userlist = (from u in contex.User
                         join ur in contex.UserRole on u.Id equals ur.UserId
                         join r in contex.Role on ur.RoleId equals r.Id
                         where !u.IsDeleted && !ur.IsDeleted && u.Id == Id
@@ -66,32 +68,30 @@ namespace ITSupportSystem.DataAccess.SQL
                             UserName = u.UserName,
                             Gender = u.Gender,
                             MobileNo = u.MobileNo
-                        }
-                        ).FirstOrDefault();
-            return list;
+                        }).FirstOrDefault();
+            return userlist;
         }
 
         public List<UserViewModel> GetUserList()
         {
-            var result = (from u in contex.User
-                          join ur in contex.UserRole on u.Id equals ur.UserId
-                          join r in contex.Role on ur.RoleId equals r.Id
-                          where !u.IsDeleted && !ur.IsDeleted && !r.IsDeleted
-                          orderby u.CreatedOn descending
-                          select new UserViewModel()
-                          {
-                              Id = u.Id,
-                              Name = u.Name,
-                              Email = u.Email,
-                              Password = u.Password,
-                              RoleId = ur.RoleId,
-                              RoleName = r.Name,
-                              UserName = u.UserName,
-                              Gender = u.Gender,
-                              MobileNo = u.MobileNo
-                          }
-                        ).ToList();
-            return result;
+            var userlistresult = (from u in contex.User
+                                  join ur in contex.UserRole on u.Id equals ur.UserId
+                                  join r in contex.Role on ur.RoleId equals r.Id
+                                  where !u.IsDeleted && !ur.IsDeleted && !r.IsDeleted
+                                  orderby u.CreatedOn descending
+                                  select new UserViewModel()
+                                  {
+                                      Id = u.Id,
+                                      Name = u.Name,
+                                      Email = u.Email,
+                                      Password = u.Password,
+                                      RoleId = ur.RoleId,
+                                      RoleName = r.Name,
+                                      UserName = u.UserName,
+                                      Gender = u.Gender,
+                                      MobileNo = u.MobileNo
+                                  }).ToList();
+            return userlistresult;
         }
 
         public void Insert(Users user)

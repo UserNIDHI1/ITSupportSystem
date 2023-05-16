@@ -90,5 +90,7 @@ namespace ITSupportSystem.WebUI.Controllers
             List<CommonLookUpViewModel> commonlookupViewModels = _commonLookServices.GetCommonLookUpList().Select(x => new CommonLookUpViewModel() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, DisplayOrder = x.DisplayOrder, Description = x.Description }).ToList();
             return Json(commonlookupViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+
+
     }
 }

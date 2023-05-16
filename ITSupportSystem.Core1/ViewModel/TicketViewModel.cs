@@ -35,7 +35,7 @@ namespace ITSupportSystem.Core1.ViewModel
         //For image attachment count
         public int AttachmentCount { get; set; }
 
-        //for delete the single image attachment
-       // public string deleteid { get; set; }
+        //for get the createdBy which is linked with User table
+        public string CreatedByName { get; set; }
     }
 }
