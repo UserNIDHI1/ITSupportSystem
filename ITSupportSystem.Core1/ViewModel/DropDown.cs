@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITSupportSystem.Core1.ViewModel
 {
-
+    //for userRole dropdown in user table
     public class DropDown
     {
         public Guid Id { get; set; }

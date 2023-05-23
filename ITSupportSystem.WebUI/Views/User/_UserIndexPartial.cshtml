@@ -29,23 +29,20 @@
 
         .Columns(columns =>
         {
-            columns.Bound(c => c.Name);
-            columns.Bound(c => c.Email);
-            columns.Bound(c => c.RoleName);
-            columns.Bound(c => c.UserName);
-            columns.Bound(c => c.Gender);
-            columns.Bound(c => c.MobileNo);
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.Email);
+        columns.Bound(c => c.RoleName);
+        columns.Bound(c => c.UserName);
+        columns.Bound(c => c.Gender);
+        columns.Bound(c => c.MobileNo);
 
-
-            columns.Template(c => { }).Title(string.Empty)
-              .ClientTemplate(
-                  "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
-
+        columns.Template(@<text></text>)
+        .ClientTemplate(
+            "<a  href='" + Url.Action("Edit", "User") + "/#=Id#'><button class='btn btn-success'>Edit</button></a>").Width(80);
             columns.Command(c => c.Destroy()).Width(120);
-
-
         })
 
+        .HtmlAttributes(new { style = "height:400px;" })
         .Sortable()
         .Scrollable()
         .Filterable()

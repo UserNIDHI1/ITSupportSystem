@@ -153,3 +153,13 @@ table tbody tr td { padding: 10px; font-weight: 400; font-size: 16px; line-heigh
 .tab ul li a.active, .tab ul li:hover a { color: #019FE2; }
 .tabcontent { display: none;}
 /************** END Tabs **************/
+
+.k-grid .k-column-title {
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 1;
+    overflow: hidden;
+    color: palevioletred;
+    font-weight: bold;
+}

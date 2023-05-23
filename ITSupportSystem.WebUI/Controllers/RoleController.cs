@@ -2,6 +2,7 @@
 using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.ActionFilter;
 using ITSupportSystem.WebUI.session;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 namespace ITSupportSystem.WebUI.Controllers
 {
     [Authentication]
+    [AuditActionFilter]
     public class RoleController : Controller
     {
         RoleServices _roleServices;
@@ -93,7 +95,7 @@ namespace ITSupportSystem.WebUI.Controllers
         public ActionResult ConfirmDelete(RoleViewModel model)
         {
             _roleServices.RemoveRole(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Account");
         }
 
         //json

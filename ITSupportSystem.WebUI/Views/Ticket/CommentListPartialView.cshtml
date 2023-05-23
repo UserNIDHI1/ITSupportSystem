@@ -9,20 +9,23 @@
             <tr>
                 <td>
                     <strong style="color:blue">@Html.DisplayFor(modelItem => item.CreatedByName)</strong><small>(@HelperExtension.TimeAgo(item.CreatedOn))</small>
-                    <sup style="margin-left:200px">
-                        <img src="~/image/editimage.png" style="width:18px;height:18px;" onclick="EditComment('@item.Id')">
-                        <img src="~/image/savebtn.png" id="save" class="inline-save_@item.Id" onclick="SaveComment('@item.Id')" style="width: 18px; height: 18px; display:none;">
-                        <img src="~/image/deleteicon.png" class="inline-cancel_@item.Id" onclick="CancelComment('@item.Id')" style="width: 18px; height: 18px; display: none;" />&nbsp;&nbsp; <b>|</b>&nbsp;&nbsp;
-                        
-                        
-                        <img src="~/image/delete.png" style="width:18px;height:18px;" onclick="ticketdelete('@item.Id')" />
-                    </sup>
+                    @if (item.CreatedBy.ToString() == Session["Id"].ToString())
+                    {
+                        <sup style="margin-left:200px">
+                            <img src="~/image/editimage.png" style="width:18px;height:18px;" onclick="EditComment('@item.Id')">
+                            <img src="~/image/savebtn.png" id="save" class="inline-save_@item.Id" onclick="SaveComment('@item.Id')" style="width: 18px; height: 18px; display:none;">
+                            <img src="~/image/deleteicon.png" class="inline-cancel_@item.Id" onclick="CancelComment('@item.Id')" style="width: 18px; height: 18px; display: none;" />&nbsp;&nbsp; <b>|</b>&nbsp;&nbsp;
+
+
+                            <img src="~/image/delete.png" style="width:18px;height:18px;" onclick="ticketdelete('@item.Id')" />
+                        </sup>
+                    }
                     <br />
                     <div class='inline-view_@item.Id'>
                         @Html.DisplayFor(modelItem => item.Comment)
                     </div>
                     <div class='inline-edit_@item.Id' style='display:none;'>
-                        @Html.TextBoxFor(modelItem => item.Comment,htmlAttributes:new { @id="save_" + item.Id})
+                        @Html.TextBoxFor(modelItem => item.Comment, htmlAttributes: new { @id = "save_" + item.Id })
                     </div>
                 </td>
             </tr>
@@ -30,10 +33,11 @@
     </table>
 </div>
 
+
 <script>
     $('#save').click(function () {
         toastr.success('Comment Update Successfully...');
-     });
+    });
 </script>
 
 

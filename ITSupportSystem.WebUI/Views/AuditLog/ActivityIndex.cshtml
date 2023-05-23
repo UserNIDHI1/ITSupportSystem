@@ -1,0 +1,63 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupportSystem.Core1.ViewModel
+
+
+@{
+    ViewBag.Title = "ActivityIndex";
+}
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+
+        </div>
+    </div>
+</div>
+
+<div class="tabContentDetails">
+    <div class="tabcontent" style="display: block">
+        <div class="align-center align-between pb20">
+            <h3 style="color:Highlight"><b>ActivityLog</b></h3>
+        </div>
+    </div>
+
+    @(
+    Html.Kendo().Grid<AuditLogViewModel>().Name("Activitygrid")
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+
+     .NoRecords("No Records Found.")
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.UserName).Width(140);
+        columns.Bound(c => c.ExecutionDuration).Width(200);
+        columns.Bound(c => c.HttpMethod).Width(140);
+        columns.Bound(c => c.Url).Width(500);
+        columns.Bound(c => c.HttpStatusCode).Width(160);
+
+         columns.Template(c => { }).Title(string.Empty)
+                 .ClientTemplate(
+                     " <a href='" + Url.Action("ActivityDetails", "AuditLog") + "/#=Id#' )'><img src='/image/eye.svg'></a>").Width(70).Title("Action");
+
+
+    })
+    .HtmlAttributes(new { style = "height:620px;width:1500px;" })
+    .Sortable()
+    .Scrollable()
+
+    .Filterable()
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id))
+    .Read(read => read.Action("GetAllActivityJson", "AuditLog"))
+
+    .Update(update => update.Action("Edit", "AuditLog"))
+    .Destroy(destroy => destroy.Action("Delete", "AuditLog"))
+    .Create(create => create.Action("Create", "AuditLog"))
+    .PageSize(12))
+
+)
+</div>

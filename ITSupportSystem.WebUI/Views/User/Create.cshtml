@@ -21,7 +21,9 @@
                 <div class="topTitleHead pb20">
                     <h3 style="text-align:left;font-family:sans-serif;color:forestgreen"><b>CREATE</b></h3>
                 </div>
-
+                <div class="text-danger" style="font-size: 15px">
+                    @ViewBag.Message
+                </div>
                 <div class="formSection">
                     <div class="inputBox">
                         <label class="form-label"><b>Name</b><strong style="color:red;font-size:18px;">*</strong></label>
@@ -29,10 +31,11 @@
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
+
+
                     <div class="inputBox selectBox">
                         <label class="form-label"><b>RoleId</b><strong style="color:red;font-size:18px;">*</strong></label>
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.RoleDropDown, "Id", "Name"), "Select Role", new { @class = "form-control" })
-
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
                     </div>
 
@@ -64,7 +67,7 @@
                     </div>
 
                     <div class="inputBox w-100">
-                        <label class="form-label"><b>Gender</b><strong style="color:red;font-size:18px;">*</strong></label>                
+                        <label class="form-label"><b>Gender</b><strong style="color:red;font-size:18px;">*</strong></label>
                         <div class="radioBtnSection">
                             <div class="radioBtnDiv">
                                 Female @Html.RadioButtonFor(model => model.Gender, "Female")
@@ -73,7 +76,7 @@
                             <div class="radioBtnDiv">
                                 Male @Html.RadioButtonFor(model => model.Gender, "Male")
                                 <span class="checkmark"></span>
-                            </div>
+                            </div><br /><br /><br /><br />
                             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "errorMsg" })
                         </div>
                     </div>
@@ -88,10 +91,3 @@
 }
 
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
-
-<script>
-      $('#SubmitBtnId').click(function () {
-        toastr.success('Data Create Successfully...');
-             document.location = '@Url.Action("Index","Account")';
-     });
-</script>

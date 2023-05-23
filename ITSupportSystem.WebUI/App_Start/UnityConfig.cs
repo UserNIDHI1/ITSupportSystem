@@ -75,6 +75,9 @@ namespace ITSupportSystem.WebUI
             container.RegisterType<IRepository<TicketAttachment>, SQLRepository<TicketAttachment>>();
 
             container.RegisterType<IRepository<TicketComment>, SQLRepository<TicketComment>>();
+
+            container.RegisterType<IAuditLogRepository, AuditLogRepository>();
+            container.RegisterType<IAuditLogServices, AuditLogServices>();
         }
     }
 }

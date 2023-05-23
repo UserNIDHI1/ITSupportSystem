@@ -3,6 +3,7 @@ using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.DataAccess.SQL.Migrations;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.ActionFilter;
 using ITSupportSystem.WebUI.session;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -17,6 +18,7 @@ using System.Web.Mvc;
 namespace ITSupportSystem.WebUI.Controllers
 {
     [Authentication]
+    [AuditActionFilter]
     public class UserController : Controller
     {
         UserServices _userServices;
@@ -103,7 +105,6 @@ namespace ITSupportSystem.WebUI.Controllers
             _userServices.RemoveUser(Id);
             return RedirectToAction("Index");
         }
-
 
         //kendo json
         public ActionResult GetAllUserJson([DataSourceRequest] DataSourceRequest request)

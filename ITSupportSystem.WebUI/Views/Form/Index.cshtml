@@ -65,7 +65,7 @@
 
            .ClientTemplate(
 
-       "<a href='" + Url.Action("Edit", "Form") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(75);
+       "<a href='" + Url.Action("Edit", "Form") + "/#=Id#' class='btn btn-success'>Edit</a>").Width(80);
 
         }
 
@@ -73,10 +73,8 @@
         {
             columns.Command(c => c.Destroy()).Width(120);
         }
-
-
     })
-    .HtmlAttributes(new { style = "height:370px;" })
+    .HtmlAttributes(new { style = "height:550px;width:1200px;" })
     .Sortable()
     .Scrollable()
     .Filterable()
@@ -86,7 +84,7 @@
     .Update(update => update.Action("Edit", "Form"))
     .Destroy(destroy => destroy.Action("Delete", "Form"))
     .Create(create => create.Action("Create", "Form"))
-    .PageSize(5))
+    .PageSize(8))
 )
 
 </div>

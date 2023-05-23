@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLogRepository.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="FormRepository.cs" />
     <Compile Include="LoginRepository.cs" />

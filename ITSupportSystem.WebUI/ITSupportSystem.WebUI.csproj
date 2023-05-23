@@ -421,6 +421,7 @@
   <ItemGroup>
     <Compile Include="ActionFilter\AccessCode.cs" />
     <Compile Include="ActionFilter\AccessPermission.cs" />
+    <Compile Include="ActionFilter\AuditActionFilter.cs" />
     <Compile Include="ActionFilter\CustomActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -428,6 +429,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuditLogController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -446,12 +448,16 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\demo.css" />
+    <Content Include="css\error.css" />
     <Content Include="css\login.css" />
     <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\bg1.jpg" />
+    <Content Include="image\bg2.jpg" />
+    <Content Include="image\bg3.jpg" />
     <Content Include="image\delete.png" />
     <Content Include="image\deletealert.png" />
     <Content Include="image\deleteicon.png" />
@@ -459,6 +465,7 @@
     <Content Include="image\edit.svg" />
     <Content Include="image\editimage.png" />
     <Content Include="image\eye.svg" />
+    <Content Include="image\image.jpg" />
     <Content Include="image\IT.svg" />
     <Content Include="image\key.svg" />
     <Content Include="image\login-bg.jpg" />
@@ -2863,6 +2870,10 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Details.cshtml" />
     <Content Include="Views\Ticket\CommentListPartialView.cshtml" />
+    <Content Include="Views\AuditLog\ErrorIndex.cshtml" />
+    <Content Include="Views\AuditLog\ErrorDetails.cshtml" />
+    <Content Include="Views\AuditLog\ActivityIndex.cshtml" />
+    <Content Include="Views\AuditLog\ActivityDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

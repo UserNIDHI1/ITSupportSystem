@@ -12,7 +12,6 @@ namespace ITSupportSystem.Core1.ViewModel
         public Guid TicketId { get; set; }
         public string Comment { get; set; }
         public string CreatedByName { get; set; }
-
         public string Assigned { get; set; }
         public Guid AssignTo { get; set; }
     }

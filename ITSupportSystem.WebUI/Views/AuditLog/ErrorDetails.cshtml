@@ -1,0 +1,91 @@
+﻿@model ITSupportSystem.Core1.ViewModel.AuditLogViewModel
+
+@{
+    ViewBag.Title = "ErrorDetails";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 900px;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #DCDCDC;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-lg-10">
+
+        <h1 style="margin-left:250px;font-family:Algerian;margin-top:120px;color:indianred"><u>Error Details</u></h1>
+        <table style="margin-top: 60px;">
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.UserName)</b></td>
+                <td> @Html.DisplayFor(model => model.UserName)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ExecutionTime)</b></td>
+                <td> @Html.DisplayFor(model => model.ExecutionTime)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ExecutionDuration)</b></td>
+                <td> @Html.DisplayFor(model => model.ExecutionDuration)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ClientIpAddress)</b></td>
+                <td> @Html.DisplayFor(model => model.ClientIpAddress)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.BrowserInfo)</b></td>
+                <td> @Html.DisplayFor(model => model.BrowserInfo)</td>
+            </tr>
+            <tr>
+                <td> <b>@Html.DisplayNameFor(model => model.HttpMethod)</b></td>
+                <td> @Html.DisplayFor(model => model.HttpMethod)</td>
+            </tr>
+
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Url)</b></td>
+                <td> @Html.DisplayFor(model => model.Url)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.HttpStatusCode)</b></td>
+                <td> @Html.DisplayFor(model => model.HttpStatusCode)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Comments)</b></td>
+                <td> @Html.DisplayFor(model => model.Comments)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Parameters)</b></td>
+                <td> @Html.DisplayFor(model => model.Parameters)</td>
+            </tr>
+
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Exception)</b></td>
+                <td style="color:red"><b>@Html.DisplayFor(model => model.Exception)</b></td>
+            </tr>
+        </table>
+        <br />
+        <p>
+            @Html.ActionLink("Back to List", "ErrorIndex")
+        </p>
+    </div>
+</body>
+</html>
+
+

@@ -105,6 +105,7 @@ namespace ITSupportSystem.Services
         public List<UserViewModel> GetUserList()
         {
             return userRepository.GetUserList();
+            //return null;
         }
 
         public void RemoveUser(Guid Id)

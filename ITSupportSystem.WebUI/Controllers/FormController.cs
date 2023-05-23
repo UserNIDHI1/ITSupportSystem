@@ -15,6 +15,7 @@ using System.Web.Mvc;
 namespace ITSupportSystem.WebUI.Controllers
 {
     [Authentication]
+    [AuditActionFilter]
     public class FormController : Controller
     {
         FormServices _formServices;

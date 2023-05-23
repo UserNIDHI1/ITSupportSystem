@@ -60,7 +60,8 @@ namespace ITSupportSystem.Services
 
         public List<Role> GetRoleList()
         {
-            return roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
+             return roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
+             //return null;
         }
 
         public void RemoveRole(RoleViewModel model)

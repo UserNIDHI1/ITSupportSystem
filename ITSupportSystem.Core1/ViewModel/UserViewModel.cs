@@ -34,6 +34,8 @@ namespace ITSupportSystem.Core1.ViewModel
         ErrorMessage = "Password must be at least 1 lowercase letter, 1 uppercase letter, 1 numeric character, and 1 special character.")]
         public string Password { get; set; }
         
+
+        //for encrypt password
         public string PasswordSalt { get; set; }
 
         public string CreatedByName { get; set; }

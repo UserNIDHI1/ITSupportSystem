@@ -79,10 +79,3 @@
 
 
 <div>@Html.ActionLink("back to list", "Index")</div>
-
-<script>
-    $('#SubmitBtnId').click(function () {
-        toastr.success('Data Create Successfully...');
-             document.location = '@Url.Action("Index","Ticket")';
-     });
-</script>

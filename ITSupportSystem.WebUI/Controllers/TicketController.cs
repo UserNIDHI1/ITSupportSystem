@@ -2,6 +2,7 @@
 using ITSupportSystem.Core1.Models;
 using ITSupportSystem.Core1.ViewModel;
 using ITSupportSystem.Services;
+using ITSupportSystem.WebUI.ActionFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ITSupportSystem.WebUI.Controllers
 {
+    [AuditActionFilter]
     public class TicketController : Controller
     {
         ITicketServices _ticketServices;

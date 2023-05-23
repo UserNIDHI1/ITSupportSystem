@@ -18,7 +18,7 @@ namespace ITSupportSystem.Core1.ViewModel
 
         public string Image { get; set; }
 
-
+        //for get the all list of dropdown
         public List<DropDown> AssignedDropDown { get; set; }
         public List<DropDown> TypeDropDown { get; set; }
         public List<DropDown> PriorityDropDown { get; set; }
@@ -31,6 +31,7 @@ namespace ITSupportSystem.Core1.ViewModel
 
         //for attach the image
         public string Attachment { get; set; }
+        //for attach the ticket image
         public List<TicketAttachment> TicketAttachment { get; set; }
         //For image attachment count
         public int AttachmentCount { get; set; }

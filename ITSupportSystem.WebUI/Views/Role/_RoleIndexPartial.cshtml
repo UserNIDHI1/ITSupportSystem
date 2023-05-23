@@ -28,15 +28,16 @@
           .ClientTemplate(
             "<a href='" + Url.Action("Permission", "Role") + "/#=Id#'><i class='glyphicon glyphicon-cog'/></a>").Width(55);
 
-            columns.Template(c => { }).Title(string.Empty)
-           .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#'><i class='glyphicon glyphicon-pencil'/></a>").Width(55);       
-            columns.Command(c => c.Destroy()).Width(100);
+            columns.Template(@<text></text>)
+                   .ClientTemplate(
+                   "<a  href='" + Url.Action("Edit", "Role") + "/#=Id#'><button class='btn btn-success'>Edit</button></a>").Width(80);
+                   columns.Command(c => c.Destroy()).Width(120);
 
     })
-    .HtmlAttributes(new { style = "height:370px;" })
+    .HtmlAttributes(new { style = "height:400px;" })
     .Sortable()
     .Scrollable()
+
     .Filterable()
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id))
     .Read(read => read.Action("GetAllRolesJson", "Role"))
@@ -45,6 +46,7 @@
     .Destroy(destroy => destroy.Action("Delete", "Role"))
     .Create(create => create.Action("Create", "Role"))
     .PageSize(5))
+
 )
 <div>@Html.ActionLink("back to list", "Index", "Account")</div>
 

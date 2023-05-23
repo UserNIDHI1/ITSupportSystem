@@ -1,0 +1,219 @@
+﻿@*@model ITSupportSystem.Core1.ViewModel.AuditLogViewModel
+
+@{
+    ViewBag.Title = "ActivityDetails";
+}
+
+<h2>ActivityDetails</h2>
+
+<div>
+    <h4>AuditLogViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExecutionTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExecutionTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExecutionDuration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExecutionDuration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientIpAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientIpAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrowserInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrowserInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HttpMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HttpMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Exception)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exception)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HttpStatusCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HttpStatusCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parameters)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parameters)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Headers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Headers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+
+
+
+@model ITSupportSystem.Core1.ViewModel.AuditLogViewModel
+
+@{
+    ViewBag.Title = "ActivityDetails";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 900px;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #DCDCDC;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-lg-10">
+
+        <h1 style="margin-left:250px;font-family:Algerian;margin-top:120px;color:indianred"><u>Activity Details</u></h1>
+        <table style="margin-top: 60px;">
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.UserName)</b></td>
+                <td> @Html.DisplayFor(model => model.UserName)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ExecutionTime)</b></td>
+                <td> @Html.DisplayFor(model => model.ExecutionTime)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ExecutionDuration)</b></td>
+                <td> @Html.DisplayFor(model => model.ExecutionDuration)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.ClientIpAddress)</b></td>
+                <td> @Html.DisplayFor(model => model.ClientIpAddress)</td>
+
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.BrowserInfo)</b></td>
+                <td> @Html.DisplayFor(model => model.BrowserInfo)</td>
+            </tr>
+            <tr>
+                <td> <b>@Html.DisplayNameFor(model => model.HttpMethod)</b></td>
+                <td> @Html.DisplayFor(model => model.HttpMethod)</td>
+            </tr>
+
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Url)</b></td>
+                <td> @Html.DisplayFor(model => model.Url)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.HttpStatusCode)</b></td>
+                <td> @Html.DisplayFor(model => model.HttpStatusCode)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Comments)</b></td>
+                <td> @Html.DisplayFor(model => model.Comments)</td>
+            </tr>
+            <tr>
+                <td><b>@Html.DisplayNameFor(model => model.Parameters)</b></td>
+                <td> @Html.DisplayFor(model => model.Parameters)</td>
+            </tr>
+        </table>
+        <br />
+        <p>
+            @Html.ActionLink("Back to List", "ActivityIndex")
+        </p>
+    </div>
+</body>
+</html>
+

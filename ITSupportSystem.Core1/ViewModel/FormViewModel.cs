@@ -28,6 +28,7 @@ namespace ITSupportSystem.Core1.ViewModel
         public List<DropdownForm> FormDropDown { get; set; }
     }
 
+    //for parentformid and parentformname in form create view
     public class DropdownForm
     {
         public Guid ParentFormId { get; set; }

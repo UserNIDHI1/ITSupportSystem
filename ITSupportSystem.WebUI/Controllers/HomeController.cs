@@ -1,5 +1,6 @@
 ﻿using ITSupportSystem.Core1.Contracts;
 using ITSupportSystem.Core1.Models;
+using ITSupportSystem.WebUI.ActionFilter;
 using ITSupportSystem.WebUI.session;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 namespace ITSupportSystem.WebUI.Controllers
 {
     [Authentication]
+    [AuditActionFilter]
     public class HomeController : Controller
     {
         public ActionResult Index()

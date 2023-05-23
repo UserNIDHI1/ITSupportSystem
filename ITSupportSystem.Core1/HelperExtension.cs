@@ -10,6 +10,7 @@ namespace CustomHelper.CustomHelpers
     {
         public static string TimeAgo(DateTime theDate)
         {
+            //for get the time of the comment 
             Dictionary<long, string> thresholds = new Dictionary<long, string>();
             int minute = 60;
             int hour = 60 * minute;

@@ -20,10 +20,25 @@ input:focus-visible, input:focus { outline: none;}
 
 
 /************** Login **************/
-.loginDiv { display: flex; align-items: center; justify-content: center; height: 100vh; background: url(../image/login-bg.jpg) no-repeat center/cover; } 
-.loginLogo { width: 130px; margin: 0 auto 35px; animation: 0; text-align: center; } 
+.loginDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url(../image/image.jpg) no-repeat center/cover;
 
-.loginBox { margin: 0 auto; padding: 60px; display: block; width: 100%; max-width: 500px; background: #fff; border-radius: 10px; }
+}
+.loginLogo { width: 130px; margin: 0 auto 35px; animation: 0; text-align: center; }
+
+.loginBox {
+    margin: 0 auto;
+    padding: 60px;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    background: #e29fbc;
+    border-radius: 10px;
+}
 .inputBox { padding: 12px 0; display: block; position: relative;}  
 .inputBox label { font-weight: 500; font-size: 14px; line-height: 1.3; color: #2C053F; display: block; margin: 0; padding: 0 0 8px; }
 .inputBox input { font-weight: 400; font-size: 16px; line-height: 1.1; border: 1px solid; border-color: #DDDDDD; border-radius: 5px; width: 100%; display: block; height: 46px; padding: 0 15px; }
